@@ -8,16 +8,20 @@
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
-    <loc>http://there4.co/hexagon/index.html</loc>
-    <lastmod>2015-08-25</lastmod>
+    <loc>http://there4.co/hexagon/contribute.html</loc>
+    <lastmod>2016-04-13</lastmod>
   </url>
   <url>
-    <loc>http://there4.co/hexagon/contribute.html</loc>
-    <lastmod>2014-10-22</lastmod>
+    <loc>http://there4.co/hexagon/index.html</loc>
+    <lastmod>2016-04-13</lastmod>
   </url>
   <url>
     <loc>http://there4.co/hexagon/license.html</loc>
-    <lastmod>2013-09-24</lastmod>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/quick_start.html</loc>
+    <lastmod>2016-04-13</lastmod>
   </url>
 
 </urlset>

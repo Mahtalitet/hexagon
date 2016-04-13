@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<title>MongoIdRepository - src</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">src</a>&nbsp;/&nbsp;<a href="../index.html">co.there4.hexagon.repository</a>&nbsp;/&nbsp;<a href=".">MongoIdRepository</a><br/>
+<br/>
+<h1>MongoIdRepository</h1>
+<code><span class="keyword">class </span><span class="identifier">MongoIdRepository</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">K</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-mongo-repository/index.html"><span class="identifier">MongoRepository</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code><br/>
+<br/>
+<br/>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">MongoIdRepository</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)))/collection">collection</span><span class="symbol">:</span>&nbsp;<span class="identifier">MongoCollection</span><span class="symbol">&lt;</span><span class="identifier">Document</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)))/keyName">keyName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)))/keyType">keyType</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)))/keySupplier">keySupplier</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">K</span><span class="symbol">)</span></code><br/>
+<code><span class="identifier">MongoIdRepository</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/collection">collection</span><span class="symbol">:</span>&nbsp;<span class="identifier">MongoCollection</span><span class="symbol">&lt;</span><span class="identifier">Document</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/keyName">keyName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/keyType">keyType</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/keySupplier">keySupplier</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">K</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Function1((co.there4.hexagon.repository.MongoIdRepository.T, co.there4.hexagon.repository.MongoIdRepository.K)), kotlin.Int)/indexOrder">indexOrder</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="key-name.html">keyName</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">keyName</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="key-supplier.html">keySupplier</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">keySupplier</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">K</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="key-type.html">keyType</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">keyType</span><span class="symbol">: </span><span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-mongo-repository/type.html">type</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="delete-id.html">deleteId</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteId</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteId(co.there4.hexagon.repository.MongoIdRepository.K)/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">K</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="delete-ids.html">deleteIds</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteIds</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteIds(kotlin.Array((co.there4.hexagon.repository.MongoIdRepository.K)))/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">K</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">deleteIds</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteIds(kotlin.collections.List((co.there4.hexagon.repository.MongoIdRepository.K)))/documentIds">documentIds</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="delete-object.html">deleteObject</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteObject</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteObject(co.there4.hexagon.repository.MongoIdRepository.T)/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="delete-objects.html">deleteObjects</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteObjects</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteObjects(kotlin.Array((co.there4.hexagon.repository.MongoIdRepository.T)))/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">deleteObjects</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$deleteObjects(kotlin.collections.List((co.there4.hexagon.repository.MongoIdRepository.T)))/documentIds">documentIds</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="find.html">find</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$find(kotlin.Array((co.there4.hexagon.repository.MongoIdRepository.K)))/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">K</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$find(kotlin.collections.List((co.there4.hexagon.repository.MongoIdRepository.K)))/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$find(co.there4.hexagon.repository.MongoIdRepository.K)/documentId">documentId</span><span class="symbol">:</span>&nbsp;<span class="identifier">K</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-key.html">getKey</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getKey</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$getKey(co.there4.hexagon.repository.MongoIdRepository.T)/obj">obj</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">K</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="replace-object.html">replaceObject</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">replaceObject</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$replaceObject(co.there4.hexagon.repository.MongoIdRepository.T)/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="replace-objects.html">replaceObjects</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">replaceObjects</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$replaceObjects(kotlin.Array((co.there4.hexagon.repository.MongoIdRepository.T)))/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">replaceObjects</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoIdRepository$replaceObjects(kotlin.collections.List((co.there4.hexagon.repository.MongoIdRepository.T)))/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-mongo-repository/delete-all.html">deleteAll</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DeleteResult</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-mongo-repository/find-objects.html">findObjects</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">findObjects</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">MongoIterable</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">findObjects</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$findObjects(org.bson.conversions.Bson)/filter">filter</span><span class="symbol">:</span>&nbsp;<span class="identifier">Bson</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">MongoIterable</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/serialize.html">serialize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/to-map.html">toMap</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">toMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

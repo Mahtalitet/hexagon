@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Contribute</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="generator" content="JBake">
+
+  <link
+    href="http://netdna.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css"
+    rel="stylesheet">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" rel="stylesheet">
+  <link href="css/base.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    sizes="32x32"
+    href="favicon.ico">
+</head>
+<body onload="prettyPrint()">
+  <div id="wrap">
+
+
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <a href="https://github.com/jamming/hexagon" class="hidden-sm hidden-xs">
+        <img
+          style="position: absolute; top: 0; right: 0; border: 0;"
+          src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
+          alt="Fork me on GitHub"
+          data-canonical-src=
+            "https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
+      </a>
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target=".navbar-collapse">
+
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="pull-left" href="">
+            <img id="logo" src="img/logo.svg"></img>
+          </a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="dokka/hexagon/index.html">API</a></li>
+            <li><a href="contribute.html">Contribute</a></li>
+            <li><a href="license.html">License</a></li>
+            <li><a href="http://there4.co">there4.co</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+<h1>Release process</h1>
+<p>Steps:</p>
+<ul>
+  <li>Commit and push all changes</li>
+  <li>Change version in gradle.properties</li>
+  <li>Build and deploy (binary and documentation)</li>
+  <li>Commit and tag the release</li>
+  <li>Update version in gradle.properties</li>
+  <li>Commit and push</li>
+  <li>Confirm publishing of artifacts within Bintray (this is a manual step)</li>
+</ul>
+<p>Used aliases:</p>
+<pre><code>alias gw=&#39;gradle/wrapper&#39;
+alias gwnd=&#39;gw --no-daemon&#39;
+</code></pre>
+<p>Command:</p>
+<pre><code>git flow release start -F &#39;$version&#39; &amp;&amp; \
+sed -i &quot;s/^version=.*$/version=$version/&quot; gradle.properties &amp;&amp; \
+gwnd release &amp;&amp; \
+git flow release finish -Fp &#39;$version&#39;
+</code></pre>
+<h1>Contribute</h1>
+<ul>
+  <li>
+  <p>The code should be formatted accordingly to the format provided in my <code>dotfiles</code> Github project.</p></li>
+  <li>
+  <p>For a Pull Request to be accepted:</p></li>
+  <li>It has to pass all existing tests.</li>
+  <li>The coverage of the new code should be at least 70%</li>
+  <li>All public and protected methods and field must be documented using Dokka</li>
+  <li>
+    <p>Commit format: the preferred commit format would have:</p>
+    <ul>
+      <li>Summary: small summary of the change. In imperative form.</li>
+      <li>Description: a more complete description of the issue. It is optional.</li>
+      <li>issue #id: task Id. Optional.
+        <p>Summary</p>
+        <p>[Description]</p>
+        <p>[issue #id]</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Bug format: when filing bugs please use the given, when, then format. Ie:</p>
+    <pre><code>Given a condition
+And another condition
+When an action is taken
+And other after the first
+Then something happened
+</code></pre>
+  </li>
+</ul>
+
+    <div id="push"></div>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <p class="muted credit">
+        <hr />
+        &copy; 2016 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.3.6</a>
+        | Baked with <a href="http://jbake.org">JBake v2.4.0</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Javascript: Placed at the end of the document so the pages load faster -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script
+    src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js">
+  </script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+</body>
+</html>

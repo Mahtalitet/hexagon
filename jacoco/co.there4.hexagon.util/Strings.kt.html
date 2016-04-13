@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Strings.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.util</a> &gt; <span class="el_source">Strings.kt</span></div><h1>Strings.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.util
+
+import java.lang.System.getProperty
+
+/** Runtime specific end of line. */
+<span class="fc" id="L6">val EOL = getProperty(&quot;line.separator&quot;)</span>
+
+/** Variable prefix for string filtering. It starts with '#' because of Kotlin's syntax. */
+<span class="pc" id="L9">val VARIABLE_PREFIX = &quot;#{&quot;</span>
+/** Variable sufix for string filtering. */
+<span class="pc" id="L11">val VARIABLE_SUFFIX = &quot;}&quot;</span>
+/** Delimiter char for banners. */
+<span class="pc" id="L13">val BANNER_DELIMITER = &quot;*&quot;</span>
+
+/** Start of ANSI sequence. */
+<span class="pc" id="L16">val ANSI_PREFIX = &quot;\u001B[&quot;</span>
+/** End of ANSI sequence. */
+<span class="pc" id="L18">val ANSI_END = &quot;m&quot;</span>
+
+/** Separator for commands inside a single ANSI sequence. */
+<span class="pc" id="L21">val ANSI_SEPARATOR = &quot;;&quot;</span>
+/** ANSI command to reset all attributes. */
+<span class="pc" id="L23">val ANSI_RESET = &quot;0&quot;</span>
+
+/** ANSI foreground color base. */
+<span class="fc" id="L26">val FOREGROUND = 30</span>
+/** ANSI background color base. */
+<span class="fc" id="L28">val BACKGROUND = 40</span>
+
+/** ANSI modifier to switch and effect (add to enable substract todisable). */
+<span class="fc" id="L31">val SWITCH_EFFECT = 20</span>
+
+/**
+ * Filters the target string substituting each key by its value. The keys format is:
+ * `#{key}` and all occurrences are replaced by the supplied value.
+ *
+ * If a variable does not have a parameter, it is left as it is.
+ *
+ * @param parameters The map with the list of key/value tuples.
+ * @return The filtered text or the same string if no values are passed or found in the text.
+ */
+fun String.filterVars(parameters: Map&lt;*, *&gt;) =
+<span class="fc" id="L43">    parameters.entries</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        .filter { it.key.toString().isNotEmpty() }</span>
+<span class="fc" id="L45">        .fold(this) { result, pair -&gt;</span>
+<span class="fc" id="L46">            val key = pair.key.toString()</span>
+<span class="fc" id="L47">            val value = pair.value.toString()</span>
+<span class="fc" id="L48">            result.replace (&quot;${VARIABLE_PREFIX}$key${VARIABLE_SUFFIX}&quot;, value)</span>
+<span class="fc" id="L49">        }</span>
+
+<span class="fc" id="L51">fun String.filterVars(vararg parameters: Pair&lt;*, *&gt;) = this.filterVars (mapOf (*parameters))</span>
+
+/**
+ * Transforms the target string from snake case to camel case.
+ */
+fun String.snakeToCamel () =
+<span class="fc" id="L57">    this.split (&quot;_&quot;)</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        .filter { it.isNotEmpty () }</span>
+<span class="fc" id="L59">        .map { it.capitalize () }</span>
+<span class="fc" id="L60">        .joinToString(&quot;&quot;)</span>
+<span class="fc" id="L61">        .decapitalize ()</span>
+
+/**
+ * Transforms the target string from camel case to snake case.
+ */
+fun String.camelToSnake () =
+<span class="pc bpc" id="L67" title="2 of 4 branches missed.">    this.split (&quot;(?=\\p{Upper}\\p{Lower})&quot;.toRegex())</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        .filter { it.isNotEmpty () }</span>
+<span class="fc" id="L69">        .map { it.toLowerCase () }</span>
+<span class="fc" id="L70">        .joinToString (&quot;_&quot;)</span>
+<span class="fc" id="L71">        .decapitalize ()</span>
+
+/**
+ * Formats the string as a banner with a delimiter above and below text. The character used to
+ * render the delimiter is defined [here][BANNER_DELIMITER]
+ */
+fun String.banner (): String {
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">    val separator = BANNER_DELIMITER.repeat (this.lines().map { it.length }.max() ?: 0)</span>
+<span class="fc" id="L79">    return &quot;$separator${EOL}$this${EOL}$separator&quot;</span>
+}
+
+private fun ansiCode(fg: AnsiColor?, bg: AnsiColor?, vararg fxs: AnsiEffect): String {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    fun fgString (color: AnsiColor?) = (color?.fg ?: &quot;&quot;).toString()</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">    fun bgString (color: AnsiColor?) = (color?.bg ?: &quot;&quot;).toString()</span>
+
+<span class="fc" id="L86">    val colors = listOf (fgString(fg), bgString(bg))</span>
+<span class="fc" id="L87">    val elements = colors + fxs.map { it.code.toString() }</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
+
+<span class="fc" id="L90">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
+}
+
+/**
+ * Creates an ANSI sequence composed by a list of commands (colors, effects, etc.).
+ *
+ * A call with no effect neither color generates an ANSI reset.
+ *
+ * @param fg Foreground color.
+ * @param bg Background color.
+ * @param fxs List of affects
+ * @return The ANSI sequence
+ */
+<span class="fc" id="L103">fun ansi(fg: AnsiColor, bg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, bg, *fxs)</span>
+<span class="fc" id="L104">fun ansi(fg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, null, *fxs)</span>
+<span class="fc" id="L105">fun ansi(vararg fxs: AnsiEffect) = ansiCode (null, null, *fxs)</span>
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

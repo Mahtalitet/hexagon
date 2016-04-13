@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<title>retry - hexagon</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">hexagon</a>&nbsp;/&nbsp;<a href="index.html">co.there4.hexagon.util</a>&nbsp;/&nbsp;<a href=".">retry</a><br/>
+<br/>
+<h1>retry</h1>
+<a name="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">retry</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/times">times</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/delay">delay</span><span class="symbol">:</span>&nbsp;<span class="identifier">Long</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/func">func</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code><br/>
+<p>Executes a lambda until no exception is thrown or a number of times is reached.</p>
+<h3>Parameters</h3>
+<a name="times"></a>
+<code>times</code> - Number of times to try to execute the callback. Must be greater than 0.<br/>
+<br/>
+<a name="delay"></a>
+<code>delay</code> - Milliseconds to wait to next execution if there was an error. Must be 0 or greater.<br/>
+<h3>Exceptions</h3>
+<a name="ProgramException"></a>
+<code>ProgramException</code> - if the callback didnt succeed in the given times.<br/>
+<strong>Return</strong><br/>
+The callback result if succeed.<br/>
+<br/>
+<br/>
+</BODY>
+</HTML>

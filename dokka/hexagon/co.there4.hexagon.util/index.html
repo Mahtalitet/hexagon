@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<title>co.there4.hexagon.util - hexagon</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">hexagon</a>&nbsp;/&nbsp;<a href=".">co.there4.hexagon.util</a><br/>
+<br/>
+<h2>Package co.there4.hexagon.util</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-ansi-color/index.html">AnsiColor</a></td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">AnsiColor</span></code><p>TODO .</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-ansi-effect/index.html">AnsiEffect</a></td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">AnsiEffect</span></code><p>TODO .</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-companion-logger/index.html">CompanionLogger</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">CompanionLogger</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="-context/index.html">Context</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Context</span></code><p>Map for storing context data linked to the executing thread.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-program-exception/index.html">ProgramException</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ProgramException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/RuntimeException.html"><span class="identifier">RuntimeException</span></a></code><p>TODO .
+To pass a list of causes
+CodedException (500, "Error", *list)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="java.time.-local-date-time/index.html">java.time.LocalDateTime</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="kotlin.-string/index.html">kotlin.String</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="kotlin.-throwable/index.html">kotlin.Throwable</a></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-a-n-s-i_-e-n-d.html">ANSI_END</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ANSI_END</span><span class="symbol">: </span><span class="identifier">String</span></code><p>End of ANSI sequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-a-n-s-i_-p-r-e-f-i-x.html">ANSI_PREFIX</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ANSI_PREFIX</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Start of ANSI sequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-a-n-s-i_-r-e-s-e-t.html">ANSI_RESET</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ANSI_RESET</span><span class="symbol">: </span><span class="identifier">String</span></code><p>ANSI command to reset all attributes.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-a-n-s-i_-s-e-p-a-r-a-t-o-r.html">ANSI_SEPARATOR</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ANSI_SEPARATOR</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Separator for commands inside a single ANSI sequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-b-a-c-k-g-r-o-u-n-d.html">BACKGROUND</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">BACKGROUND</span><span class="symbol">: </span><span class="identifier">Int</span></code><p>ANSI background color base.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-b-a-n-n-e-r_-d-e-l-i-m-i-t-e-r.html">BANNER_DELIMITER</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">BANNER_DELIMITER</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Delimiter char for banners.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-e-o-l.html">EOL</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">EOL</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Runtime specific end of line.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-f-o-r-e-g-r-o-u-n-d.html">FOREGROUND</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">FOREGROUND</span><span class="symbol">: </span><span class="identifier">Int</span></code><p>ANSI foreground color base.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-s-w-i-t-c-h_-e-f-f-e-c-t.html">SWITCH_EFFECT</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">SWITCH_EFFECT</span><span class="symbol">: </span><span class="identifier">Int</span></code><p>ANSI modifier to switch and effect (add to enable substract todisable).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-u-n-k-n-o-w-n_-l-o-c-a-l-h-o-s-t.html">UNKNOWN_LOCALHOST</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">UNKNOWN_LOCALHOST</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Unknown host name.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-v-a-r-i-a-b-l-e_-p-r-e-f-i-x.html">VARIABLE_PREFIX</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">VARIABLE_PREFIX</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Variable prefix for string filtering. It starts with # because of Kotlins syntax.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-v-a-r-i-a-b-l-e_-s-u-f-f-i-x.html">VARIABLE_SUFFIX</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">VARIABLE_SUFFIX</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Variable sufix for string filtering.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="hostname.html">hostname</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">hostname</span><span class="symbol">: </span><span class="identifier">String</span></code><p>The hostname of the machine running this program.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="ip.html">ip</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ip</span><span class="symbol">: </span><span class="identifier">String</span></code><p>The IP address of the machine running this program.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="ansi.html">ansi</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">ansi</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$ansi(co.there4.hexagon.util.AnsiColor, co.there4.hexagon.util.AnsiColor, kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/fg">fg</span><span class="symbol">:</span>&nbsp;<a href="-ansi-color/index.html"><span class="identifier">AnsiColor</span></a><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util$ansi(co.there4.hexagon.util.AnsiColor, co.there4.hexagon.util.AnsiColor, kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/bg">bg</span><span class="symbol">:</span>&nbsp;<a href="-ansi-color/index.html"><span class="identifier">AnsiColor</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.util$ansi(co.there4.hexagon.util.AnsiColor, co.there4.hexagon.util.AnsiColor, kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/fxs">fxs</span><span class="symbol">:</span>&nbsp;<a href="-ansi-effect/index.html"><span class="identifier">AnsiEffect</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code><p>Creates an ANSI sequence composed by a list of commands (colors, effects, etc.).</p>
+<code><span class="keyword">fun </span><span class="identifier">ansi</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$ansi(co.there4.hexagon.util.AnsiColor, kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/fg">fg</span><span class="symbol">:</span>&nbsp;<a href="-ansi-color/index.html"><span class="identifier">AnsiColor</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.util$ansi(co.there4.hexagon.util.AnsiColor, kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/fxs">fxs</span><span class="symbol">:</span>&nbsp;<a href="-ansi-effect/index.html"><span class="identifier">AnsiEffect</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">ansi</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="co.there4.hexagon.util$ansi(kotlin.Array((co.there4.hexagon.util.AnsiEffect)))/fxs">fxs</span><span class="symbol">:</span>&nbsp;<a href="-ansi-effect/index.html"><span class="identifier">AnsiEffect</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="format-time.html">formatTime</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">formatTime</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$formatTime(kotlin.Long)/timestamp">timestamp</span><span class="symbol">:</span>&nbsp;<span class="identifier">Long</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><p>Returns a time difference in nanoseconds formatted as a string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="inet-address.html">inetAddress</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">inetAddress</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$inetAddress(kotlin.String)/host">host</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/net/InetAddress.html"><span class="identifier">InetAddress</span></a></code><p>Shortcut to get a network address.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="local-host.html">localHost</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">localHost</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/net/InetAddress.html"><span class="identifier">InetAddress</span></a><span class="symbol">?</span></code><p>Get the local host address.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="pop-time.html">popTime</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">popTime</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Long</span></code><p>Pop latest timestamp in the nanos times stack and returns the difference with current one.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="push-time.html">pushTime</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pushTime</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><p>Store a timestamp in nanoseconds in the threads times stack.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="reset-times.html">resetTimes</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">resetTimes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><p>Store a timestamp in nanoseconds in the threads times stack.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="retry.html">retry</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">retry</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/times">times</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/delay">delay</span><span class="symbol">:</span>&nbsp;<span class="identifier">Long</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util$retry(kotlin.Int, kotlin.Long, kotlin.Function0((co.there4.hexagon.util.retry.T)))/func">func</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code><p>Executes a lambda until no exception is thrown or a number of times is reached.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

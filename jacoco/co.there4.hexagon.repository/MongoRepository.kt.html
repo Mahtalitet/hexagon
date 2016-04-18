@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MongoRepository.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.repository</a> &gt; <span class="el_source">MongoRepository.kt</span></div><h1>MongoRepository.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.repository
+
+import co.there4.hexagon.serialization.serializer
+import co.there4.hexagon.serialization.serializer
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoIterable
+import com.mongodb.client.model.FindOneAndReplaceOptions
+import com.mongodb.client.model.InsertManyOptions
+import com.mongodb.client.model.InsertOneOptions
+import com.mongodb.client.model.UpdateOptions
+import com.mongodb.client.result.DeleteResult
+import com.mongodb.client.result.UpdateResult
+import org.bson.Document
+import org.bson.conversions.Bson
+import kotlin.reflect.KClass
+
+<span class="pc" id="L17">open class MongoRepository &lt;T : Any&gt; (val type: KClass&lt;T&gt;, collection: MongoCollection&lt;Document&gt;) :</span>
+<span class="fc" id="L18">    MongoCollection&lt;Document&gt; by collection {</span>
+
+    fun insertOneObject (document: T) {
+<span class="fc" id="L21">        insertOne (map (document))</span>
+<span class="fc" id="L22">    }</span>
+
+    fun insertOneObject (document: T, options: InsertOneOptions) {
+<span class="fc" id="L25">        insertOne (map (document), options)</span>
+<span class="fc" id="L26">    }</span>
+
+    fun insertManyObjects (documents: List&lt;T&gt;) {
+<span class="fc" id="L29">        insertMany (map (documents))</span>
+<span class="fc" id="L30">    }</span>
+
+    fun insertManyObjects (documents: List&lt;T&gt;, options: InsertManyOptions) {
+<span class="fc" id="L33">        insertMany (map (documents), options)</span>
+<span class="fc" id="L34">    }</span>
+
+    fun replaceOneObject (filter: Bson, replacement: T): UpdateResult =
+<span class="fc" id="L37">        replaceOne (filter, map (replacement))</span>
+
+    fun replaceOneObject (filter: Bson, replacement: T, options: UpdateOptions): UpdateResult =
+<span class="fc" id="L40">        replaceOne (filter, map (replacement), options)</span>
+
+    fun findOneObjectAndReplace (filter: Bson, replacement: T): T =
+<span class="fc" id="L43">        unmap (findOneAndReplace (filter, map (replacement)))</span>
+
+    fun findOneObjectAndReplace (filter: Bson, replacement: T, options: FindOneAndReplaceOptions): T =
+<span class="fc" id="L46">        unmap (findOneAndReplace (filter, map (replacement), options))</span>
+
+<span class="fc" id="L48">    fun findObjects (): MongoIterable&lt;T&gt; = find ().map { unmap(it) }</span>
+
+<span class="fc" id="L50">    fun findObjects (filter: Bson): MongoIterable&lt;T&gt; = find (filter).map { unmap(it) }</span>
+
+<span class="fc" id="L52">    fun deleteAll (): DeleteResult = deleteMany (Document ())</span>
+
+    private fun map (document: T): Document {
+<span class="fc" id="L55">        return Document (serializer.convertToMap (document).mapKeys {</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            if (key is String)</span>
+<span class="fc" id="L58">                key</span>
+            else
+<span class="pc" id="L60">                throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
+        })
+    }
+
+<span class="fc" id="L64">    private fun map (documents: List&lt;T&gt;): List&lt;Document&gt; = documents.map { map(it) }</span>
+
+<span class="fc" id="L66">    private fun unmap (document: Document): T = serializer.convertToObject (document, type)</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

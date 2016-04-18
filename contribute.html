@@ -144,10 +144,11 @@ sed -i &quot;s/^version=.*$/version=$version/&quot; gradle.properties &amp;&amp;
 gwnd release &amp;&amp; \
 git flow release finish -Fp &#39;$version&#39;
 </code></pre>
+<p>Tools used: git-extras + git-flow + hub + huboard + bintray</p>
 <h1>Contribute</h1>
 <ul>
   <li>
-  <p>The code should be formatted accordingly to the format provided in my <code>dotfiles</code> Github project.</p></li>
+  <p>The code should be formatted accordingly to the <code>codeStyleSettings.xml</code> file.<br/> For code and file names, etc. Use either camel case or snake case (if possible)<br/> avoid <code>-</code> in file names, etc.</p></li>
   <li>
   <p>For a Pull Request to be accepted:</p></li>
   <li>It has to pass all existing tests.</li>
@@ -174,13 +175,9 @@ And other after the first
 Then something happened
 </code></pre>
   </li>
+  <li>
+  <p>PRs should be done to master</p></li>
 </ul>
-<p>PRs not to master</p>
-<p>Follow conventions</p>
-<p>Cover the changes</p>
-<p>git-extras + git-flow + hub + huboard + bintray</p>
-<h2>Coding standards</h2>
-<p>For code and file names, etc. Use either camel case or snake case (if possible)<br/>avoid <code>-</code> in file names, etc.</p>
 
     <div id="push"></div>
   </div>

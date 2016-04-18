@@ -123,19 +123,59 @@
 
     <div class="container">
 
-<h2>Hexagon 0.0.2</h2>
-<pre><code class="groovy">dependencies {
-  compile (&#39;co.there4.hexagon:hexagon:${version}&#39;) { transitive = false }
-  // Import the backend you are going to use
-  compile &#39;io.undertow:undertow-servlet:1.3.19.Final&#39;
+<h1>HEXAGON 0.0.2</h1>
+<h2>The atoms of your platform</h2>
+<p>Hexagon is a micro services framework that doesn't follow the flock. It is written in [Kotlin] and<br/>uses [Ratpack], [Jackson], [RabbitMQ] and [MongoDB]. It takes care of:</p>
+<ul>
+  <li>rest</li>
+  <li>messaging</li>
+  <li>serialization</li>
+  <li>storage</li>
+  <li>events</li>
+  <li>configuration</li>
+  <li>logging</li>
+  <li>scheduling</li>
+</ul>
+<p>The purpose of the project is to provide a micro services framework with the following priorities<br/>(in order):</p>
+<ul>
+  <li>Simple to use</li>
+  <li>Easily hackable</li>
+  <li>Be small</li>
+</ul>
+<p>DISCLAIMER: The project status right now is alpha... You should not use it in production yet</p>
+<h2>Getting Started</h2>
+<p>Get the dependency from <a href="https://bintray.com/jamming/maven/Hexagon">JCenter</a> (you need to setup de repository first):</p>
+<p>Gradle:</p>
+<pre><code class="groovy">compile (&#39;co.there4:hexagon:${version}&#39;)
+</code></pre>
+<p>Maven:</p>
+<pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;co.there4&lt;/groupId&gt;
+  &lt;artifactId&gt;hexagon&lt;/artifactId&gt;
+  &lt;version&gt;${version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Write the code:</p>
+<pre><code class="java">import co.there4.hexagon.rest.ratpack.*
+
+fun main(args: Array&lt;String&gt;) {
+    serverStart {
+        handlers {
+            get(&quot;hello/:name&quot;) { render(&quot;Hello ${pathTokens[&quot;name&quot;]}!&quot;) }
+        }
+    }
 }
 </code></pre>
-<pre><code class="groovy">dependencies {
-  compile (&#39;co.there4.hexagon:hexagon:${version}&#39;) { transitive = false }
-  // Import the backend you are going to use
-  compile &#39;io.undertow:undertow-servlet:1.3.19.Final&#39;
-}
-</code></pre>
+<p>Launch it and view the results at: [http://localhost:5050/hello]</p>
+<h2>Examples</h2>
+<p>Check out and try the examples in the source code.</p>
+<!---
+[Code Examples][Examples]
+[Examples]: https://github.com/jamming/hexagon/tree/master/src/test/kotlin/hexagon/Examples.kt
+
+You can also check the [integration tests][tests]
+[tests]: https://github.com/jamming/hexagon/tree/master/src/test/kotlin/hexagon/it/undertow
+-->
 
     <div id="push"></div>
   </div>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class co.there4.hexagon.util.StringsTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class co.there4.hexagon.util.StringsTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/co.there4.hexagon.util.html">co.there4.hexagon.util</a> &gt; StringsTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">16</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.017s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">ansi_code_with_a_single_effect_has_the_proper_format</td>
+<td>0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">ansi_code_with_foreground_and_effects_returns_the_correct_code</td>
+<td>0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">ansi_code_with_foreground_background_and_effects_returns_the_correct_code</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">ansi_code_with_two_effects_has_the_proper_format</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">ansi_code_without_elements_returns_ansi_reset_code</td>
+<td>0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">banner_logs_the_proper_message</td>
+<td>0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">converting_empty_text_to_camel_case_fails</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">converting_valid_camel_case_texts_to_snake_case_succeed</td>
+<td>0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">converting_valid_snake_case_texts_to_camel_case_succeed</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">effects_and_foreground_color_table</td>
+<td>0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">filter_ignores_empty_parameters</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">filter_replaces_all_occurences_of_variables_with_their_values</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">filter_returns_the_given_string_if_no_parameters_are_set</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">filter_returns_the_same_string_if_no_variables_are_defined_in_it</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">filter_returns_the_same_string_if_variable_values_are_not_found</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">rainbow_table_is_printed_nicely</td>
+<td>0.006s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>     FOREGROUND | EFFECT        
+ ?[30m         BLACK | NONE          ?[0m ?[30;1m         BLACK | BOLD          ?[0m ?[30;4m         BLACK | UNDERLINE     ?[0m ?[30;5m         BLACK | BLINK         ?[0m ?[30;7m         BLACK | INVERSE       ?[0m
+ ?[31m           RED | NONE          ?[0m ?[31;1m           RED | BOLD          ?[0m ?[31;4m           RED | UNDERLINE     ?[0m ?[31;5m           RED | BLINK         ?[0m ?[31;7m           RED | INVERSE       ?[0m
+ ?[32m         GREEN | NONE          ?[0m ?[32;1m         GREEN | BOLD          ?[0m ?[32;4m         GREEN | UNDERLINE     ?[0m ?[32;5m         GREEN | BLINK         ?[0m ?[32;7m         GREEN | INVERSE       ?[0m
+ ?[33m        YELLOW | NONE          ?[0m ?[33;1m        YELLOW | BOLD          ?[0m ?[33;4m        YELLOW | UNDERLINE     ?[0m ?[33;5m        YELLOW | BLINK         ?[0m ?[33;7m        YELLOW | INVERSE       ?[0m
+ ?[34m          BLUE | NONE          ?[0m ?[34;1m          BLUE | BOLD          ?[0m ?[34;4m          BLUE | UNDERLINE     ?[0m ?[34;5m          BLUE | BLINK         ?[0m ?[34;7m          BLUE | INVERSE       ?[0m
+ ?[35m       MAGENTA | NONE          ?[0m ?[35;1m       MAGENTA | BOLD          ?[0m ?[35;4m       MAGENTA | UNDERLINE     ?[0m ?[35;5m       MAGENTA | BLINK         ?[0m ?[35;7m       MAGENTA | INVERSE       ?[0m
+ ?[36m          CYAN | NONE          ?[0m ?[36;1m          CYAN | BOLD          ?[0m ?[36;4m          CYAN | UNDERLINE     ?[0m ?[36;5m          CYAN | BLINK         ?[0m ?[36;7m          CYAN | INVERSE       ?[0m
+ ?[37m         WHITE | NONE          ?[0m ?[37;1m         WHITE | BOLD          ?[0m ?[37;4m         WHITE | UNDERLINE     ?[0m ?[37;5m         WHITE | BLINK         ?[0m ?[37;7m         WHITE | INVERSE       ?[0m
+ ?[39m       DEFAULT | NONE          ?[0m ?[39;1m       DEFAULT | BOLD          ?[0m ?[39;4m       DEFAULT | UNDERLINE     ?[0m ?[39;5m       DEFAULT | BLINK         ?[0m ?[39;7m       DEFAULT | INVERSE       ?[0m
+Back to normal
+     FORE | BACK    
+ ?[30;40m   BLACK | BLACK   ?[0m ?[31;40m     RED | BLACK   ?[0m ?[32;40m   GREEN | BLACK   ?[0m ?[33;40m  YELLOW | BLACK   ?[0m ?[34;40m    BLUE | BLACK   ?[0m ?[35;40m MAGENTA | BLACK   ?[0m ?[36;40m    CYAN | BLACK   ?[0m ?[37;40m   WHITE | BLACK   ?[0m ?[39;40m DEFAULT | BLACK   ?[0m
+ ?[30;41m   BLACK | RED     ?[0m ?[31;41m     RED | RED     ?[0m ?[32;41m   GREEN | RED     ?[0m ?[33;41m  YELLOW | RED     ?[0m ?[34;41m    BLUE | RED     ?[0m ?[35;41m MAGENTA | RED     ?[0m ?[36;41m    CYAN | RED     ?[0m ?[37;41m   WHITE | RED     ?[0m ?[39;41m DEFAULT | RED     ?[0m
+ ?[30;42m   BLACK | GREEN   ?[0m ?[31;42m     RED | GREEN   ?[0m ?[32;42m   GREEN | GREEN   ?[0m ?[33;42m  YELLOW | GREEN   ?[0m ?[34;42m    BLUE | GREEN   ?[0m ?[35;42m MAGENTA | GREEN   ?[0m ?[36;42m    CYAN | GREEN   ?[0m ?[37;42m   WHITE | GREEN   ?[0m ?[39;42m DEFAULT | GREEN   ?[0m
+ ?[30;43m   BLACK | YELLOW  ?[0m ?[31;43m     RED | YELLOW  ?[0m ?[32;43m   GREEN | YELLOW  ?[0m ?[33;43m  YELLOW | YELLOW  ?[0m ?[34;43m    BLUE | YELLOW  ?[0m ?[35;43m MAGENTA | YELLOW  ?[0m ?[36;43m    CYAN | YELLOW  ?[0m ?[37;43m   WHITE | YELLOW  ?[0m ?[39;43m DEFAULT | YELLOW  ?[0m
+ ?[30;44m   BLACK | BLUE    ?[0m ?[31;44m     RED | BLUE    ?[0m ?[32;44m   GREEN | BLUE    ?[0m ?[33;44m  YELLOW | BLUE    ?[0m ?[34;44m    BLUE | BLUE    ?[0m ?[35;44m MAGENTA | BLUE    ?[0m ?[36;44m    CYAN | BLUE    ?[0m ?[37;44m   WHITE | BLUE    ?[0m ?[39;44m DEFAULT | BLUE    ?[0m
+ ?[30;45m   BLACK | MAGENTA ?[0m ?[31;45m     RED | MAGENTA ?[0m ?[32;45m   GREEN | MAGENTA ?[0m ?[33;45m  YELLOW | MAGENTA ?[0m ?[34;45m    BLUE | MAGENTA ?[0m ?[35;45m MAGENTA | MAGENTA ?[0m ?[36;45m    CYAN | MAGENTA ?[0m ?[37;45m   WHITE | MAGENTA ?[0m ?[39;45m DEFAULT | MAGENTA ?[0m
+ ?[30;46m   BLACK | CYAN    ?[0m ?[31;46m     RED | CYAN    ?[0m ?[32;46m   GREEN | CYAN    ?[0m ?[33;46m  YELLOW | CYAN    ?[0m ?[34;46m    BLUE | CYAN    ?[0m ?[35;46m MAGENTA | CYAN    ?[0m ?[36;46m    CYAN | CYAN    ?[0m ?[37;46m   WHITE | CYAN    ?[0m ?[39;46m DEFAULT | CYAN    ?[0m
+ ?[30;47m   BLACK | WHITE   ?[0m ?[31;47m     RED | WHITE   ?[0m ?[32;47m   GREEN | WHITE   ?[0m ?[33;47m  YELLOW | WHITE   ?[0m ?[34;47m    BLUE | WHITE   ?[0m ?[35;47m MAGENTA | WHITE   ?[0m ?[36;47m    CYAN | WHITE   ?[0m ?[37;47m   WHITE | WHITE   ?[0m ?[39;47m DEFAULT | WHITE   ?[0m
+ ?[30;49m   BLACK | DEFAULT ?[0m ?[31;49m     RED | DEFAULT ?[0m ?[32;49m   GREEN | DEFAULT ?[0m ?[33;49m  YELLOW | DEFAULT ?[0m ?[34;49m    BLUE | DEFAULT ?[0m ?[35;49m MAGENTA | DEFAULT ?[0m ?[36;49m    CYAN | DEFAULT ?[0m ?[37;49m   WHITE | DEFAULT ?[0m ?[39;49m DEFAULT | DEFAULT ?[0m
+Back to normal
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 2.11</a> at Apr 18, 2016 12:23:25 PM</p>
+</div>
+</div>
+</body>
+</html>

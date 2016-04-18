@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UtilPackage.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.util</a> &gt; <span class="el_source">UtilPackage.kt</span></div><h1>UtilPackage.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.util
+
+import java.lang.System.*
+import java.net.InetAddress
+import java.lang.ThreadLocal.withInitial
+import java.net.InetAddress.getLocalHost
+import java.time.LocalDateTime
+import java.util.*
+
+/*
+ * Timing
+ */
+
+<span class="fc" id="L14">private val times = withInitial { LinkedList&lt;Long&gt; () }</span>
+
+/**
+ * Store a timestamp in nanoseconds in the thread's times stack.
+ */
+<span class="fc" id="L19">fun resetTimes() = times.get ().clear()</span>
+/**
+ * Store a timestamp in nanoseconds in the thread's times stack.
+ */
+<span class="fc" id="L23">fun pushTime() = times.get ().push(nanoTime())</span>
+/**
+ * Pop latest timestamp in the nanos times stack and returns the difference with current one.
+ */
+<span class="fc" id="L27">fun popTime() = nanoTime() - times.get().pop()</span>
+/**
+ * Returns a time difference in nanoseconds formatted as a string.
+ */
+<span class="fc" id="L31">fun formatTime(timestamp: Long) = &quot;%1.3f ms&quot;.format (timestamp / 1e6)</span>
+
+/**
+ * Formats a date as a formatted integer with this format: `YYYYMMDDHHmmss`.
+ */
+fun LocalDateTime.asInt () =
+<span class="fc" id="L37">    (this.year       * 1e10.toLong()) +</span>
+<span class="fc" id="L38">    (this.monthValue * 1e8.toLong()) +</span>
+<span class="fc" id="L39">    (this.dayOfMonth * 1e6.toLong()) +</span>
+<span class="fc" id="L40">    (this.hour       * 1e4.toLong()) +</span>
+<span class="fc" id="L41">    (this.minute     * 1e2.toLong()) +</span>
+<span class="fc" id="L42">    this.second</span>
+
+/*
+ * Threading
+ */
+
+/** Map for storing context data linked to the executing thread. */
+<span class="fc" id="L49">object Context {</span>
+<span class="fc" id="L50">    private val threadLocal = withInitial { LinkedHashMap&lt;Any, Any&gt;() }</span>
+<span class="fc" id="L51">    fun entries () = threadLocal.get().entries</span>
+<span class="nc" id="L52">    operator fun get (key: Any) = threadLocal.get()[key]</span>
+<span class="nc" id="L53">    operator fun set (key: Any, value: Any) { threadLocal.get()[key] = value }</span>
+}
+
+/**
+ * Executes a lambda until no exception is thrown or a number of times is reached.
+ *
+ * @param times Number of times to try to execute the callback. Must be greater than 0.
+ * @param delay Milliseconds to wait to next execution if there was an error. Must be 0 or greater.
+ * @return The callback result if succeed.
+ * @throws [ProgramException] if the callback didn't succeed in the given times.
+ */
+fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">    require (times &gt; 0)</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">    require (delay &gt;= 0)</span>
+
+<span class="fc" id="L68">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
+<span class="pc bpc" id="L69" title="3 of 4 branches missed.">    for (ii in 0 .. times) {</span>
+<span class="fc" id="L70">        try {</span>
+<span class="pc" id="L71">            return func ()</span>
+        }
+        catch (e: Exception) {
+<span class="nc" id="L74">            exceptions.add (e)</span>
+<span class="nc" id="L75">            Thread.sleep (delay)</span>
+        }
+    }
+
+<span class="nc" id="L79">    throw ProgramException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
+}
+
+/*
+ * Networking
+ */
+
+/**
+ * Shortcut to get a network address.
+ */
+<span class="nc" id="L89">fun inetAddress(host: String) = InetAddress.getByName (host)</span>
+
+/** Unknown host name. */
+<span class="pc" id="L92">val UNKNOWN_LOCALHOST = &quot;UNKNOWN_LOCALHOST&quot;</span>
+
+/** The hostname of the machine running this program. */
+<span class="pc bpc" id="L95" title="2 of 4 branches missed.">val hostname = localHost()?.getHostName() ?: UNKNOWN_LOCALHOST</span>
+/** The IP address of the machine running this program. */
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">val ip = localHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
+
+/**
+ * Get the local host address.
+ */
+fun localHost() =
+<span class="fc" id="L103">    try {</span>
+<span class="pc" id="L104">        getLocalHost()</span>
+    }
+    catch (e: Exception) {
+<span class="nc" id="L107">        null</span>
+<span class="fc" id="L108">    }</span>
+
+/*
+ * Error handling
+ */
+
+/**
+ * Returns the stack trace array of the frames that starts with the given prefix.
+ */
+fun Throwable.filterStackTrace (prefix: String) =
+<span class="fc" id="L118">    if (prefix.isEmpty ())</span>
+<span class="fc" id="L119">        this.stackTrace</span>
+    else
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
+
+/**
+ * Returns this throwable as a text.
+ */
+fun Throwable.toText (prefix: String = &quot;&quot;): String =
+<span class="fc" id="L127">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
+<span class="fc" id="L128">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (this.cause == null)</span>
+<span class="fc" id="L130">            &quot;&quot;</span>
+        else
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

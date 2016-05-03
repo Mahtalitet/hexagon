@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RestCrud.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.rest</a> &gt; <span class="el_source">RestCrud.kt</span></div><h1>RestCrud.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.rest
+
+import co.there4.hexagon.ratpack.KChain
+import co.there4.hexagon.ratpack.KContext
+import co.there4.hexagon.repository.MongoIdRepository
+import co.there4.hexagon.serialization.parse
+import co.there4.hexagon.serialization.serialize
+import com.mongodb.MongoWriteException
+
+<span class="pc" id="L10">class RestCrud &lt;T : Any, K : Any&gt; (val repository: MongoIdRepository&lt;T, K&gt;, val chain: KChain) {</span>
+    init {
+<span class="fc" id="L12">        val collectionName = repository.namespace.collectionName</span>
+
+<span class="fc" id="L14">        chain.path (collectionName) {</span>
+<span class="fc" id="L15">            byMethod {</span>
+<span class="fc" id="L16">                post { insert (repository) }</span>
+<span class="fc" id="L17">                put { replace (repository) }</span>
+<span class="fc" id="L18">                get { findAll (repository) }</span>
+<span class="fc" id="L19">            }</span>
+<span class="fc" id="L20">        }</span>
+<span class="fc" id="L21">        chain.path (collectionName + &quot;/:id&quot;) {</span>
+<span class="fc" id="L22">            byMethod {</span>
+<span class="fc" id="L23">                delete { delete (repository) }</span>
+<span class="fc" id="L24">                get { find (repository) }</span>
+<span class="fc" id="L25">            }</span>
+<span class="fc" id="L26">        }</span>
+    }
+
+    private fun &lt;T : Any, K : Any&gt; KContext.insert (repository: MongoIdRepository&lt;T, K&gt;) {
+<span class="fc" id="L30">        withBody {</span>
+<span class="fc" id="L31">            val obj = text.parse(repository.type)</span>
+<span class="fc" id="L32">            try {</span>
+<span class="fc" id="L33">                repository.insertOneObject(obj)</span>
+<span class="fc" id="L34">                ok(201) // Created</span>
+            }
+            catch (e: MongoWriteException) {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                if (e.error.code == 11000)</span>
+<span class="fc" id="L38">                    halt(500)//(UNPROCESSABLE_ENTITY)</span>
+                else
+<span class="nc" id="L40">                    throw e</span>
+            }
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">    }</span>
+
+    private fun &lt;T : Any, K : Any&gt; KContext.replace (repository: MongoIdRepository&lt;T, K&gt;) {
+<span class="fc" id="L46">        withBody {</span>
+<span class="fc" id="L47">            val obj = text.parse(repository.type)</span>
+<span class="fc" id="L48">            repository.replaceObject(obj)</span>
+<span class="fc" id="L49">            ok(200) // Created</span>
+<span class="fc" id="L50">        }</span>
+<span class="fc" id="L51">    }</span>
+
+    private fun &lt;T : Any, K : Any&gt; KContext.delete (repository: MongoIdRepository&lt;T, K&gt;) {
+<span class="fc" id="L54">        val key = parseKey(repository, this)</span>
+<span class="fc" id="L55">        repository.deleteId(key)</span>
+<span class="fc" id="L56">        ok(200)</span>
+<span class="fc" id="L57">    }</span>
+
+    private fun &lt;T : Any, K : Any&gt; KContext.find (repository: MongoIdRepository&lt;T, K&gt;) {
+<span class="fc" id="L60">        val key = parseKey(repository, this)</span>
+<span class="fc" id="L61">        val obj = repository.find(key)</span>
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (obj == null) {</span>
+<span class="fc" id="L64">            halt(404)//NOT_FOUND)</span>
+        }
+        else {
+<span class="fc" id="L67">            ok(obj.serialize())</span>
+        }
+<span class="fc" id="L69">    }</span>
+
+    private fun &lt;K : Any, T : Any&gt; parseKey(
+        repository: MongoIdRepository&lt;T, K&gt;, context: KContext): K {
+
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        val id: String = context.pathTokens[&quot;id&quot;] ?: throw IllegalStateException ()</span>
+<span class="fc" id="L75">        return when (repository.keyType) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
+<span class="fc" id="L77">            else -&gt; id</span>
+<span class="fc" id="L78">        }.parse(repository.keyType)</span>
+    }
+
+    private fun &lt;T : Any, K : Any&gt; KContext.findAll (repository: MongoIdRepository&lt;T, K&gt;) {
+<span class="fc" id="L82">        val objects = repository.findObjects().toList()</span>
+<span class="fc" id="L83">        ok(objects.serialize())</span>
+<span class="fc" id="L84">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

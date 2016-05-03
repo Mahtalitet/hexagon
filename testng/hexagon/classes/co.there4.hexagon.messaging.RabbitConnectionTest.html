@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class co.there4.hexagon.messaging.RabbitConnectionTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class co.there4.hexagon.messaging.RabbitConnectionTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/co.there4.hexagon.messaging.html">co.there4.hexagon.messaging</a> &gt; RabbitConnectionTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.975s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">call_return_expected_results</td>
+<td>0.975s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,934 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,935 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,936 INFO [qpid.message.channel.create] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,936 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[112, 4, -93, 83, -80, -113, 70, 39, -115, -65, 98, 16, 117, 21, 4, 31]]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,936 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,937 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,937 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,938 INFO [qpid.message.channel.prefetch_size] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,938 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,938 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,938 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,939 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,941 INFO [qpid.message.queue.created] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [vh(/default)/qu(tmp_caeee9d8-967f-4371-99dd-7b148546aa84)] QUE-1001 : Create : AutoDelete Transient
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,943 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,943 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [QueueDeclareOkBodyImpl: queue=tmp_caeee9d8-967f-4371-99dd-7b148546aa84, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,943 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue tmp_caeee9d8-967f-4371-99dd-7b148546aa84 declared successfully
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,944 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 5 ms. Frame: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,944 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,951 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=test, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,951 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,963 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 12 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=test, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,963 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_caeee9d8-967f-4371-99dd-7b148546aa84,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,963 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,963 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_caeee9d8-967f-4371-99dd-7b148546aa84,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,964 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@3aa1a5b6
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,964 DEBUG [server.protocol.v0_8.AMQChannel] 1(934426005) content body received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,973 DEBUG [server.protocol.v0_8.AMQChannel] 1(1124190562) Adding unacked message(Message[(HC:2084570796 ID:1 Ref:3)] DT:1) for QueueConsumerImpl [id=de7dd005-160a-4274-ab33-faad6671f202, name=sgen_1] on test
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,975 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=test]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_caeee9d8-967f-4371-99dd-7b148546aa84,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@4028e0d1, channel=1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,975 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 11 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@3aa1a5b6
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,975 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,975 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_caeee9d8-967f-4371-99dd-7b148546aa84, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,975 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,976 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'tmp_caeee9d8-967f-4371-99dd-7b148546aa84' for:null nowait:false args:null
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,979 INFO [qpid.message.subscription.create] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [sub:2(vh(/default)/qu(tmp_caeee9d8-967f-4371-99dd-7b148546aa84)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,979 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,980 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 5 ms. Frame: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_caeee9d8-967f-4371-99dd-7b148546aa84, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,980 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,987 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,987 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,988 INFO [qpid.message.channel.create] [con:1(guest@/127.0.0.1:35920/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,988 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-68, -55, 100, 66, 116, 19, 75, -127, -91, -82, 3, 49, -99, 86, -89, -26]]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,988 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,989 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,989 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(245541285)
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,989 INFO [qpid.message.channel.prefetch_size] [con:1(guest@/127.0.0.1:35920/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,989 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,990 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,990 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(245541285)
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,990 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_caeee9d8-967f-4371-99dd-7b148546aa84, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,991 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,991 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_caeee9d8-967f-4371-99dd-7b148546aa84, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,991 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,991 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,991 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,992 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@a9d3ca9
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,992 DEBUG [server.protocol.v0_8.AMQChannel] 1(245541285) content body received on channel 1
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,994 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=tmp_caeee9d8-967f-4371-99dd-7b148546aa84]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = b664ad6f-ee59-4e4c-9c49-0c653d1567d9,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@4f9fa39e, channel=1]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,995 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 4 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@a9d3ca9
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,995 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(245541285)
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,995 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,995 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,995 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(245541285)
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,996 INFO [qpid.message.channel.close] [con:1(guest@/127.0.0.1:35920/default)/ch:1] [con:1(guest@/127.0.0.1:35920/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,996 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35920(guest):1]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,996 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,996 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:41,996 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(245541285)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:41,998 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:41,999 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:41,999 DEBUG [protocol.v0_8.handler.BasicAckMethodHandler] Ack(Tag:1:Mult:false) received on channel 1
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,001 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,001 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1124190562)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,002 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,002 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,002 INFO [qpid.message.channel.close] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,005 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35922(guest):1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,005 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35922(guest):1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,006 INFO [qpid.message.subscription.close] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [sub:2(vh(/default)/qu(tmp_caeee9d8-967f-4371-99dd-7b148546aa84)] SUB-1002 : Close
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,006 INFO [qpid.server.queue.AbstractQueue] Auto-deleting queue:tmp_caeee9d8-967f-4371-99dd-7b148546aa84
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,010 INFO [qpid.message.queue.deleted] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [vh(/default)/qu(tmp_caeee9d8-967f-4371-99dd-7b148546aa84)] QUE-1002 : Deleted
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,016 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,016 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 18 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,016 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(934426005)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,018 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,018 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,018 INFO [qpid.message.channel.create] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,019 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-126, -126, -5, 49, 25, -24, 75, -77, -113, -120, -100, -24, -32, -20, 118, -20]]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,019 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,019 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,019 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,020 INFO [qpid.message.channel.prefetch_size] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,020 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,020 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,020 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,020 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,021 INFO [qpid.message.queue.created] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [vh(/default)/qu(tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537)] QUE-1001 : Create : AutoDelete Transient
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,021 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,022 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [QueueDeclareOkBodyImpl: queue=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,022 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537 declared successfully
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,022 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,022 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=error, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=error, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@7dd36f42
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,023 DEBUG [server.protocol.v0_8.AMQChannel] 1(786586253) content body received on channel 1
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,024 DEBUG [server.protocol.v0_8.AMQChannel] 2(770409682) Adding unacked message(Message[(HC:976150247 ID:3 Ref:3)] DT:1) for QueueConsumerImpl [id=05788b03-a1eb-45b8-866e-a3654077005d, name=sgen_1] on error
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,024 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=error]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@5430bc3e, channel=2]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,024 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@7dd36f42
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,024 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,025 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,025 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,025 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537' for:null nowait:false args:null
+19:09:42.025 ?[31mWARN ?[0;39m ?[35m[rabbitmq-1]?[0;39m Handler                        | Error processing message
+java.lang.RuntimeException: Error with: 1462295381933
+	at co.there4.hexagon.messaging.RabbitConnectionTest$startConsumer$2.invoke(RabbitConnectionTest.kt:33)
+	at co.there4.hexagon.messaging.RabbitConnectionTest$startConsumer$2.invoke(RabbitConnectionTest.kt:9)
+	at co.there4.hexagon.messaging.Handler.handleMessage(Handler.kt:63)
+	at co.there4.hexagon.messaging.Handler.access$handleMessage(Handler.kt:11)
+	at co.there4.hexagon.messaging.Handler$handleDelivery$1.run(Handler.kt:44)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,026 INFO [qpid.message.subscription.create] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [sub:3(vh(/default)/qu(tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,027 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,030 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 5 ms. Frame: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,030 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,030 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,031 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,032 INFO [qpid.message.channel.create] [con:2(guest@/127.0.0.1:35921/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,032 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[56, 86, 98, -121, -128, -54, 69, 91, -73, 50, 16, 126, -19, -46, -83, -47]]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,032 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,033 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,033 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1666437516)
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 INFO [qpid.message.channel.prefetch_size] [con:2(guest@/127.0.0.1:35921/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1666437516)
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,034 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@676c593e
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,035 DEBUG [server.protocol.v0_8.AMQChannel] 1(1666437516) content body received on channel 1
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = a5ed992e-86d8-4e26-b98b-92175e5d9312,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@226edbb7, channel=1]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@676c593e
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1666437516)
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,036 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1666437516)
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,037 INFO [qpid.message.channel.close] [con:2(guest@/127.0.0.1:35921/default)/ch:1] [con:2(guest@/127.0.0.1:35921/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,037 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35921(guest):1]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,037 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,037 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,037 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1666437516)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,037 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,042 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,042 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,042 DEBUG [protocol.v0_8.handler.BasicAckMethodHandler] Ack(Tag:1:Mult:false) received on channel 2
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,042 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,042 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,042 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(770409682)
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,042 INFO [qpid.message.channel.close] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [con:3(guest@/127.0.0.1:35922/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,042 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35922(guest):1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,042 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35922(guest):1]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,043 INFO [qpid.message.subscription.close] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [sub:3(vh(/default)/qu(tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537)] SUB-1002 : Close
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,043 INFO [qpid.server.queue.AbstractQueue] Auto-deleting queue:tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,043 INFO [qpid.message.queue.deleted] [con:3(guest@/127.0.0.1:35922/default)/ch:1] [vh(/default)/qu(tmp_0265c6cd-cf06-4055-9ead-377e4b5b9537)] QUE-1002 : Deleted
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,043 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,044 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 7 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,044 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(786586253)
+Test worker 2016-05-03 19:09:42,044 DEBUG [apache.qpid.server.Broker] Removing shutdown hook
+Test worker 2016-05-03 19:09:42,044 DEBUG [apache.qpid.server.Broker] Removed shutdown hook: true
+Test worker 2016-05-03 19:09:42,044 INFO [qpid.server.registry.ApplicationRegistry] Shutting down ApplicationRegistry:org.apache.qpid.server.registry.ApplicationRegistry@48ad4f5a
+Test worker 2016-05-03 19:09:42,044 DEBUG [server.configuration.updater.TaskExecutor] Submitting task: ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=null, desiredState=STOPPED]
+Broker-Configuration-Thread 2016-05-03 19:09:42,045 DEBUG [server.configuration.updater.TaskExecutor] Performing task ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=null, desiredState=STOPPED]
+Broker-Configuration-Thread 2016-05-03 19:09:42,046 INFO [qpid.message.broker.shutting_down] &lt;&lt;UNKNOWN&gt;&gt; BRK-1003 : Shutting down : TCP port 5673
+Broker-Configuration-Thread 2016-05-03 19:09:42,046 DEBUG [qpid.server.connection.ConnectionRegistry] Closing connection registry :4 connections.
+Broker-Configuration-Thread 2016-05-03 19:09:42,048 INFO [server.protocol.v0_8.AMQProtocolEngine] Closing connection due to: org.apache.qpid.AMQConnectionException: Broker is shutting down [error code 320: connection forced]
+Broker-Configuration-Thread 2016-05-03 19:09:42,049 INFO [qpid.message.channel.close] [con:0(guest@/127.0.0.1:35919/default)] [con:0(guest@/127.0.0.1:35919/default)/ch:1] CHN-1003 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,049 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35919(guest):1]
+Broker-Configuration-Thread 2016-05-03 19:09:42,049 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35919(guest):1]
+Broker-Configuration-Thread 2016-05-03 19:09:42,050 INFO [qpid.message.subscription.close] [con:0(guest@/127.0.0.1:35919/default)] [sub:0(vh(/default)/qu(test)] SUB-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,051 INFO [qpid.message.channel.close] [con:0(guest@/127.0.0.1:35919/default)] [con:0(guest@/127.0.0.1:35919/default)/ch:2] CHN-1003 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,051 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35919(guest):2]
+Broker-Configuration-Thread 2016-05-03 19:09:42,051 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35919(guest):2]
+Broker-Configuration-Thread 2016-05-03 19:09:42,051 INFO [qpid.message.subscription.close] [con:0(guest@/127.0.0.1:35919/default)] [sub:1(vh(/default)/qu(error)] SUB-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,052 INFO [qpid.message.connection.close] [con:0(guest@/127.0.0.1:35919/default)] [con:0(guest@/127.0.0.1:35919/default)] CON-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,052 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSING from old state CONNECTION_OPEN
+Broker-Configuration-Thread 2016-05-03 19:09:42,053 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionCloseBodyImpl: replyCode=320, replyText=Broker is shutting down, classId=0, methodId=0]
+Broker-Configuration-Thread 2016-05-03 19:09:42,053 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSING
+Broker-Configuration-Thread 2016-05-03 19:09:42,054 INFO [server.protocol.v0_8.AMQProtocolEngine] Closing connection due to: org.apache.qpid.AMQConnectionException: Broker is shutting down [error code 320: connection forced]
+IoReceiver - /127.0.0.1:35919 2016-05-03 19:09:42,054 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSED
+Broker-Configuration-Thread 2016-05-03 19:09:42,061 INFO [qpid.message.connection.close] [con:1(guest@/127.0.0.1:35920/default)] [con:1(guest@/127.0.0.1:35920/default)] CON-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,061 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSING from old state CONNECTION_OPEN
+Broker-Configuration-Thread 2016-05-03 19:09:42,062 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionCloseBodyImpl: replyCode=320, replyText=Broker is shutting down, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:42,063 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionCloseOkBodyImpl: ]
+Broker-Configuration-Thread 2016-05-03 19:09:42,063 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSING
+Broker-Configuration-Thread 2016-05-03 19:09:42,064 INFO [server.protocol.v0_8.AMQProtocolEngine] Closing connection due to: org.apache.qpid.AMQConnectionException: Broker is shutting down [error code 320: connection forced]
+IoReceiver - /127.0.0.1:35920 2016-05-03 19:09:42,064 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSED
+Broker-Configuration-Thread 2016-05-03 19:09:42,065 INFO [qpid.message.connection.close] [con:2(guest@/127.0.0.1:35921/default)] [con:2(guest@/127.0.0.1:35921/default)] CON-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,065 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSING from old state CONNECTION_OPEN
+Broker-Configuration-Thread 2016-05-03 19:09:42,065 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionCloseBodyImpl: replyCode=320, replyText=Broker is shutting down, classId=0, methodId=0]
+Broker-Configuration-Thread 2016-05-03 19:09:42,066 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSING
+Broker-Configuration-Thread 2016-05-03 19:09:42,066 INFO [server.protocol.v0_8.AMQProtocolEngine] Closing connection due to: org.apache.qpid.AMQConnectionException: Broker is shutting down [error code 320: connection forced]
+IoReceiver - /127.0.0.1:35921 2016-05-03 19:09:42,066 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSED
+Broker-Configuration-Thread 2016-05-03 19:09:42,071 INFO [qpid.message.connection.close] [con:3(guest@/127.0.0.1:35922/default)] [con:3(guest@/127.0.0.1:35922/default)] CON-1002 : Close
+Broker-Configuration-Thread 2016-05-03 19:09:42,071 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSING from old state CONNECTION_OPEN
+Broker-Configuration-Thread 2016-05-03 19:09:42,071 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionCloseBodyImpl: replyCode=320, replyText=Broker is shutting down, classId=0, methodId=0]
+19:09:42.071 ?[1;31mERROR?[0;39m ?[35m[AMQP Connection 127.0.0.1:5673]?[0;39m LogExceptionHandler            | java.net.SocketException: Connection reset in connection to: UnexpectedConnectionDriverException
+Broker-Configuration-Thread 2016-05-03 19:09:42,071 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSING
+IoReceiver - /127.0.0.1:35922 2016-05-03 19:09:42,072 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_CLOSED from old state CONNECTION_CLOSING
+Broker-Configuration-Thread 2016-05-03 19:09:42,355 DEBUG [qpid.server.store.EventManager] Received event AFTER_CLOSE
+Broker-Configuration-Thread 2016-05-03 19:09:42,356 INFO [qpid.message.messagestore.closed] &lt;&lt;UNKNOWN&gt;&gt; [vh(/default)/ms(DerbyMessageStore)] MST-1003 : Closed
+Broker-Configuration-Thread 2016-05-03 19:09:42,360 INFO [qpid.message.virtualhost.closed] &lt;&lt;UNKNOWN&gt;&gt; VHT-1002 : Closed : default
+Broker-Configuration-Thread 2016-05-03 19:09:42,360 DEBUG [server.configuration.updater.TaskExecutor] Task ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=null, desiredState=STOPPED] is performed successfully with result:STOPPED
+Test worker 2016-05-03 19:09:42,360 DEBUG [server.configuration.updater.TaskExecutor] Stopping task executor
+Test worker 2016-05-03 19:09:42,361 DEBUG [server.configuration.updater.TaskExecutor] Task executor is stopped
+Test worker 2016-05-03 19:09:42,362 INFO [qpid.message.broker.stopped] &lt;&lt;UNKNOWN&gt;&gt; BRK-1005 : Stopped
+[Broker] BRK-1006 : Using configuration : /tmp/1462295369398-0/config.json
+Test worker 2016-05-03 19:09:42,520 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 2 implementations of interface org.apache.qpid.server.plugin.ConfigurationStoreFactory
+19:09:42.525 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-25
+19:09:42.525 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m StatisticsCounter              | Resetting statistics for counter: bytes-delivered-26
+19:09:42.525 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-27
+19:09:42.526 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m StatisticsCounter              | Resetting statistics for counter: bytes-received-28
+[Broker] BRK-1001 : Startup : Version: 0.28 Build: 1594179
+Test worker 2016-05-03 19:09:42,526 INFO [qpid.message.broker.startup] [Broker] BRK-1001 : Startup : Version: 0.28 Build: 1594179
+[Broker] BRK-1010 : Platform : JVM : Oracle Corporation version: 1.8.0_91-b14 OS : Linux version: 3.19.0-58-generic arch: amd64
+Test worker 2016-05-03 19:09:42,526 INFO [qpid.message.broker.platform] [Broker] BRK-1010 : Platform : JVM : Oracle Corporation version: 1.8.0_91-b14 OS : Linux version: 3.19.0-58-generic arch: amd64
+[Broker] BRK-1011 : Maximum Memory : 1,841,823,744 bytes
+Test worker 2016-05-03 19:09:42,527 INFO [qpid.message.broker.max_memory] [Broker] BRK-1011 : Maximum Memory : 1,841,823,744 bytes
+Test worker 2016-05-03 19:09:42,527 DEBUG [server.configuration.updater.TaskExecutor] Starting task executor
+Test worker 2016-05-03 19:09:42,527 DEBUG [server.configuration.updater.TaskExecutor] Task executor is started
+Test worker 2016-05-03 19:09:42,528 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 6 implementations of interface org.apache.qpid.server.plugin.AuthenticationManagerFactory
+Test worker 2016-05-03 19:09:42,529 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.AccessControlFactory
+Test worker 2016-05-03 19:09:42,530 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.GroupManagerFactory
+Test worker 2016-05-03 19:09:42,532 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 3 implementations of interface org.apache.qpid.server.plugin.MessageStoreFactory
+Test worker 2016-05-03 19:09:42,533 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 2 implementations of interface org.apache.qpid.server.plugin.ConfigurationStoreFactory
+Test worker 2016-05-03 19:09:42,534 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.VirtualHostFactory
+Test worker 2016-05-03 19:09:42,535 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 3 implementations of interface org.apache.qpid.server.plugin.MessageStoreFactory
+Test worker 2016-05-03 19:09:42,536 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.VirtualHostFactory
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Elements to lookup:virtualhosts.virtualhost
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'path'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'file'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'java'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'os'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'org'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'line'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'type'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'sun'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'user'
+Test worker 2016-05-03 19:09:42,537 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'awt'
+Test worker 2016-05-03 19:09:42,538 DEBUG [server.configuration.updater.TaskExecutor] Submitting task: ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=INITIALISING, desiredState=ACTIVE]
+Broker-Configuration-Thread 2016-05-03 19:09:42,539 DEBUG [server.configuration.updater.TaskExecutor] Performing task ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=INITIALISING, desiredState=ACTIVE]
+Broker-Configuration-Thread 2016-05-03 19:09:42,540 INFO [security.auth.database.PlainPasswordFilePrincipalDatabase] PasswordFile using file /home/jam/Projects/jamming/hexagon/./src/test/resources/passwd.txt
+Broker-Configuration-Thread 2016-05-03 19:09:42,540 INFO [security.auth.database.PlainPasswordFilePrincipalDatabase] Created user:guest
+Broker-Configuration-Thread 2016-05-03 19:09:42,542 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.VirtualHostFactory
+Broker-Configuration-Thread 2016-05-03 19:09:42,542 INFO [server.configuration.plugins.AbstractConfiguration] Elements to lookup:virtualhosts.virtualhost
+Broker-Configuration-Thread 2016-05-03 19:09:42,542 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'path'
+Broker-Configuration-Thread 2016-05-03 19:09:42,542 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'file'
+Broker-Configuration-Thread 2016-05-03 19:09:42,542 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'java'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'os'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'org'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'line'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'type'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'sun'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'user'
+Broker-Configuration-Thread 2016-05-03 19:09:42,543 INFO [server.configuration.plugins.AbstractConfiguration] Tag:'awt'
+Broker-Configuration-Thread 2016-05-03 19:09:42,544 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.VirtualHostFactory
+Broker-Configuration-Thread 2016-05-03 19:09:42,545 INFO [qpid.message.virtualhost.created] [Broker] VHT-1001 : Created : default
+Broker-Configuration-Thread 2016-05-03 19:09:42,545 DEBUG [qpid.server.security.SecurityManager] Configured 0 access control plugins
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 4 implementations of interface org.apache.qpid.server.plugin.ExchangeType
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.exchange.DefaultExchangeFactory] Registering exchange type 'direct' using class 'org.apache.qpid.server.exchange.DirectExchangeType'
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.exchange.DefaultExchangeFactory] Registering exchange type 'topic' using class 'org.apache.qpid.server.exchange.TopicExchangeType'
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.exchange.DefaultExchangeFactory] Registering exchange type 'fanout' using class 'org.apache.qpid.server.exchange.FanoutExchangeType'
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.exchange.DefaultExchangeFactory] Registering exchange type 'headers' using class 'org.apache.qpid.server.exchange.HeadersExchangeType'
+Broker-Configuration-Thread 2016-05-03 19:09:42,547 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 0 implementations of interface org.apache.qpid.server.plugin.SystemNodeCreator
+19:09:42.547 ?[34mINFO ?[0;39m ?[35m[Broker-Configuration-Thread]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-default-29
+19:09:42.548 ?[34mINFO ?[0;39m ?[35m[Broker-Configuration-Thread]?[0;39m StatisticsCounter              | Resetting statistics for counter: bytes-delivered-default-30
+19:09:42.548 ?[34mINFO ?[0;39m ?[35m[Broker-Configuration-Thread]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-default-31
+19:09:42.548 ?[34mINFO ?[0;39m ?[35m[Broker-Configuration-Thread]?[0;39m StatisticsCounter              | Resetting statistics for counter: bytes-received-default-32
+Broker-Configuration-Thread 2016-05-03 19:09:42,550 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 3 implementations of interface org.apache.qpid.server.plugin.MessageStoreFactory
+Broker-Configuration-Thread 2016-05-03 19:09:42,550 DEBUG [qpid.server.store.EventManager] Received event BEFORE_INIT
+Broker-Configuration-Thread 2016-05-03 19:09:42,550 INFO [qpid.message.configstore.created] [Broker] [vh(/default)/ms(DerbyMessageStore)] CFG-1001 : Created
+Broker-Configuration-Thread 2016-05-03 19:09:42,643 DEBUG [qpid.server.store.EventManager] Received event AFTER_INIT
+Broker-Configuration-Thread 2016-05-03 19:09:42,643 INFO [qpid.message.messagestore.created] [Broker] [vh(/default)/ms(DerbyMessageStore)] MST-1001 : Created
+Broker-Configuration-Thread 2016-05-03 19:09:42,643 INFO [qpid.message.transactionlog.created] [Broker] [vh(/default)/ms(DerbyMessageStore)] TXN-1001 : Created
+Broker-Configuration-Thread 2016-05-03 19:09:42,643 INFO [qpid.message.messagestore.store_location] [Broker] [vh(/default)/ms(DerbyMessageStore)] MST-1002 : Store location : /tmp/1462295369398-0/derbystore/default
+Broker-Configuration-Thread 2016-05-03 19:09:42,643 DEBUG [qpid.server.virtualhost.AbstractVirtualHost] Loading configuration for virtualhost: default
+Broker-Configuration-Thread 2016-05-03 19:09:42,644 INFO [qpid.message.exchange.created] [Broker] EXH-1001 : Create : Durable Type: headers Name: amq.match
+Broker-Configuration-Thread 2016-05-03 19:09:42,645 INFO [qpid.message.exchange.created] [Broker] EXH-1001 : Create : Durable Type: fanout Name: amq.fanout
+Broker-Configuration-Thread 2016-05-03 19:09:42,645 INFO [qpid.message.exchange.created] [Broker] EXH-1001 : Create : Durable Type: direct Name: amq.direct
+Broker-Configuration-Thread 2016-05-03 19:09:42,645 INFO [qpid.message.exchange.created] [Broker] EXH-1001 : Create : Durable Type: topic Name: amq.topic
+Broker-Configuration-Thread 2016-05-03 19:09:42,646 DEBUG [qpid.server.store.EventManager] Received event BEFORE_ACTIVATE
+Broker-Configuration-Thread 2016-05-03 19:09:42,646 INFO [qpid.message.messagestore.recovery_start] [Broker] [vh(/default)/ms(DerbyMessageStore)] MST-1004 : Recovery Start
+Broker-Configuration-Thread 2016-05-03 19:09:42,696 INFO [qpid.message.configstore.recovery_complete] [Broker] [vh(/default)/ms(DerbyMessageStore)] CFG-1005 : Recovery Complete
+Broker-Configuration-Thread 2016-05-03 19:09:42,726 INFO [qpid.message.transactionlog.recovery_start] [Broker] [vh(/default)/ms(DerbyMessageStore)] TXN-1004 : Recovery Start
+Broker-Configuration-Thread 2016-05-03 19:09:42,743 INFO [qpid.message.transactionlog.recovery_complete] [Broker] [vh(/default)/ms(DerbyMessageStore)] TXN-1006 : Recovery Complete
+Broker-Configuration-Thread 2016-05-03 19:09:42,743 DEBUG [qpid.server.store.EventManager] Received event AFTER_ACTIVATE
+Broker-Configuration-Thread 2016-05-03 19:09:42,743 INFO [qpid.message.messagestore.recovery_complete] [Broker] [vh(/default)/ms(DerbyMessageStore)] MST-1006 : Recovery Complete
+Broker-Configuration-Thread 2016-05-03 19:09:42,745 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 1 implementations of interface org.apache.qpid.server.plugin.TransportProviderFactory
+Broker-Configuration-Thread 2016-05-03 19:09:42,747 DEBUG [qpid.server.plugin.QpidServiceLoader] Found 5 implementations of interface org.apache.qpid.server.plugin.ProtocolEngineCreator
+[Broker] BRK-1002 : Starting : Listening on TCP port 5673
+Broker-Configuration-Thread 2016-05-03 19:09:42,747 INFO [qpid.message.broker.listening] [Broker] BRK-1002 : Starting : Listening on TCP port 5673
+Broker-Configuration-Thread 2016-05-03 19:09:42,748 DEBUG [server.configuration.updater.TaskExecutor] Task ChangeStateTask [object=BrokerAdapter [id=d5cb092c-3bf2-4c59-9d01-d5f34eab5ab9, name=EmbeddedBroker], expectedState=INITIALISING, desiredState=ACTIVE] is performed successfully with result:ACTIVE
+[Broker] BRK-1004 : Qpid Broker Ready
+Test worker 2016-05-03 19:09:42,748 INFO [qpid.message.broker.ready] [Broker] BRK-1004 : Qpid Broker Ready
+Test worker 2016-05-03 19:09:42,748 DEBUG [apache.qpid.server.Broker] Added shutdown hook
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,755 INFO [qpid.message.connection.open] [con:4(/127.0.0.1:35926)] CON-1001 : Open
+19:09:42.755 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35926]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-4-33
+19:09:42.755 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35926]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-delivered-4-34
+19:09:42.756 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35926]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-4-35
+19:09:42.756 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35926]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-received-4-36
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,756 INFO [qpid.message.connection.open] [con:4(/127.0.0.1:35926)] CON-1001 : Open : Protocol Version : 9-1
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,760 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,760 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] SASL Mechanism selected: PLAIN
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,760 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Locale selected: en_US
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,761 INFO [qpid.message.connection.open] [con:4(/127.0.0.1:35926)] CON-1001 : Open : Client ID : null : Protocol Version : 0-91 : Client Version : 3.6.1 : Client Product : RabbitMQ
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,761 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Connected as: Subject:
+	Principal: guest
+
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,761 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_TUNED from old state CONNECTION_NOT_STARTED
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,762 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionTuneBodyImpl: channelMax=256, frameMax=65535, heartbeat=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,762 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 3 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,763 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,763 DEBUG [protocol.v0_8.handler.ConnectionTuneOkMethodHandler] [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,763 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_OPENED from old state CONNECTION_NOT_TUNED
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,763 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,764 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,764 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_OPEN from old state CONNECTION_NOT_OPENED
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,764 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionOpenOkBodyImpl: knownHosts=/]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,765 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+19:09:42.765 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | RabbitMQ Client connected to:
+localhost
+5673
+/
+guest
+guest
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,766 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,766 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,766 INFO [qpid.message.channel.create] [con:4(guest@/127.0.0.1:35926/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,767 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-36, 69, -116, -55, 49, 34, 76, -120, -81, -101, -73, 80, 84, 87, -123, -38]]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,767 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 INFO [qpid.message.channel.prefetch_size] [con:4(guest@/127.0.0.1:35926/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,768 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,769 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=test, passive=false, durable=false, exclusive=false, autoDelete=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,770 INFO [qpid.message.queue.created] [con:4(guest@/127.0.0.1:35926/default)/ch:1] [vh(/default)/qu(test)] QUE-1001 : Create : Transient
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,771 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,771 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [QueueDeclareOkBodyImpl: queue=test, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,771 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue test declared successfully
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,771 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=test, passive=false, durable=false, exclusive=false, autoDelete=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,772 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,772 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,772 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,773 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,773 INFO [qpid.message.channel.close] [con:4(guest@/127.0.0.1:35926/default)/ch:1] [con:4(guest@/127.0.0.1:35926/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,776 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35926(guest):1]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,776 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,777 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 5 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,777 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(868386012)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,778 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,778 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,779 INFO [qpid.message.channel.create] [con:4(guest@/127.0.0.1:35926/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,779 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-28, -101, 91, 31, 90, 16, 67, 56, -116, -78, 27, 96, 48, 94, 11, -12]]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,779 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,780 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,780 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(939333244)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,781 INFO [qpid.message.channel.prefetch_size] [con:4(guest@/127.0.0.1:35926/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,781 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,781 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,781 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(939333244)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,784 INFO [qpid.message.connection.open] [con:5(/127.0.0.1:35927)] CON-1001 : Open
+19:09:42.784 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35927]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-5-37
+19:09:42.785 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35927]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-delivered-5-38
+19:09:42.785 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35927]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-5-39
+19:09:42.785 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35927]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-received-5-40
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,786 INFO [qpid.message.connection.open] [con:5(/127.0.0.1:35927)] CON-1001 : Open : Protocol Version : 9-1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,788 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,788 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] SASL Mechanism selected: PLAIN
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,788 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Locale selected: en_US
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,789 INFO [qpid.message.connection.open] [con:5(/127.0.0.1:35927)] CON-1001 : Open : Client ID : null : Protocol Version : 0-91 : Client Version : 3.6.1 : Client Product : RabbitMQ
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,789 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Connected as: Subject:
+	Principal: guest
+
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,789 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_TUNED from old state CONNECTION_NOT_STARTED
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,789 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionTuneBodyImpl: channelMax=256, frameMax=65535, heartbeat=0]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,789 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,790 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,791 DEBUG [protocol.v0_8.handler.ConnectionTuneOkMethodHandler] [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,791 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_OPENED from old state CONNECTION_NOT_TUNED
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,791 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,791 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,792 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_OPEN from old state CONNECTION_NOT_OPENED
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,792 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionOpenOkBodyImpl: knownHosts=/]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,792 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+19:09:42.792 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | RabbitMQ Client connected to:
+localhost
+5673
+/
+guest
+guest
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,793 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=test, consumerTag=null, noLocal=false, noAck=false, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,793 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(939333244)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,793 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'test' for:null nowait:false args:null
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,794 INFO [qpid.message.subscription.create] [con:4(guest@/127.0.0.1:35926/default)/ch:1] [sub:4(vh(/default)/qu(test)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,798 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,799 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 6 ms. Frame: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=test, consumerTag=null, noLocal=false, noAck=false, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,799 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(939333244)
+19:09:42.800 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | Consuming messages in test
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,801 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,801 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,802 INFO [qpid.message.channel.create] [con:4(guest@/127.0.0.1:35926/default)/ch:2] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,802 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[115, 31, 108, 124, 16, -33, 67, 105, -92, 100, -81, 3, 25, 60, -5, 44]]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,802 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,802 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,803 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,803 INFO [qpid.message.channel.prefetch_size] [con:4(guest@/127.0.0.1:35926/default)/ch:2] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,803 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,803 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,803 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,804 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=error, passive=false, durable=false, exclusive=false, autoDelete=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 INFO [qpid.message.queue.created] [con:4(guest@/127.0.0.1:35926/default)/ch:2] [vh(/default)/qu(error)] QUE-1001 : Create : Transient
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [QueueDeclareOkBodyImpl: queue=error, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue error declared successfully
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 2, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=error, passive=false, durable=false, exclusive=false, autoDelete=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,805 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 2 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 INFO [qpid.message.channel.close] [con:4(guest@/127.0.0.1:35926/default)/ch:2] [con:4(guest@/127.0.0.1:35926/default)/ch:2] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35926(guest):2]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,806 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1678008489)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,807 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,807 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,807 INFO [qpid.message.channel.create] [con:4(guest@/127.0.0.1:35926/default)/ch:2] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,808 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-30, 64, 62, -38, 43, 8, 76, 93, -71, -99, -4, 69, -19, -76, -116, -127]]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,808 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,808 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,808 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1128791185)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,809 INFO [qpid.message.channel.prefetch_size] [con:4(guest@/127.0.0.1:35926/default)/ch:2] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,809 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,809 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 2, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,809 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1128791185)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,811 INFO [qpid.message.connection.open] [con:6(/127.0.0.1:35928)] CON-1001 : Open
+19:09:42.811 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35928]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-6-41
+19:09:42.812 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35928]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-delivered-6-42
+19:09:42.812 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35928]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-6-43
+19:09:42.812 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35928]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-received-6-44
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,812 INFO [qpid.message.connection.open] [con:6(/127.0.0.1:35928)] CON-1001 : Open : Protocol Version : 9-1
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,814 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,814 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] SASL Mechanism selected: PLAIN
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,814 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Locale selected: en_US
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,814 INFO [qpid.message.connection.open] [con:6(/127.0.0.1:35928)] CON-1001 : Open : Client ID : null : Protocol Version : 0-91 : Client Version : 3.6.1 : Client Product : RabbitMQ
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,815 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Connected as: Subject:
+	Principal: guest
+
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,815 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_TUNED from old state CONNECTION_NOT_STARTED
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,815 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionTuneBodyImpl: channelMax=256, frameMax=65535, heartbeat=0]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,815 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,816 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,816 DEBUG [protocol.v0_8.handler.ConnectionTuneOkMethodHandler] [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,816 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_OPENED from old state CONNECTION_NOT_TUNED
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,816 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,816 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,817 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_OPEN from old state CONNECTION_NOT_OPENED
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,817 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionOpenOkBodyImpl: knownHosts=/]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,817 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+19:09:42.817 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | RabbitMQ Client connected to:
+localhost
+5673
+/
+guest
+guest
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,817 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=error, consumerTag=null, noLocal=false, noAck=false, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,818 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1128791185)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,818 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'error' for:null nowait:false args:null
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,818 INFO [qpid.message.subscription.create] [con:4(guest@/127.0.0.1:35926/default)/ch:2] [sub:5(vh(/default)/qu(error)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,819 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 2, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,819 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 2, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=error, consumerTag=null, noLocal=false, noAck=false, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,819 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1128791185)
+19:09:42.820 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | Consuming messages in error
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,822 INFO [qpid.message.connection.open] [con:7(/127.0.0.1:35929)] CON-1001 : Open
+19:09:42.822 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35929]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-delivered-7-45
+19:09:42.822 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35929]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-delivered-7-46
+19:09:42.822 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35929]?[0;39m StatisticsCounter              | Resetting statistics for counter: messages-received-7-47
+19:09:42.822 ?[34mINFO ?[0;39m ?[35m[IoReceiver - /127.0.0.1:35929]?[0;39m StatisticsCounter              | Resetting statistics for counter: data-received-7-48
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,822 INFO [qpid.message.connection.open] [con:7(/127.0.0.1:35929)] CON-1001 : Open : Protocol Version : 9-1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] SASL Mechanism selected: PLAIN
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Locale selected: en_US
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 INFO [qpid.message.connection.open] [con:7(/127.0.0.1:35929)] CON-1001 : Open : Client ID : null : Protocol Version : 0-91 : Client Version : 3.6.1 : Client Product : RabbitMQ
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 INFO [protocol.v0_8.handler.ConnectionStartOkMethodHandler] Connected as: Subject:
+	Principal: guest
+
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_TUNED from old state CONNECTION_NOT_STARTED
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,824 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionTuneBodyImpl: channelMax=256, frameMax=65535, heartbeat=0]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionStartOkBodyImpl: clientProperties={product=[LONG_STRING: RabbitMQ], copyright=[LONG_STRING: Copyright (c) 2007-2016 Pivotal Software, Inc.], capabilities=[FIELD_TABLE: {exchange_exchange_bindings=[BOOLEAN: true], connection.blocked=[BOOLEAN: true], authentication_failure_close=[BOOLEAN: true], basic.nack=[BOOLEAN: true], publisher_confirms=[BOOLEAN: true], consumer_cancel_notify=[BOOLEAN: true]}], information=[LONG_STRING: Licensed under the MPL. See http://www.rabbitmq.com/], version=[LONG_STRING: 3.6.1], platform=[LONG_STRING: Java]}, mechanism=PLAIN, response=[0, 103, 117, 101, 115, 116, 0, 103, 117, 101, 115, 116], locale=en_US]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [protocol.v0_8.handler.ConnectionTuneOkMethodHandler] [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_NOT_OPENED from old state CONNECTION_NOT_TUNED
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionTuneOkBodyImpl: channelMax=256, frameMax=65535, heartbeat=60]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,825 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,826 DEBUG [protocol.v0_8.state.AMQStateManager] State changing to CONNECTION_OPEN from old state CONNECTION_NOT_OPENED
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,826 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 0, bodyFrame: [ConnectionOpenOkBodyImpl: knownHosts=/]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,826 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 0, bodyFrame: [ConnectionOpenBodyImpl: virtualHost=/, capabilities=null, insist=false]
+19:09:42.826 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m RabbitClient                   | RabbitMQ Client connected to:
+localhost
+5673
+/
+guest
+guest
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,826 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,827 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,827 INFO [qpid.message.channel.create] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,827 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[122, -82, 60, 50, -60, -37, 78, -25, -114, 86, 39, 96, -80, -15, 9, -27]]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,827 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 INFO [qpid.message.channel.prefetch_size] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,828 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,829 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 INFO [qpid.message.queue.created] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [vh(/default)/qu(tmp_b4464283-cba2-4ed2-8f68-2e6811578594)] QUE-1001 : Create : AutoDelete Transient
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [QueueDeclareOkBodyImpl: queue=tmp_b4464283-cba2-4ed2-8f68-2e6811578594, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue tmp_b4464283-cba2-4ed2-8f68-2e6811578594 declared successfully
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 3 ms. Frame: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,832 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,833 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=test, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,833 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,833 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=test, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,833 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_b4464283-cba2-4ed2-8f68-2e6811578594,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,833 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,834 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_b4464283-cba2-4ed2-8f68-2e6811578594,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,834 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@4278aad2
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,834 DEBUG [server.protocol.v0_8.AMQChannel] 1(1179068098) content body received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,836 DEBUG [server.protocol.v0_8.AMQChannel] 1(939333244) Adding unacked message(Message[(HC:125447417 ID:1 Ref:3)] DT:1) for QueueConsumerImpl [id=18f010aa-85d7-4bfa-bdfe-32b9f90b8386, name=sgen_1] on test
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,836 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=test]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_b4464283-cba2-4ed2-8f68-2e6811578594,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@49397065, channel=1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,836 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@4278aad2
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,836 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,837 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_b4464283-cba2-4ed2-8f68-2e6811578594, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,837 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,837 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'tmp_b4464283-cba2-4ed2-8f68-2e6811578594' for:null nowait:false args:null
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,838 INFO [qpid.message.subscription.create] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [sub:6(vh(/default)/qu(tmp_b4464283-cba2-4ed2-8f68-2e6811578594)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,844 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,844 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 7 ms. Frame: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_b4464283-cba2-4ed2-8f68-2e6811578594, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,844 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,857 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,857 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,858 INFO [qpid.message.channel.create] [con:5(guest@/127.0.0.1:35927/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,858 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[93, -17, 96, 22, 33, -1, 74, 7, -68, 95, -79, 127, 37, -43, 94, 55]]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,858 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,859 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,859 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(857621002)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,860 INFO [qpid.message.channel.prefetch_size] [con:5(guest@/127.0.0.1:35927/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,860 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,860 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,860 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(857621002)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,860 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_b4464283-cba2-4ed2-8f68-2e6811578594, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_b4464283-cba2-4ed2-8f68-2e6811578594, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@3721d0b1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,861 DEBUG [server.protocol.v0_8.AMQChannel] 1(857621002) content body received on channel 1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,862 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=tmp_b4464283-cba2-4ed2-8f68-2e6811578594]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=17, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = aa7ab19f-bfd4-488b-a088-610f085a2a24,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@72234831, channel=1]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,863 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@3721d0b1
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,863 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(857621002)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,864 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,864 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,864 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(857621002)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,864 INFO [qpid.message.channel.close] [con:5(guest@/127.0.0.1:35927/default)/ch:1] [con:5(guest@/127.0.0.1:35927/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,864 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,865 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35927(guest):1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,865 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,865 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,865 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,865 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35927 2016-05-03 19:09:42,866 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(857621002)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,866 INFO [qpid.message.channel.close] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,866 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,866 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35929(guest):1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,866 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35929(guest):1]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,867 DEBUG [protocol.v0_8.handler.BasicAckMethodHandler] Ack(Tag:1:Mult:false) received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,867 INFO [qpid.message.subscription.close] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [sub:6(vh(/default)/qu(tmp_b4464283-cba2-4ed2-8f68-2e6811578594)] SUB-1002 : Close
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,867 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,867 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(939333244)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,867 INFO [qpid.server.queue.AbstractQueue] Auto-deleting queue:tmp_b4464283-cba2-4ed2-8f68-2e6811578594
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,868 INFO [qpid.message.queue.deleted] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [vh(/default)/qu(tmp_b4464283-cba2-4ed2-8f68-2e6811578594)] QUE-1002 : Deleted
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,883 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,883 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 19 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,883 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(1179068098)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,883 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,883 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,884 INFO [qpid.message.channel.create] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,884 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-83, 69, 121, 84, -57, 84, 73, 25, -99, -122, 9, -127, 88, -83, 9, -80]]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,884 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,884 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,884 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,885 INFO [qpid.message.channel.prefetch_size] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,885 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,885 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,885 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,885 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,886 INFO [qpid.message.queue.created] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [vh(/default)/qu(tmp_4a625c86-79b6-4eed-8767-d61ae0115399)] QUE-1001 : Create : AutoDelete Transient
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,886 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,886 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [QueueDeclareOkBodyImpl: queue=tmp_4a625c86-79b6-4eed-8767-d61ae0115399, messageCount=0, consumerCount=0]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,886 INFO [protocol.v0_8.handler.QueueDeclareHandler] Queue tmp_4a625c86-79b6-4eed-8767-d61ae0115399 declared successfully
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,887 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: [QueueDeclareBodyImpl: ticket=0, queue=null, passive=false, durable=false, exclusive=true, autoDelete=true, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,887 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,887 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=error, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,887 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=error, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_4a625c86-79b6-4eed-8767-d61ae0115399,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_4a625c86-79b6-4eed-8767-d61ae0115399,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@6755d3b6
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,888 DEBUG [server.protocol.v0_8.AMQChannel] 1(832449688) content body received on channel 1
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,889 DEBUG [server.protocol.v0_8.AMQChannel] 2(1128791185) Adding unacked message(Message[(HC:1710042465 ID:3 Ref:3)] DT:1) for QueueConsumerImpl [id=8b622dcb-ef71-4c17-a086-79c69f0f9d15, name=sgen_1] on error
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,890 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=error]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=13, properties=reply-to = tmp_4a625c86-79b6-4eed-8767-d61ae0115399,propertyFlags = 17920,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@6aa0edf4, channel=2]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,890 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@6755d3b6
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,890 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,890 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_4a625c86-79b6-4eed-8767-d61ae0115399, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,891 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,891 DEBUG [protocol.v0_8.handler.BasicConsumeMethodHandler] BasicConsume: from 'tmp_4a625c86-79b6-4eed-8767-d61ae0115399' for:null nowait:false args:null
+19:09:42.891 ?[31mWARN ?[0;39m ?[35m[rabbitmq-1]?[0;39m Handler                        | Error processing message
+java.lang.RuntimeException: Error with: 1462295382826
+	at co.there4.hexagon.messaging.RabbitConnectionTest$startConsumer$2.invoke(RabbitConnectionTest.kt:33)
+	at co.there4.hexagon.messaging.RabbitConnectionTest$startConsumer$2.invoke(RabbitConnectionTest.kt:9)
+	at co.there4.hexagon.messaging.Handler.handleMessage(Handler.kt:63)
+	at co.there4.hexagon.messaging.Handler.access$handleMessage(Handler.kt:11)
+	at co.there4.hexagon.messaging.Handler$handleDelivery$1.run(Handler.kt:44)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,892 INFO [qpid.message.subscription.create] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [sub:7(vh(/default)/qu(tmp_4a625c86-79b6-4eed-8767-d61ae0115399)] SUB-1001 : Create
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,893 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicConsumeOkBodyImpl: consumerTag=sgen_1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,894 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 4 ms. Frame: Frame channelId: 1, bodyFrame: [BasicConsumeBodyImpl: ticket=0, queue=tmp_4a625c86-79b6-4eed-8767-d61ae0115399, consumerTag=null, noLocal=false, noAck=true, exclusive=false, nowait=false, arguments=null]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,894 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,895 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,895 INFO [protocol.v0_8.handler.ChannelOpenHandler] Connecting to: default
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,896 INFO [qpid.message.channel.create] [con:6(guest@/127.0.0.1:35928/default)/ch:1] CHN-1001 : Create
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,896 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelOpenOkBodyImpl: channelId=[-121, -96, -18, 114, 73, -102, 76, -18, -104, 35, -74, -84, 62, 89, 57, 5]]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,896 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelOpenBodyImpl: outOfBand=null]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,897 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,897 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(451232619)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,898 INFO [qpid.message.channel.prefetch_size] [con:6(guest@/127.0.0.1:35928/default)/ch:1] CHN-1004 : Prefetch Size (bytes) 0 : Count 8
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,898 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [BasicQosOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,898 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicQosBodyImpl: prefetchSize=0, prefetchCount=8, global=false]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,898 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(451232619)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,898 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_4a625c86-79b6-4eed-8767-d61ae0115399, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [protocol.v0_8.handler.BasicPublishMethodHandler] Publish received on channel 1
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [BasicPublishBodyImpl: ticket=0, exchange=null, routingKey=tmp_4a625c86-79b6-4eed-8767-d61ae0115399, mandatory=false, immediate=false]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQChannel] Content header received on channel 1
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 0 ms. Frame: Frame channelId: 1, bodyFrame: ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@1edad4ef
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,899 DEBUG [server.protocol.v0_8.AMQChannel] 1(451232619) content body received on channel 1
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,901 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: [CompositeAMQBodyBlock methodBody=[EncodedDeliveryBody underlyingBody: [BasicDeliverBodyImpl: consumerTag=sgen_1, deliveryTag=1, redelivered=false, exchange=null, routingKey=tmp_4a625c86-79b6-4eed-8767-d61ae0115399]], headerBody=ContentHeaderBody{classId=60, weight=0, bodySize=25, properties=reply-to = null,propertyFlags = 17408,ApplicationID = null,ClusterID = null,UserId = null,JMSMessageID = null,JMSCorrelationID = 59a05407-2c65-49be-a1a1-5d2ad326c2bf,JMSDeliveryMode = 0,JMSExpiration = 0,JMSPriority = 0,JMSTimestamp = 0,JMSType = null}, contentBody=org.apache.qpid.server.protocol.v0_8.output.ProtocolOutputConverterImpl$MessageContentSourceBody@5bd84950, channel=1]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,901 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 2 ms. Frame: Frame channelId: 1, bodyFrame: org.apache.qpid.framing.ContentBody@1edad4ef
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,901 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(451232619)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,901 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,901 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(451232619)
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 INFO [qpid.message.channel.close] [con:6(guest@/127.0.0.1:35928/default)/ch:1] [con:6(guest@/127.0.0.1:35928/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 INFO [server.protocol.v0_8.AMQChannel] No consumers to unsubscribe on channel [/127.0.0.1:35928(guest):1]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 1 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35928 2016-05-03 19:09:42,902 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(451232619)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,902 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,903 DEBUG [server.protocol.v0_8.AMQProtocolEngine] RECV: Frame channelId: 2, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,906 INFO [protocol.v0_8.handler.ChannelCloseHandler] Received channel close for id 1 citing class 0 and method 0
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,906 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,906 DEBUG [protocol.v0_8.handler.BasicAckMethodHandler] Ack(Tag:1:Mult:false) received on channel 2
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,906 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 3 ms. Frame: Frame channelId: 2, bodyFrame: [BasicAckBodyImpl: deliveryTag=1, multiple=false]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [qpid.message.channel.close] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [con:7(guest@/127.0.0.1:35929/default)/ch:1] CHN-1003 : Close
+IoReceiver - /127.0.0.1:35926 2016-05-03 19:09:42,907 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 2(1128791185)
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing all consumers on channel [/127.0.0.1:35929(guest):1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [server.protocol.v0_8.AMQChannel] Unsubscribing consumer 'sgen_1' on channel [/127.0.0.1:35929(guest):1]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [qpid.message.subscription.close] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [sub:7(vh(/default)/qu(tmp_4a625c86-79b6-4eed-8767-d61ae0115399)] SUB-1002 : Close
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [qpid.server.queue.AbstractQueue] Auto-deleting queue:tmp_4a625c86-79b6-4eed-8767-d61ae0115399
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 INFO [qpid.message.queue.deleted] [con:7(guest@/127.0.0.1:35929/default)/ch:1] [vh(/default)/qu(tmp_4a625c86-79b6-4eed-8767-d61ae0115399)] QUE-1002 : Deleted
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 DEBUG [server.protocol.v0_8.AMQProtocolEngine] SEND: Frame channelId: 1, bodyFrame: [ChannelCloseOkBodyImpl: ]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 DEBUG [server.protocol.v0_8.AMQProtocolEngine] Frame handled in 5 ms. Frame: Frame channelId: 1, bodyFrame: [ChannelCloseBodyImpl: replyCode=200, replyText=OK, classId=0, methodId=0]
+IoReceiver - /127.0.0.1:35929 2016-05-03 19:09:42,907 DEBUG [server.protocol.v0_8.AMQChannel] sync() called on channel 1(832449688)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>co.there4.hexagon.util.ProgramException: Error retrying 3 times (50 ms)
+	at co.there4.hexagon.util.UtilPackageKt.retry(UtilPackage.kt:78)
+	at co.there4.hexagon.messaging.RabbitClient.createChannel(RabbitClient.kt:126)
+	at co.there4.hexagon.messaging.RabbitClient.withChannel(RabbitClient.kt:139)
+	at co.there4.hexagon.messaging.RabbitClient.call(RabbitClient.kt:189)
+	at co.there4.hexagon.messaging.RabbitConnectionTest.call_return_expected_results(RabbitConnectionTest.kt:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:646)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:823)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1131)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at org.testng.TestRunner.privateRun(TestRunner.java:778)
+	at org.testng.TestRunner.run(TestRunner.java:632)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1225)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1150)
+	at org.testng.TestNG.runSuites(TestNG.java:1075)
+	at org.testng.TestNG.run(TestNG.java:1047)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:133)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:83)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:120)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:364)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)
+	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.rabbitmq.client.impl.FrameHandlerFactory.create(FrameHandlerFactory.java:32)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:714)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:760)
+	at co.there4.hexagon.messaging.RabbitClient$createChannel$1.invoke(RabbitClient.kt:128)
+	at co.there4.hexagon.messaging.RabbitClient$createChannel$1.invoke(RabbitClient.kt:22)
+	at co.there4.hexagon.util.UtilPackageKt.retry(UtilPackage.kt:70)
+	... 51 more
+Logging configuration error: unable to read file /home/jam/Projects/jamming/hexagon/etc/log4j.xml
+Using the fallback internal fallback-log4j.properties configuration
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 2.13</a> at May 3, 2016 7:09:48 PM</p>
+</div>
+</div>
+</body>
+</html>

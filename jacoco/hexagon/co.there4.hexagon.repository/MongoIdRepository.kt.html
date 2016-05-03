@@ -1,78 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MongoIdRepository.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.repository</a> &gt; <span class="el_source">MongoIdRepository.kt</span></div><h1>MongoIdRepository.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.repository
 
+import co.there4.hexagon.events.EventManager
+import co.there4.hexagon.repository.RepositoryEventAction.DELETED
 import com.mongodb.client.model.Filters.*
 import com.mongodb.client.model.Filters.`in` as _in
 import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.IndexOptions
 import org.bson.Document
 import kotlin.reflect.KClass
 
-<span class="fc" id="L10">class MongoIdRepository&lt;T : Any, K : Any&gt; (</span>
+<span class="fc" id="L13">class MongoIdRepository&lt;T : Any, K : Any&gt; (</span>
     type: KClass&lt;T&gt;,
     collection: MongoCollection&lt;Document&gt;,
-<span class="nc" id="L13">    val keyName: String,</span>
-<span class="nc" id="L14">    val keyType: KClass&lt;K&gt;,</span>
-<span class="nc" id="L15">    val keySupplier: (T) -&gt; K,</span>
-    indexOrder: Int) :
-<span class="fc" id="L17">    MongoRepository&lt;T&gt; (type, collection) {</span>
+    private val keyName: String,
+<span class="fc" id="L17">    val keyType: KClass&lt;K&gt;,</span>
+    private val keySupplier: (T) -&gt; K,
+    publishEvents: Boolean = false,
+    indexOrder: Int = 1) :
+<span class="fc" id="L21">    MongoRepository&lt;T&gt; (type, collection, publishEvents) {</span>
 
-<span class="fc" id="L19">    constructor (</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    constructor (</span>
         type: KClass&lt;T&gt;,
-        collection: MongoCollection&lt;Document&gt;,
+        database: MongoDatabase,
         keyName: String,
         keyType: KClass&lt;K&gt;,
-        keySupplier: (T) -&gt; K) :
-<span class="fc" id="L25">            this (type, collection, keyName, keyType, keySupplier, 1)</span>
+        keySupplier: (T) -&gt; K,
+        publishEvents: Boolean = false,
+        indexOrder: Int = 1) :
+<span class="fc" id="L31">        this (</span>
+            type,
+            mongoCollection(type.simpleName ?: throw IllegalArgumentException (), database),
+            keyName,
+            keyType,
+            keySupplier,
+            publishEvents,
+            indexOrder
+        )
 
     init {
-<span class="fc" id="L28">        val indexOptions = IndexOptions ().unique (true).background (true)</span>
-<span class="fc" id="L29">        createIndex (Document (keyName, indexOrder), indexOptions)</span>
+<span class="fc" id="L42">        val indexOptions = IndexOptions ().unique (true).background (true)</span>
+<span class="fc" id="L43">        createIndex (Document (keyName, indexOrder), indexOptions)</span>
     }
 
+    protected fun publishKey (source: K, action: RepositoryEventAction) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (publishEvents)</span>
+<span class="fc" id="L48">            EventManager.publish(RepositoryIdEvent (type, source, action))</span>
+<span class="fc" id="L49">    }</span>
+
+    protected fun publishKey (sources: List&lt;K&gt;, action: RepositoryEventAction) {
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (publishEvents)</span>
+<span class="fc" id="L53">            sources.forEach { publishKey(it, action) }</span>
+<span class="fc" id="L54">    }</span>
+
     fun deleteId (documentId: K) {
-<span class="fc" id="L33">        deleteOne (eq (keyName, documentId))</span>
-<span class="fc" id="L34">    }</span>
-
-    fun deleteIds (vararg documentId: K) {
-<span class="nc" id="L37">        deleteIds (documentId.toList ())</span>
-<span class="nc" id="L38">    }</span>
-
-    fun deleteIds (documentIds: List&lt;K&gt;) {
-<span class="fc" id="L41">        deleteMany (_in (keyName, documentIds))</span>
-<span class="fc" id="L42">    }</span>
-
-    fun deleteObject (documentId: T) {
-<span class="fc" id="L45">        deleteOne (eq (keyName, keySupplier(documentId)))</span>
-<span class="fc" id="L46">    }</span>
-
-    fun deleteObjects (vararg documentId: T) {
-<span class="nc" id="L49">        deleteObjects (documentId.toList())</span>
-<span class="nc" id="L50">    }</span>
-
-    fun deleteObjects (documentIds: List&lt;T&gt;) {
-<span class="fc" id="L53">        val ids = documentIds.map { keySupplier(it) }</span>
-<span class="fc" id="L54">        deleteMany (_in (keyName, ids))</span>
-<span class="fc" id="L55">    }</span>
-
-    fun replaceObject (document: T) {
-<span class="fc" id="L58">        replaceOneObject (eq (keyName, keySupplier (document)), document)</span>
+<span class="fc" id="L57">        deleteOne (eq (keyName, documentId))</span>
+<span class="fc" id="L58">        publishKey(documentId, DELETED)</span>
 <span class="fc" id="L59">    }</span>
 
+    fun deleteIds (vararg documentId: K) {
+<span class="fc" id="L62">        deleteIds (documentId.toList ())</span>
+<span class="fc" id="L63">    }</span>
+
+    fun deleteIds (documentIds: List&lt;K&gt;) {
+<span class="fc" id="L66">        deleteMany (_in (keyName, documentIds))</span>
+<span class="fc" id="L67">        publishKey(documentIds, DELETED)</span>
+<span class="fc" id="L68">    }</span>
+
+    fun deleteObject (documentId: T) {
+<span class="fc" id="L71">        deleteOne (eq (keyName, keySupplier(documentId)))</span>
+<span class="fc" id="L72">        publish(documentId, DELETED)</span>
+<span class="fc" id="L73">    }</span>
+
+    fun deleteObjects (vararg documentId: T) {
+<span class="fc" id="L76">        deleteObjects (documentId.toList())</span>
+<span class="fc" id="L77">    }</span>
+
+    fun deleteObjects (documentIds: List&lt;T&gt;) {
+<span class="fc" id="L80">        val ids = documentIds.map { keySupplier(it) }</span>
+<span class="fc" id="L81">        deleteMany (_in (keyName, ids))</span>
+<span class="fc" id="L82">        publish(documentIds, DELETED)</span>
+<span class="fc" id="L83">    }</span>
+
+    fun replaceObject (document: T) {
+<span class="fc" id="L86">        replaceOneObject (eq (keyName, keySupplier (document)), document)</span>
+<span class="fc" id="L87">    }</span>
+
     fun replaceObjects (vararg document: T) {
-<span class="nc" id="L62">        replaceObjects (document.toList())</span>
-<span class="nc" id="L63">    }</span>
+<span class="fc" id="L90">        replaceObjects (document.toList())</span>
+<span class="fc" id="L91">    }</span>
 
     fun replaceObjects (document: List&lt;T&gt;) {
-<span class="fc" id="L66">        document.forEach { replaceObject(it) }</span>
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L94">        document.forEach { replaceObject(it) }</span>
+<span class="fc" id="L95">    }</span>
 
-<span class="nc" id="L69">    fun find (vararg documentId: K) = find (documentId.toList ())</span>
+<span class="fc" id="L97">    fun find (vararg documentId: K) = find (documentId.toList ())</span>
 
     fun find (documentId: List&lt;K&gt;) =
-<span class="fc" id="L72">        findObjects (_in (keyName, documentId)).toList()</span>
+<span class="fc" id="L100">        findObjects (_in (keyName, documentId)).toList()</span>
 
-<span class="fc" id="L74">    fun find (documentId: K) = findObjects (eq (keyName, documentId)).first ()</span>
+<span class="fc" id="L102">    fun find (documentId: K) = findObjects (eq (keyName, documentId)).first ()</span>
 
-<span class="fc" id="L76">    fun getKey (obj: T): K = keySupplier(obj)</span>
+<span class="fc" id="L104">    fun getKey (obj: T): K = keySupplier(obj)</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

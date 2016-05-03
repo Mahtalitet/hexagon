@@ -1,68 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MongoRepository.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.repository</a> &gt; <span class="el_source">MongoRepository.kt</span></div><h1>MongoRepository.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.repository
 
-import co.there4.hexagon.serialization.serializer
-import co.there4.hexagon.serialization.serializer
+import co.there4.hexagon.events.EventManager
+import co.there4.hexagon.repository.RepositoryEventAction.*
+import co.there4.hexagon.serialization.convertToMap
+import co.there4.hexagon.serialization.convertToObject
+import co.there4.hexagon.util.CompanionLogger
 import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
 import com.mongodb.client.MongoIterable
 import com.mongodb.client.model.FindOneAndReplaceOptions
 import com.mongodb.client.model.InsertManyOptions
 import com.mongodb.client.model.InsertOneOptions
 import com.mongodb.client.model.UpdateOptions
-import com.mongodb.client.result.DeleteResult
 import com.mongodb.client.result.UpdateResult
 import org.bson.Document
 import org.bson.conversions.Bson
 import kotlin.reflect.KClass
 
-<span class="pc" id="L17">open class MongoRepository &lt;T : Any&gt; (val type: KClass&lt;T&gt;, collection: MongoCollection&lt;Document&gt;) :</span>
-<span class="fc" id="L18">    MongoCollection&lt;Document&gt; by collection {</span>
+<span class="fc" id="L20">open class MongoRepository &lt;T : Any&gt; (</span>
+<span class="fc" id="L21">    val type: KClass&lt;T&gt;,</span>
+    collection: MongoCollection&lt;Document&gt;,
+<span class="fc" id="L23">    protected val publishEvents: Boolean = false) :</span>
+<span class="fc" id="L24">    MongoCollection&lt;Document&gt; by collection {</span>
 
+<span class="fc" id="L26">    companion object : CompanionLogger (MongoRepository::class)</span>
+
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    constructor (type: KClass&lt;T&gt;, database: MongoDatabase, publishEvents: Boolean = false) :</span>
+<span class="fc" id="L29">        this (</span>
+            type,
+            mongoCollection(type.simpleName ?: throw IllegalArgumentException (), database),
+            publishEvents
+        )
+
+
+    protected fun publish (source: T, action: RepositoryEventAction) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (publishEvents)</span>
+<span class="fc" id="L38">            EventManager.publish(RepositoryEvent (source, action))</span>
+<span class="fc" id="L39">    }</span>
+
+    protected fun publish (sources: List&lt;T&gt;, action: RepositoryEventAction) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (publishEvents)</span>
+<span class="fc" id="L43">            sources.forEach { publish(it, action) }</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * TODO Publish error event (try-catch with throw)
+     */
     fun insertOneObject (document: T) {
-<span class="fc" id="L21">        insertOne (map (document))</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L50">        insertOne (map (document))</span>
+<span class="fc" id="L51">        publish(document, INSERTED)</span>
+<span class="fc" id="L52">    }</span>
 
     fun insertOneObject (document: T, options: InsertOneOptions) {
-<span class="fc" id="L25">        insertOne (map (document), options)</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L55">        insertOne (map (document), options)</span>
+<span class="fc" id="L56">        publish(document, INSERTED)</span>
+<span class="fc" id="L57">    }</span>
 
     fun insertManyObjects (documents: List&lt;T&gt;) {
-<span class="fc" id="L29">        insertMany (map (documents))</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L60">        insertMany (map (documents))</span>
+<span class="fc" id="L61">        publish(documents, INSERTED)</span>
+<span class="fc" id="L62">    }</span>
 
     fun insertManyObjects (documents: List&lt;T&gt;, options: InsertManyOptions) {
-<span class="fc" id="L33">        insertMany (map (documents), options)</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L65">        insertMany (map (documents), options)</span>
+<span class="fc" id="L66">        publish(documents, INSERTED)</span>
+<span class="fc" id="L67">    }</span>
 
-    fun replaceOneObject (filter: Bson, replacement: T): UpdateResult =
-<span class="fc" id="L37">        replaceOne (filter, map (replacement))</span>
+    fun replaceOneObject (filter: Bson, replacement: T): UpdateResult {
+<span class="fc" id="L70">        val result = replaceOne (filter, map (replacement))</span>
+<span class="fc" id="L71">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L72">        return result</span>
+    }
 
-    fun replaceOneObject (filter: Bson, replacement: T, options: UpdateOptions): UpdateResult =
-<span class="fc" id="L40">        replaceOne (filter, map (replacement), options)</span>
+    fun replaceOneObject (filter: Bson, replacement: T, options: UpdateOptions): UpdateResult {
+<span class="fc" id="L76">        val result = replaceOne (filter, map (replacement), options)</span>
+<span class="fc" id="L77">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L78">        return result</span>
+    }
 
-    fun findOneObjectAndReplace (filter: Bson, replacement: T): T =
-<span class="fc" id="L43">        unmap (findOneAndReplace (filter, map (replacement)))</span>
+    fun findOneObjectAndReplace (filter: Bson, replacement: T): T {
+<span class="fc" id="L82">        val result = unmap (findOneAndReplace (filter, map (replacement)))</span>
+<span class="fc" id="L83">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L84">        return result</span>
+    }
 
-    fun findOneObjectAndReplace (filter: Bson, replacement: T, options: FindOneAndReplaceOptions): T =
-<span class="fc" id="L46">        unmap (findOneAndReplace (filter, map (replacement), options))</span>
+    fun findOneObjectAndReplace (
+        filter: Bson, replacement: T, options: FindOneAndReplaceOptions): T {
 
-<span class="fc" id="L48">    fun findObjects (): MongoIterable&lt;T&gt; = find ().map { unmap(it) }</span>
+<span class="fc" id="L90">        val result = unmap (findOneAndReplace (filter, map (replacement), options))</span>
+<span class="fc" id="L91">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L92">        return result</span>
+    }
 
-<span class="fc" id="L50">    fun findObjects (filter: Bson): MongoIterable&lt;T&gt; = find (filter).map { unmap(it) }</span>
+<span class="fc" id="L95">    fun findObjects (): MongoIterable&lt;T&gt; = find ().map { unmap(it) }</span>
 
-<span class="fc" id="L52">    fun deleteAll (): DeleteResult = deleteMany (Document ())</span>
+<span class="fc" id="L97">    fun findObjects (filter: Bson): MongoIterable&lt;T&gt; = find (filter).map { unmap(it) }</span>
 
     private fun map (document: T): Document {
-<span class="fc" id="L55">        return Document (serializer.convertToMap (document).mapKeys {</span>
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            if (key is String)</span>
-<span class="fc" id="L58">                key</span>
+<span class="fc" id="L100">        return Document (document.convertToMap ().mapKeys {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">            if (key is String)</span>
+<span class="fc" id="L103">                key</span>
             else
-<span class="pc" id="L60">                throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
+<span class="pc" id="L105">                throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
         })
     }
 
-<span class="fc" id="L64">    private fun map (documents: List&lt;T&gt;): List&lt;Document&gt; = documents.map { map(it) }</span>
+<span class="fc" id="L109">    private fun map (documents: List&lt;T&gt;): List&lt;Document&gt; = documents.map { map(it) }</span>
 
-<span class="fc" id="L66">    private fun unmap (document: Document): T = serializer.convertToObject (document, type)</span>
+<span class="fc" id="L111">    private fun unmap (document: Document): T = document.convertToObject (type)</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

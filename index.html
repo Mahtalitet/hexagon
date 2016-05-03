@@ -123,7 +123,7 @@
 
     <div class="container">
 
-<h1>HEXAGON 0.0.2</h1>
+<h1>HEXAGON 0.1.0</h1>
 <h3>The atoms of your platform</h3>
 <p>Hexagon is a micro services framework that doesn't follow the flock. It is written in [Kotlin] and<br/>uses [Ratpack], [Jackson], [RabbitMQ] and [MongoDB]. It takes care of:</p>
 <ul>
@@ -137,14 +137,14 @@
   <li>scheduling</li>
 </ul>
 <p>The purpose of the project is to provide a micro services framework with the following priorities<br/>(in order):</p>
-<ul>
+<ol>
   <li>Simple to use</li>
   <li>Easily hackable</li>
   <li>Be small</li>
-</ul>
-<p>DISCLAIMER: The project status right now is alpha... You should not use it in production yet</p>
+</ol>
+<p>DISCLAIMER: The project status right now is alpha. You should not use it in production yet</p>
 <h2>Getting Started</h2>
-<p>Get the dependency from <a href="https://bintray.com/jamming/maven/Hexagon">JCenter</a> (you need to setup de repository first):</p>
+<p>Get the dependency from <a href="https://bintray.com/jamming/maven/Hexagon">JCenter</a> (you need to <a href="https://bintray.com/bintray/jcenter">setup the repository</a> first):</p>
 <p>Gradle:</p>
 <pre><code class="groovy">compile (&#39;co.there4:hexagon:${version}&#39;)
 </code></pre>
@@ -156,17 +156,17 @@
 &lt;/dependency&gt;
 </code></pre>
 <p>Write the code:</p>
-<pre><code class="java">import co.there4.hexagon.rest.ratpack.*
+<pre><code class="java">import co.there4.hexagon.rest.*
 
 fun main(args: Array&lt;String&gt;) {
-    serverStart {
+    applicationStart {
         handlers {
-            get(&quot;hello/:name&quot;) { render(&quot;Hello ${pathTokens[&quot;name&quot;]}!&quot;) }
+            get(&quot;hello/:name&quot;) { ok(&quot;Hello ${pathTokens[&quot;name&quot;]}!&quot;) }
         }
     }
 }
 </code></pre>
-<p>Launch it and view the results at: [http://localhost:5050/hello]</p>
+<p>Launch it and view the results at: <a href="http://localhost:5050/hello">http://localhost:5050/hello</a></p>
 <h2>Examples</h2>
 <p>Check out and try the examples in the source code.</p>
 <!---

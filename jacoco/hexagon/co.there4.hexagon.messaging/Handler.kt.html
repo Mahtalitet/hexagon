@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Handler.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.messaging</a> &gt; <span class="el_source">Handler.kt</span></div><h1>Handler.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.messaging
 
 import co.there4.hexagon.serialization.parse
+import co.there4.hexagon.serialization.serialize
 import co.there4.hexagon.util.*
-import com.rabbitmq.client.AMQP
-import com.rabbitmq.client.Channel
-import com.rabbitmq.client.DefaultConsumer
-import com.rabbitmq.client.Envelope
+import com.rabbitmq.client.*
 import java.nio.charset.Charset
 import java.util.concurrent.ExecutorService
 import kotlin.reflect.KClass
 
-<span class="fc" id="L13">abstract class Handler&lt;T : Any&gt; (</span>
-<span class="pc" id="L14">    channel: Channel, val executor: ExecutorService, val type: KClass&lt;T&gt;):</span>
-<span class="fc" id="L15">    DefaultConsumer (channel) {</span>
+<span class="fc" id="L11">class Handler&lt;T : Any, R : Any&gt; (</span>
+    connectionFactory: ConnectionFactory,
+    channel: Channel,
+    private val executor: ExecutorService,
+<span class="fc" id="L15">    val type: KClass&lt;T&gt;,</span>
+    private val handler: (T) -&gt; R):
+<span class="fc" id="L17">    DefaultConsumer (channel) {</span>
 
-<span class="fc" id="L17">    companion object : CompanionLogger (Handler::class) {</span>
-<span class="fc" id="L18">        val RETRIES = 5</span>
-<span class="fc" id="L19">        val DELAY = 50L</span>
+<span class="fc" id="L19">    companion object : CompanionLogger (Handler::class) {</span>
+<span class="fc" id="L20">        val RETRIES = 5</span>
+<span class="fc" id="L21">        val DELAY = 50L</span>
     }
 
+<span class="fc" id="L24">    private val client: RabbitClient = RabbitClient (connectionFactory)</span>
+
     override fun handleDelivery(
-        consumerTag: String?,
-        envelope: Envelope?,
-        properties: AMQP.BasicProperties?,
-        body: ByteArray?) {
+        consumerTag: String,
+        envelope: Envelope,
+        properties: AMQP.BasicProperties,
+        body: ByteArray) {
 
-<span class="fc" id="L28">        executor.execute {</span>
-<span class="fc" id="L29">            pushTime ()</span>
+<span class="fc" id="L32">        executor.execute {</span>
+<span class="fc" id="L33">            pushTime ()</span>
 
-<span class="pc bpc" id="L31" title="2 of 4 branches missed.">            val encoding = Charset.forName(properties?.contentEncoding) ?: Charset.defaultCharset()</span>
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            val correlationId = properties?.correlationId</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">            val replyTo = properties?.replyTo</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">            val encoding = Charset.forName(properties.contentEncoding) ?: Charset.defaultCharset()</span>
+<span class="fc" id="L36">            val correlationId = properties.correlationId</span>
+<span class="fc" id="L37">            val replyTo = properties.replyTo</span>
 
-<span class="fc" id="L35">            var request: String? = null</span>
+<span class="fc" id="L39">            var request: String? = null</span>
 
-<span class="fc" id="L37">            try {</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                if (body == null)</span>
-<span class="nc" id="L39">                    throw IllegalStateException (&quot;'Null' body&quot;)</span>
-
-<span class="fc" id="L41">                request = String(body, encoding)</span>
-<span class="fc" id="L42">                val input = request.parse(type)</span>
-<span class="fc" id="L43">                handleMessage(input, replyTo, correlationId)</span>
+<span class="fc" id="L41">            try {</span>
+<span class="fc" id="L42">                request = String(body, encoding)</span>
+<span class="fc" id="L43">                val input = request.parse(type)</span>
+<span class="fc" id="L44">                handleMessage(input, replyTo, correlationId)</span>
             }
             catch (ex: Exception) {
-<span class="nc" id="L46">                warn(&quot;Error processing message&quot;, ex)</span>
-<span class="nc" id="L47">                handleError(ex, replyTo, correlationId)</span>
+<span class="fc" id="L47">                warn(&quot;Error processing message&quot;, ex)</span>
+<span class="fc" id="L48">                handleError(ex, replyTo, correlationId)</span>
             }
             finally {
-<span class="pc" id="L50">                val deliveryTag =</span>
-<span class="pc bpc" id="L51" title="5 of 6 branches missed.">                    envelope?.deliveryTag ?: throw IllegalStateException (&quot;No delivery tag&quot;)</span>
-<span class="pc" id="L52">                retry (RETRIES, DELAY) { channel.basicAck (deliveryTag, false) }</span>
-<span class="pc" id="L53">                trace (</span>
+<span class="pc" id="L51">                retry (RETRIES, DELAY) { channel.basicAck (envelope.deliveryTag, false) }</span>
+<span class="pc" id="L52">                trace (</span>
                     &quot;&quot;&quot;
                     ENCODING: ${encoding.name()} CORRELATION ID: $correlationId
                     TIME: ${formatTime(popTime())}
                     BODY: $request&quot;&quot;&quot;
                 )
             }
-<span class="fc" id="L60">        }</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
 
-    protected abstract fun handleMessage(message: T, replyTo: String?, correlationId: String?)
+    private fun handleMessage(message: T, replyTo: String?, correlationId: String?) {
+<span class="fc" id="L63">        val response = handler(message)</span>
 
-    protected open fun handleError(exception: Exception, replyTo: String?, correlationId: String?) {
-        // Empty error handler
-<span class="nc" id="L67">    }</span>
+<span class="fc" id="L65">        val output = when (response) {</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            is String -&gt; response</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            is Int -&gt; response.toString()</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            is Long -&gt; response.toString()</span>
+<span class="fc" id="L69">            else -&gt; response.serialize()</span>
+        }
+
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if (replyTo != null &amp;&amp; correlationId != null)</span>
+<span class="fc" id="L73">            client.publish(&quot;&quot;, replyTo, output, correlationId)</span>
+<span class="fc" id="L74">    }</span>
+
+    private fun handleError(exception: Exception, replyTo: String?, correlationId: String?) {
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        if (replyTo != null &amp;&amp; correlationId != null)</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            client.publish(&quot;&quot;, replyTo, exception.message ?: exception.javaClass.name, correlationId)</span>
+<span class="fc" id="L79">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

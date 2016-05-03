@@ -29,26 +29,15 @@ TODO Ordered shutdown</p>
 </tr>
 </tbody>
 </table>
-<h3>Properties</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<a href="connection-factory.html">connectionFactory</a></td>
-<td>
-<code><span class="keyword">val </span><span class="identifier">connectionFactory</span><span class="symbol">: </span><span class="identifier">ConnectionFactory</span></code></td>
-</tr>
-<tr>
-<td>
-<a href="pool-size.html">poolSize</a></td>
-<td>
-<code><span class="keyword">val </span><span class="identifier">poolSize</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
-</tr>
-</tbody>
-</table>
 <h3>Functions</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<a href="bind-exchange.html">bindExchange</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">bindExchange</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$bindExchange(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/exchange">exchange</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$bindExchange(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/exchangeType">exchangeType</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$bindExchange(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/routingKey">routingKey</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$bindExchange(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/queue">queue</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
 <tr>
 <td>
 <a href="call.html">call</a></td>
@@ -66,7 +55,7 @@ TODO Ordered shutdown</p>
 <a href="consume.html">consume</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">consume</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/exchange">exchange</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/routingKey">routingKey</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/handler">handler</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">consume</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/queueName">queueName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, kotlin.Unit)))/handler">handler</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">consume</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, co.there4.hexagon.messaging.RabbitClient.consume.R)))/queueName">queueName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, co.there4.hexagon.messaging.RabbitClient.consume.R)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$consume(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.consume.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.consume.T, co.there4.hexagon.messaging.RabbitClient.consume.R)))/handler">handler</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -85,12 +74,6 @@ TODO Ordered shutdown</p>
 <a href="publish.html">publish</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">publish</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$publish(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/exchange">exchange</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$publish(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/routingKey">routingKey</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$publish(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$publish(kotlin.String, kotlin.String, kotlin.String, kotlin.String)/correlationId">correlationId</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
-</tr>
-<tr>
-<td>
-<a href="reply.html">reply</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">R</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">reply</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$reply(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.reply.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.reply.T, co.there4.hexagon.messaging.RabbitClient.reply.R)))/queueName">queueName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$reply(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.reply.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.reply.T, co.there4.hexagon.messaging.RabbitClient.reply.R)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.messaging.RabbitClient$reply(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.messaging.RabbitClient.reply.T)), kotlin.Function1((co.there4.hexagon.messaging.RabbitClient.reply.T, co.there4.hexagon.messaging.RabbitClient.reply.R)))/handler">handler</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">T</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -112,13 +95,13 @@ TODO Ordered shutdown</p>
 <td>
 <a href="../../co.there4.hexagon.util/-companion-logger/debug.html">debug</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">debug</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$debug(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">debug</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$debug(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$debug(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 <tr>
 <td>
 <a href="../../co.there4.hexagon.util/-companion-logger/error.html">error</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">error</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">error</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
 <code><span class="keyword">fun </span><span class="identifier">error</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.Throwable)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.Throwable)/exception">exception</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 <tr>
@@ -131,19 +114,19 @@ TODO Ordered shutdown</p>
 <td>
 <a href="../../co.there4.hexagon.util/-companion-logger/info.html">info</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">info</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$info(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">info</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$info(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$info(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 <tr>
 <td>
 <a href="../../co.there4.hexagon.util/-companion-logger/trace.html">trace</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">trace</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$trace(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">trace</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$trace(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$trace(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 <tr>
 <td>
 <a href="../../co.there4.hexagon.util/-companion-logger/warn.html">warn</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">warn</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">warn</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
 <code><span class="keyword">fun </span><span class="identifier">warn</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.Throwable)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.Throwable)/exception">exception</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 </tbody>
@@ -153,15 +136,15 @@ TODO Ordered shutdown</p>
 <tbody>
 <tr>
 <td>
-<a href="../../co.there4.hexagon.serialization/kotlin.-any/serialize.html">serialize</a></td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/convert-to-map.html">convertToMap</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">convertToMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<a href="../../co.there4.hexagon.serialization/kotlin.-any/to-map.html">toMap</a></td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/serialize.html">serialize</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">toMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 </tbody>
 </table>

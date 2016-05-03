@@ -11,14 +11,25 @@ import kotlin.reflect.KClass
 
 <span class="fc" id="L12">    private val logger = getLogger(clazz.java)</span>
 
-<span class="fc" id="L14">    fun trace (message: String) = logger.trace(message)</span>
-<span class="fc" id="L15">    fun debug (message: String) = logger.debug(message)</span>
-<span class="fc" id="L16">    fun info (message: String) = logger.info(message)</span>
-<span class="fc" id="L17">    fun warn (message: String) = logger.warn(message)</span>
-<span class="fc" id="L18">    fun error (message: String) = logger.error(message)</span>
-<span class="fc" id="L19">    fun warn (message: String, exception: Throwable) = logger.warn(message, exception)</span>
-<span class="fc" id="L20">    fun error (message: String, exception: Throwable) = logger.error(message, exception)</span>
+    fun trace (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+<span class="fc" id="L15">        logger.trace(message, arguments)</span>
 
-<span class="fc" id="L22">    fun flare (message: String = &quot;&quot;) = logger.trace(&quot;${FLARE_PREFIX} $message&quot;)</span>
+    fun debug (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+<span class="fc" id="L18">        logger.debug(message, arguments)</span>
+
+    fun info (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+<span class="fc" id="L21">        logger.info(message, arguments)</span>
+
+    fun warn (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+<span class="fc" id="L24">        logger.warn(message, arguments)</span>
+
+    fun error (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+<span class="fc" id="L27">        logger.error(message, arguments)</span>
+
+<span class="fc" id="L29">    fun warn (message: String, exception: Throwable) = logger.warn(message, exception)</span>
+
+<span class="fc" id="L31">    fun error (message: String, exception: Throwable) = logger.error(message, exception)</span>
+
+<span class="fc" id="L33">    fun flare (message: String = &quot;&quot;) = logger.trace(&quot;${FLARE_PREFIX} $message&quot;)</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

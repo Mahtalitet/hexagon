@@ -7,29 +7,40 @@
 <a href="../../index.html">hexagon</a>&nbsp;/&nbsp;<a href="../index.html">co.there4.hexagon.serialization</a>&nbsp;/&nbsp;<a href=".">SerializationFormat</a><br/>
 <br/>
 <h1>SerializationFormat</h1>
-<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">SerializationFormat</span></code><br/>
+<code><span class="keyword">interface </span><span class="identifier">SerializationFormat</span></code><br/>
 <br/>
 <br/>
-<h3>Enum Values</h3>
+<h3>Properties</h3>
 <table>
 <tbody>
 <tr>
 <td>
-<a href="-j-s-o-n.html">JSON</a></td>
+<a href="content-type.html">contentType</a></td>
 <td>
-</td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">contentType</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="parse.html">parse</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">parse</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.serialization.SerializationFormat$parse(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.serialization.SerializationFormat.parse.T)))/text">text</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.serialization.SerializationFormat$parse(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.serialization.SerializationFormat.parse.T)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code></td>
 </tr>
 <tr>
 <td>
-<a href="-y-a-m-l.html">YAML</a></td>
+<a href="parse-list.html">parseList</a></td>
 <td>
-</td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">parseList</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.serialization.SerializationFormat$parseList(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.serialization.SerializationFormat.parseList.T)))/text">text</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.serialization.SerializationFormat$parseList(kotlin.String, kotlin.reflect.KClass((co.there4.hexagon.serialization.SerializationFormat.parseList.T)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<a href="-x-m-l.html">XML</a></td>
+<a href="serialize.html">serialize</a></td>
 <td>
-</td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">serialize</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.serialization.SerializationFormat$serialize(kotlin.Any)/obj">obj</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -38,15 +49,26 @@
 <tbody>
 <tr>
 <td>
-<a href="../kotlin.-any/serialize.html">serialize</a></td>
+<a href="../kotlin.-any/convert-to-map.html">convertToMap</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">convertToMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<a href="../kotlin.-any/to-map.html">toMap</a></td>
+<a href="../kotlin.-any/serialize.html">serialize</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">toMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-jackson-json-format/index.html">JacksonJsonFormat</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">JacksonJsonFormat</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">SerializationFormat</span></code></td>
 </tr>
 </tbody>
 </table>

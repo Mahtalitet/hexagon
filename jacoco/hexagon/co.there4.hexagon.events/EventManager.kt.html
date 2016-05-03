@@ -5,19 +5,21 @@ import co.there4.hexagon.serialization.serialize
 import co.there4.hexagon.util.CompanionLogger
 import kotlin.reflect.KClass
 
-<span class="fc" id="L8">class EventManager {</span>
-<span class="fc" id="L9">    companion object : CompanionLogger (EventManager::class) {</span>
-<span class="fc" id="L10">        val EXCHANGE = &quot;events&quot;</span>
+<span class="fc" id="L8">object EventManager : CompanionLogger (EventManager::class) {</span>
+<span class="fc" id="L9">    private val exchange = &quot;events&quot;</span>
+
+<span class="fc" id="L11">    val client = RabbitClient (&quot;amqp://guest:guest@localhost&quot;)</span>
+
+    init {
+<span class="fc" id="L14">        client.bindExchange(&quot;events&quot;, &quot;topic&quot;, &quot;*.*.*&quot;, &quot;event_pool&quot;)</span>
     }
 
-<span class="fc" id="L13">    val client = RabbitClient (&quot;amqp://guest:guest@localhost&quot;)</span>
-
     fun &lt;T : Event&gt; on(type: KClass&lt;T&gt;, event: String, consumer: (T) -&gt; Unit) {
-<span class="fc" id="L16">        client.consume(EXCHANGE, event, type) { consumer(it) }</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc" id="L18">        client.consume(exchange, event, type) { consumer(it) }</span>
+<span class="fc" id="L19">    }</span>
 
     fun publish(event: Event) {
-<span class="fc" id="L20">        client.publish(EXCHANGE, event.action, event.serialize())</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L22">        client.publish(exchange, event.action, event.serialize())</span>
+<span class="fc" id="L23">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

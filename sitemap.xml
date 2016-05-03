@@ -8,7 +8,15 @@
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
+    <loc>http://there4.co/hexagon/configuration.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
     <loc>http://there4.co/hexagon/contribute.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/events.html</loc>
     <lastmod>2016-04-13</lastmod>
   </url>
   <url>
@@ -20,7 +28,39 @@
     <lastmod>2016-04-13</lastmod>
   </url>
   <url>
+    <loc>http://there4.co/hexagon/logging.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/messaging.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
     <loc>http://there4.co/hexagon/quick_start.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/rest.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/scheduling.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/serialization.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/storage.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/templates.html</loc>
+    <lastmod>2016-04-13</lastmod>
+  </url>
+  <url>
+    <loc>http://there4.co/hexagon/test.html</loc>
     <lastmod>2016-04-13</lastmod>
   </url>
 

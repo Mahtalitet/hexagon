@@ -17,13 +17,20 @@
 <td>
 <a href="-init-.html">&lt;init&gt;</a></td>
 <td>
-<code><span class="identifier">MongoRepository</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)))/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)))/collection">collection</span><span class="symbol">:</span>&nbsp;<span class="identifier">MongoCollection</span><span class="symbol">&lt;</span><span class="identifier">Document</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">MongoRepository</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoDatabase, kotlin.Boolean)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoDatabase, kotlin.Boolean)/database">database</span><span class="symbol">:</span>&nbsp;<span class="identifier">MongoDatabase</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoDatabase, kotlin.Boolean)/publishEvents">publishEvents</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">)</span></code><br/>
+<code><span class="identifier">MongoRepository</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.Boolean)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.Boolean)/collection">collection</span><span class="symbol">:</span>&nbsp;<span class="identifier">MongoCollection</span><span class="symbol">&lt;</span><span class="identifier">Document</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$<init>(kotlin.reflect.KClass((co.there4.hexagon.repository.MongoRepository.T)), com.mongodb.client.MongoCollection((org.bson.Document)), kotlin.Boolean)/publishEvents">publishEvents</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
 <h3>Properties</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<a href="publish-events.html">publishEvents</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">publishEvents</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
 <tr>
 <td>
 <a href="type.html">type</a></td>
@@ -35,12 +42,6 @@
 <h3>Functions</h3>
 <table>
 <tbody>
-<tr>
-<td>
-<a href="delete-all.html">deleteAll</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">deleteAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DeleteResult</span></code></td>
-</tr>
 <tr>
 <td>
 <a href="find-objects.html">findObjects</a></td>
@@ -66,8 +67,15 @@
 <td>
 <a href="insert-one-object.html">insertOneObject</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">insertOneObject</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$insertOneObject(co.there4.hexagon.repository.MongoRepository.T)/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">insertOneObject</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$insertOneObject(co.there4.hexagon.repository.MongoRepository.T)/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><p>TODO Publish error event (try-catch with throw)</p>
 <code><span class="keyword">fun </span><span class="identifier">insertOneObject</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$insertOneObject(co.there4.hexagon.repository.MongoRepository.T, com.mongodb.client.model.InsertOneOptions)/document">document</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$insertOneObject(co.there4.hexagon.repository.MongoRepository.T, com.mongodb.client.model.InsertOneOptions)/options">options</span><span class="symbol">:</span>&nbsp;<span class="identifier">InsertOneOptions</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="publish.html">publish</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">publish</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$publish(co.there4.hexagon.repository.MongoRepository.T, co.there4.hexagon.repository.RepositoryEventAction)/source">source</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$publish(co.there4.hexagon.repository.MongoRepository.T, co.there4.hexagon.repository.RepositoryEventAction)/action">action</span><span class="symbol">:</span>&nbsp;<a href="../-repository-event-action/index.html"><span class="identifier">RepositoryEventAction</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">publish</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$publish(kotlin.collections.List((co.there4.hexagon.repository.MongoRepository.T)), co.there4.hexagon.repository.RepositoryEventAction)/sources">sources</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.repository.MongoRepository$publish(kotlin.collections.List((co.there4.hexagon.repository.MongoRepository.T)), co.there4.hexagon.repository.RepositoryEventAction)/action">action</span><span class="symbol">:</span>&nbsp;<a href="../-repository-event-action/index.html"><span class="identifier">RepositoryEventAction</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -78,20 +86,63 @@
 </tr>
 </tbody>
 </table>
+<h3>Inherited Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/debug.html">debug</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">debug</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$debug(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$debug(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/error.html">error</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">error</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">error</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.Throwable)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$error(kotlin.String, kotlin.Throwable)/exception">exception</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/flare.html">flare</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">flare</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$flare(kotlin.String)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span>&nbsp;<span class="symbol">=</span>&nbsp;""<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/info.html">info</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">info</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$info(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$info(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/trace.html">trace</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">trace</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$trace(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$trace(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../co.there4.hexagon.util/-companion-logger/warn.html">warn</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">warn</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.collections.Map((kotlin.Any, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;mapOf&lt;Any, Any&gt;()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">warn</span><span class="symbol">(</span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.Throwable)/message">message</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="co.there4.hexagon.util.CompanionLogger$warn(kotlin.String, kotlin.Throwable)/exception">exception</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
 <h3>Extension Functions</h3>
 <table>
 <tbody>
 <tr>
 <td>
-<a href="../../co.there4.hexagon.serialization/kotlin.-any/serialize.html">serialize</a></td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/convert-to-map.html">convertToMap</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">convertToMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<a href="../../co.there4.hexagon.serialization/kotlin.-any/to-map.html">toMap</a></td>
+<a href="../../co.there4.hexagon.serialization/kotlin.-any/serialize.html">serialize</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">toMap</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Map</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">Any</span><span class="symbol">.</span><span class="identifier">serialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
 </tr>
 </tbody>
 </table>

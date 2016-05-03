@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.018s</div>
+<div class="counter">0.029s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">messages_are_logged_without_errors</td>
-<td>0.018s</td>
+<td>0.029s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,10 +87,10 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>12:06:54.379 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
-12:06:54.380 ?[31mWARN ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
-12:06:54.380 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
-12:06:54.384 ?[31mWARN ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
+<pre>19:09:29.677 ?[34mINFO ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
+19:09:29.680 ?[31mWARN ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
+19:09:29.680 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
+19:09:29.686 ?[31mWARN ?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
 java.lang.RuntimeException: null
 	at co.there4.hexagon.util.CompanionLoggerTest.messages_are_logged_without_errors(CompanionLoggerTest.kt:18)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -115,9 +115,9 @@ java.lang.RuntimeException: null
 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1150)
 	at org.testng.TestNG.runSuites(TestNG.java:1075)
 	at org.testng.TestNG.run(TestNG.java:1047)
-	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:130)
-	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:80)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:58)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:133)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:83)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -127,20 +127,20 @@ java.lang.RuntimeException: null
 	at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
 	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
 	at com.sun.proxy.$Proxy2.stop(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:116)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:120)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:360)
+	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:364)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)
 	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-12:06:54.387 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
+19:09:29.688 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m CompanionLoggerTest            | message
 java.lang.RuntimeException: null
 	at co.there4.hexagon.util.CompanionLoggerTest.messages_are_logged_without_errors(CompanionLoggerTest.kt:19)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -165,9 +165,9 @@ java.lang.RuntimeException: null
 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1150)
 	at org.testng.TestNG.runSuites(TestNG.java:1075)
 	at org.testng.TestNG.run(TestNG.java:1047)
-	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:130)
-	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:80)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:58)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:133)
+	at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:83)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -177,14 +177,14 @@ java.lang.RuntimeException: null
 	at org.gradle.messaging.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
 	at org.gradle.messaging.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
 	at com.sun.proxy.$Proxy2.stop(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:116)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:120)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
 	at org.gradle.messaging.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:360)
+	at org.gradle.messaging.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:364)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)
 	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
@@ -201,7 +201,7 @@ java.lang.RuntimeException: null
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.11</a> at Apr 20, 2016 12:06:59 PM</p>
+<a href="http://www.gradle.org">Gradle 2.13</a> at May 3, 2016 7:09:48 PM</p>
 </div>
 </div>
 </body>

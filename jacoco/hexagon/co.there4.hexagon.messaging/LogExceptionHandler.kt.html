@@ -11,11 +11,11 @@ import com.rabbitmq.client.impl.DefaultExceptionHandler
 <span class="fc" id="L11">    companion object : CompanionLogger (LogExceptionHandler::class)</span>
 
     private fun logError(error: String, con: Connection?, ex: Throwable?) {
-<span class="nc bnc" id="L14" title="All 2 branches missed.">        if (con == null)</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (con == null)</span>
 <span class="nc" id="L15">            throw IllegalArgumentException ()</span>
 
-<span class="nc" id="L17">        error(&quot;%s in connection to: %s&quot;.format(ex, error, con.address.canonicalHostName))</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L17">        error(&quot;%s in connection to: %s&quot;.format(ex, error, con.address.canonicalHostName))</span>
+<span class="fc" id="L18">    }</span>
 
     private fun logError(error: String, ch: Channel?, ex: Throwable?) {
 <span class="nc bnc" id="L21" title="All 4 branches missed.">        if (ch == null || ex == null)</span>
@@ -35,9 +35,9 @@ import com.rabbitmq.client.impl.DefaultExceptionHandler
 <span class="nc" id="L35">    }</span>
 
     override fun handleUnexpectedConnectionDriverException(con: Connection?, ex: Throwable?) {
-<span class="nc" id="L38">        super.handleUnexpectedConnectionDriverException(con, ex)</span>
-<span class="nc" id="L39">        logError(&quot;UnexpectedConnectionDriverException&quot;, con, ex)</span>
-<span class="nc" id="L40">    }</span>
+<span class="fc" id="L38">        super.handleUnexpectedConnectionDriverException(con, ex)</span>
+<span class="fc" id="L39">        logError(&quot;UnexpectedConnectionDriverException&quot;, con, ex)</span>
+<span class="fc" id="L40">    }</span>
 
     override fun handleReturnListenerException(ch: Channel, ex: Throwable) {
 <span class="nc" id="L43">        super.handleReturnListenerException(ch, ex)</span>
@@ -87,4 +87,4 @@ import com.rabbitmq.client.impl.DefaultExceptionHandler
 <span class="nc" id="L87">        logError(&quot;TopologyRecoveryException&quot;, con, ch, ex)</span>
 <span class="nc" id="L88">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

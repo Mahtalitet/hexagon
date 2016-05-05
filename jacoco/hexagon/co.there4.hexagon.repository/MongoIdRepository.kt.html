@@ -82,25 +82,24 @@ import kotlin.reflect.KClass
 <span class="fc" id="L82">        publish(documentIds, DELETED)</span>
 <span class="fc" id="L83">    }</span>
 
-    fun replaceObject (document: T) {
+    fun replaceObject (document: T) =
 <span class="fc" id="L86">        replaceOneObject (eq (keyName, keySupplier (document)), document)</span>
-<span class="fc" id="L87">    }</span>
 
     fun replaceObjects (vararg document: T) {
-<span class="fc" id="L90">        replaceObjects (document.toList())</span>
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L89">        replaceObjects (document.toList())</span>
+<span class="fc" id="L90">    }</span>
 
     fun replaceObjects (document: List&lt;T&gt;) {
-<span class="fc" id="L94">        document.forEach { replaceObject(it) }</span>
-<span class="fc" id="L95">    }</span>
+<span class="fc" id="L93">        document.forEach { replaceObject(it) }</span>
+<span class="fc" id="L94">    }</span>
 
-<span class="fc" id="L97">    fun find (vararg documentId: K) = find (documentId.toList ())</span>
+<span class="fc" id="L96">    fun find (vararg documentId: K) = find (documentId.toList ())</span>
 
     fun find (documentId: List&lt;K&gt;) =
-<span class="fc" id="L100">        findObjects (_in (keyName, documentId)).toList()</span>
+<span class="fc" id="L99">        findObjects (_in (keyName, documentId)).toList()</span>
 
-<span class="fc" id="L102">    fun find (documentId: K) = findObjects (eq (keyName, documentId)).first ()</span>
+<span class="fc" id="L101">    fun find (documentId: K) = findObjects (eq (keyName, documentId)).first ()</span>
 
-<span class="fc" id="L104">    fun getKey (obj: T): K = keySupplier(obj)</span>
+<span class="fc" id="L103">    fun getKey (obj: T): K = keySupplier(obj)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

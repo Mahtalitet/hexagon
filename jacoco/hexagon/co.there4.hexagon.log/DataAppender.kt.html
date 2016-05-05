@@ -88,8 +88,8 @@ import java.util.*
 
 <span class="fc" id="L89">        data.putAll(loggingEvent.mdcPropertyMap)</span>
 <span class="fc" id="L90">        data.putAll(Context.entries()</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">            .filter { it.key is String }</span>
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">            .map { it.key as String to it.value }</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            .filter { it.key is String }</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            .map { it.key as String to it.value }</span>
         )
 
         // Call subclass write logic with all gathered information (removing 'null' values)
@@ -106,9 +106,9 @@ import java.util.*
 <span class="fc" id="L106">        val arguments = loggingEvent.argumentArray</span>
 <span class="pc bpc" id="L107" title="2 of 6 branches missed.">        if (arguments != null &amp;&amp; arguments.size == 1 &amp;&amp; arguments[0] is Map&lt;*, *&gt;) {</span>
 <span class="pc bpc" id="L108" title="1 of 2 branches missed.">            val map = (arguments[0] as Map&lt;*, *&gt;)</span>
-<span class="pc bpc" id="L109" title="2 of 4 branches missed.">                .filter { it.value != null }</span>
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">                .mapKeys { it.key as String }</span>
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">                .mapValues { it.value ?: throw IllegalStateException (&quot;'null' values not allowed&quot;) }</span>
+<span class="pc bnc" id="L109" title="All 4 branches missed.">                .filter { it.value != null }</span>
+<span class="pc bnc" id="L110" title="All 2 branches missed.">                .mapKeys { it.key as String }</span>
+<span class="pc bnc" id="L111" title="All 2 branches missed.">                .mapValues { it.value ?: throw IllegalStateException (&quot;'null' values not allowed&quot;) }</span>
 
 <span class="fc" id="L113">            data.putAll(map)</span>
         }

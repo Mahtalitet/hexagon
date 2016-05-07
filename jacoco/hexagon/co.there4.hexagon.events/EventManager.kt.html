@@ -18,8 +18,12 @@ import kotlin.reflect.KClass
 <span class="fc" id="L18">        client.consume(exchange, event, type) { consumer(it) }</span>
 <span class="fc" id="L19">    }</span>
 
-    fun publish(event: Event) {
-<span class="fc" id="L22">        client.publish(exchange, event.action, event.serialize())</span>
+    fun &lt;T : Event&gt; on(type: KClass&lt;T&gt;, consumer: (T) -&gt; Unit) {
+<span class="fc" id="L22">        on(type, type.java.name, consumer)</span>
 <span class="fc" id="L23">    }</span>
+
+    fun publish(event: Event) {
+<span class="fc" id="L26">        client.publish(exchange, event.action, event.serialize())</span>
+<span class="fc" id="L27">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

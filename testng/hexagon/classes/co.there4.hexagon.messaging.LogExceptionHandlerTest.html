@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.271s</div>
+<div class="counter">0.373s</div>
 <p>duration</p>
 </div>
 </td>
@@ -82,7 +82,7 @@
 </thead>
 <tr>
 <td class="success">test_error_logging_methods</td>
-<td>0.271s</td>
+<td>0.373s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -90,12 +90,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>15:28:47.590 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: UnexpectedConnectionDriverException
-15:28:47.603 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ReturnListenerException
-15:28:47.606 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: FlowListenerException
-15:28:47.608 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ConfirmListenerException
-15:28:47.610 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: BlockedListenerException
-15:28:47.613 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | ConsumerException in channel: 0 consumer: null method: null
+<pre>18:19:16.754 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: UnexpectedConnectionDriverException
+18:19:16.763 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ReturnListenerException
+18:19:16.766 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: FlowListenerException
+18:19:16.769 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ConfirmListenerException
+18:19:16.772 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: BlockedListenerException
+18:19:16.775 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | ConsumerException in channel: 0 consumer: null method: null
 java.lang.RuntimeException: null
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -145,9 +145,9 @@ java.lang.RuntimeException: null
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-15:28:47.615 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: ConnectionRecoveryException
-15:28:47.618 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ChannelRecoveryException
-15:28:47.622 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | TopologyRecoveryException in connection to: jamhost in channel: 0
+18:19:16.781 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in connection to: ConnectionRecoveryException
+18:19:16.784 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | java.lang.RuntimeException in channel: ChannelRecoveryException
+18:19:16.787 ?[1;31mERROR?[0;39m ?[35m[Test worker]?[0;39m LogExceptionHandler            | TopologyRecoveryException in connection to: jamhost in channel: 0
 com.rabbitmq.client.TopologyRecoveryException: 
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:36)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -206,7 +206,7 @@ Caused by: java.lang.RuntimeException: null
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>co.there4.hexagon.messaging.LogExceptionHandler: ReturnListener.handleReturn threw an exception for channel Mock for Channel, hashCode: 184895297:
+<pre>co.there4.hexagon.messaging.LogExceptionHandler: ReturnListener.handleReturn threw an exception for channel Mock for Channel, hashCode: 614219048:
 java.lang.RuntimeException
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -256,7 +256,7 @@ java.lang.RuntimeException
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-co.there4.hexagon.messaging.LogExceptionHandler: FlowListener.handleFlow threw an exception for channel Mock for Channel, hashCode: 184895297:
+co.there4.hexagon.messaging.LogExceptionHandler: FlowListener.handleFlow threw an exception for channel Mock for Channel, hashCode: 614219048:
 java.lang.RuntimeException
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -306,7 +306,7 @@ java.lang.RuntimeException
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-co.there4.hexagon.messaging.LogExceptionHandler: ConfirmListener.handle{N,A}ck threw an exception for channel Mock for Channel, hashCode: 184895297:
+co.there4.hexagon.messaging.LogExceptionHandler: ConfirmListener.handle{N,A}ck threw an exception for channel Mock for Channel, hashCode: 614219048:
 java.lang.RuntimeException
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -356,7 +356,7 @@ java.lang.RuntimeException
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-DefaultExceptionHandler: BlockedListener threw an exception for connection Mock for Connection, hashCode: 1445799882:
+DefaultExceptionHandler: BlockedListener threw an exception for connection Mock for Connection, hashCode: 1706060161:
 java.lang.RuntimeException
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -406,7 +406,7 @@ java.lang.RuntimeException
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
-co.there4.hexagon.messaging.LogExceptionHandler: Consumer null (null) method null for channel Mock for Channel, hashCode: 184895297 threw an exception for channel Mock for Channel, hashCode: 184895297:
+co.there4.hexagon.messaging.LogExceptionHandler: Consumer null (null) method null for channel Mock for Channel, hashCode: 614219048 threw an exception for channel Mock for Channel, hashCode: 614219048:
 java.lang.RuntimeException
 	at co.there4.hexagon.messaging.LogExceptionHandlerTest.test_error_logging_methods(LogExceptionHandlerTest.kt:25)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -620,7 +620,7 @@ Caused by: java.lang.RuntimeException
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.13</a> at May 7, 2016 3:29:02 PM</p>
+<a href="http://www.gradle.org">Gradle 2.13</a> at May 8, 2016 6:19:28 PM</p>
 </div>
 </div>
 </body>

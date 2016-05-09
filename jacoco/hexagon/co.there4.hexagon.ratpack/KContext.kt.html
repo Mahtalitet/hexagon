@@ -16,43 +16,46 @@ import java.util.*
     fun httpDate (date: LocalDateTime) =
 <span class="nc" id="L17">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
 
+    fun httpDate (date: Date) =
+<span class="nc" id="L20">        httpDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())</span>
+
     fun byMethod (cb: ByMethodSpec.() -&gt; Unit) {
-<span class="fc" id="L20">        delegate.byMethod { it.(cb)() }</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L23">        delegate.byMethod { it.(cb)() }</span>
+<span class="fc" id="L24">    }</span>
 
     fun template (
         template: String,
         locale: Locale = Locale.getDefault(),
         context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
 
-<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;</span>
-<span class="fc" id="L29">        response.headers[&quot;Content-Type&quot;] = contentType</span>
-<span class="fc" id="L30">        render (PebbleRenderer.render (template, locale, context))</span>
-<span class="fc" id="L31">    }</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;</span>
+<span class="fc" id="L32">        response.headers[&quot;Content-Type&quot;] = contentType</span>
+<span class="fc" id="L33">        render (PebbleRenderer.render (template, locale, context))</span>
+<span class="fc" id="L34">    }</span>
 
     fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
-<span class="fc" id="L34">        template (template, Locale.getDefault(), context)</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L37">        template (template, Locale.getDefault(), context)</span>
+<span class="fc" id="L38">    }</span>
 
     fun withBody(callback: TypedData.() -&gt; Unit) {
-<span class="fc" id="L38">        request.body.then { it.(callback)() }</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L41">        request.body.then { it.(callback)() }</span>
+<span class="fc" id="L42">    }</span>
 
     fun withForm(callback: Form.() -&gt; Unit) {
-<span class="fc" id="L42">        context.parse(Form::class.java).then { it.(callback)() }</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L45">        context.parse(Form::class.java).then { it.(callback)() }</span>
+<span class="fc" id="L46">    }</span>
 
     fun send (body: String = &quot;&quot;, status: Int = 200) {
-<span class="fc" id="L46">        response.status (status)</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (body == &quot;&quot;)</span>
-<span class="fc" id="L48">            response.send()</span>
+<span class="fc" id="L49">        response.status (status)</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (body == &quot;&quot;)</span>
+<span class="fc" id="L51">            response.send()</span>
         else
-<span class="fc" id="L50">            response.send(body)</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L53">            response.send(body)</span>
+<span class="fc" id="L54">    }</span>
 
-<span class="fc" id="L53">    fun ok (body: String = &quot;&quot;, status: Int = 200) = send (body, status)</span>
-<span class="fc" id="L54">    fun ok (status: Int = 200) = ok(&quot;&quot;, status)</span>
-<span class="fc" id="L55">    fun halt (body: String = &quot;&quot;, status: Int = 500) = send (body, status)</span>
-<span class="fc" id="L56">    fun halt (status: Int = 500) = halt(&quot;&quot;, status)</span>
+<span class="fc" id="L56">    fun ok (body: String = &quot;&quot;, status: Int = 200) = send (body, status)</span>
+<span class="fc" id="L57">    fun ok (status: Int = 200) = ok(&quot;&quot;, status)</span>
+<span class="fc" id="L58">    fun halt (body: String = &quot;&quot;, status: Int = 500) = send (body, status)</span>
+<span class="fc" id="L59">    fun halt (status: Int = 500) = halt(&quot;&quot;, status)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

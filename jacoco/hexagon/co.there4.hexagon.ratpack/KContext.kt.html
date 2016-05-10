@@ -6,56 +6,54 @@ import ratpack.form.Form
 import ratpack.handling.ByMethodSpec
 import ratpack.handling.Context
 import ratpack.http.TypedData
+import java.nio.charset.Charset.defaultCharset
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
 import java.util.*
 
-<span class="fc" id="L15">class KContext (private val delegate: Context) : Context by delegate {</span>
+<span class="fc" id="L16">class KContext (private val delegate: Context) : Context by delegate {</span>
     fun httpDate (date: LocalDateTime) =
-<span class="nc" id="L17">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
-
-    fun httpDateJ7 (date: Date) =
-<span class="nc" id="L20">        httpDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())</span>
+<span class="nc" id="L18">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
 
     fun byMethod (cb: ByMethodSpec.() -&gt; Unit) {
-<span class="fc" id="L23">        delegate.byMethod { it.(cb)() }</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L21">        delegate.byMethod { it.(cb)() }</span>
+<span class="fc" id="L22">    }</span>
 
     fun template (
         template: String,
         locale: Locale = Locale.getDefault(),
         context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
 
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;</span>
-<span class="fc" id="L32">        response.headers[&quot;Content-Type&quot;] = contentType</span>
-<span class="fc" id="L33">        render (PebbleRenderer.render (template, locale, context))</span>
-<span class="fc" id="L34">    }</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;</span>
+<span class="fc" id="L30">        response.headers[&quot;Content-Type&quot;] = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L31">        render (PebbleRenderer.render (template, locale, context))</span>
+<span class="fc" id="L32">    }</span>
 
     fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
-<span class="fc" id="L37">        template (template, Locale.getDefault(), context)</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L35">        template (template, Locale.getDefault(), context)</span>
+<span class="fc" id="L36">    }</span>
 
     fun withBody(callback: TypedData.() -&gt; Unit) {
-<span class="fc" id="L41">        request.body.then { it.(callback)() }</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L39">        request.body.then { it.(callback)() }</span>
+<span class="fc" id="L40">    }</span>
 
     fun withForm(callback: Form.() -&gt; Unit) {
-<span class="fc" id="L45">        context.parse(Form::class.java).then { it.(callback)() }</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L43">        context.parse(Form::class.java).then { it.(callback)() }</span>
+<span class="fc" id="L44">    }</span>
 
     fun send (body: String = &quot;&quot;, status: Int = 200) {
-<span class="fc" id="L49">        response.status (status)</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (body == &quot;&quot;)</span>
-<span class="fc" id="L51">            response.send()</span>
+<span class="fc" id="L47">        response.status (status)</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (body == &quot;&quot;)</span>
+<span class="fc" id="L49">            response.send()</span>
         else
-<span class="fc" id="L53">            response.send(body)</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L51">            response.send(body)</span>
+<span class="fc" id="L52">    }</span>
 
-<span class="fc" id="L56">    fun ok (body: String = &quot;&quot;, status: Int = 200) = send (body, status)</span>
-<span class="fc" id="L57">    fun ok (status: Int = 200) = ok(&quot;&quot;, status)</span>
-<span class="fc" id="L58">    fun halt (body: String = &quot;&quot;, status: Int = 500) = send (body, status)</span>
-<span class="fc" id="L59">    fun halt (status: Int = 500) = halt(&quot;&quot;, status)</span>
+<span class="fc" id="L54">    fun ok (body: String = &quot;&quot;, status: Int = 200) = send (body, status)</span>
+<span class="fc" id="L55">    fun ok (status: Int = 200) = ok(&quot;&quot;, status)</span>
+<span class="fc" id="L56">    fun halt (body: String = &quot;&quot;, status: Int = 500) = send (body, status)</span>
+<span class="fc" id="L57">    fun halt (status: Int = 500) = halt(&quot;&quot;, status)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -27,7 +27,7 @@ import java.util.*
         context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
 
 <span class="pc bpc" id="L29" title="1 of 2 branches missed.">        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;</span>
-<span class="fc" id="L30">        response.headers[&quot;Content-Type&quot;] = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L30">        response.contentTypeIfNotSet(&quot;$contentType; charset=${defaultCharset().name()}&quot;)</span>
 <span class="fc" id="L31">        render (PebbleRenderer.render (template, locale, context))</span>
 <span class="fc" id="L32">    }</span>
 

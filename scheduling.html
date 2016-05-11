@@ -124,6 +124,38 @@
     <div class="container">
 
 <h1>Scheduling</h1>
+<pre><code>import org.testng.annotations.Test
+import java.lang.Thread.sleep
+
+@Test class CronExecutorTest {
+    fun callback_is_executed_properly () {
+        val cron = CronExecutor ()
+        val times = 1
+        var count = 0
+
+        cron.schedule(&quot;0/1 * * * * *&quot;) { count++ }
+
+        sleep ((times * 1000) + 100L)
+        cron.shutdown()
+        assert (count == times)
+    }
+
+    fun failing_callback_does_not_prevent_future_executions () {
+        val cron = CronExecutor ()
+        val times = 2
+        var count = 0
+
+        cron.schedule(&quot;0/1 * * * * *&quot;) {
+            count++
+            throw RuntimeException (&quot;Error in cron job&quot;)
+        }
+
+        sleep ((times * 1000) + 100L)
+        cron.shutdown()
+        assert (count == times)
+    }
+}
+</code></pre>
 
     <div id="push"></div>
   </div>

@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 <span class="fc" id="L19">    val thread: String = currentThread ().name,</span>
 <span class="fc" id="L20">    val location: String = currentThread ().stackTrace[3].toString (),</span>
 <span class="fc" id="L21">    val context: Map&lt;String, Any&gt; = Context.entries()</span>
-        .filter { it.value is String }
+        .filter { it.key is String &amp;&amp; it.value is String }
         .map { it.key as String to it.value }
         .toMap()
 )

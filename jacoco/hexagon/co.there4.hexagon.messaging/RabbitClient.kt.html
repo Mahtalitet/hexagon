@@ -25,12 +25,12 @@ import kotlin.reflect.KClass
 
 <span class="fc" id="L26">    companion object : CompanionLogger (RabbitClient::class) {</span>
         internal fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
-<span class="fc" id="L28">            if (query.isEmpty())</span>
+<span class="fc bfc" id="L28" title="All 4 branches covered.">            if (query.isEmpty())</span>
 <span class="fc" id="L29">                mapOf()</span>
             else
 <span class="pc bpc" id="L31" title="2 of 4 branches missed.">                query.split(&quot;&amp;&quot;.toRegex())</span>
 <span class="fc" id="L32">                    .map { it.split(&quot;=&quot;) }</span>
-<span class="fc" id="L33">                    .map { it[0].trim () to it[1].trim() }</span>
+<span class="pc bpc" id="L33" title="2 of 4 branches missed.">                    .map { it[0].trim () to it[1].trim() }</span>
 <span class="fc" id="L34">                    .toMap(LinkedHashMap&lt;String, String&gt;())</span>
 
         fun createConnectionFactory(uri: String): ConnectionFactory {
@@ -39,7 +39,7 @@ import kotlin.reflect.KClass
 <span class="fc" id="L39">                    setter (value)</span>
 <span class="fc" id="L40">            }</span>
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">            require(!uri.isEmpty())</span>
+<span class="fc bfc" id="L42" title="All 6 branches covered.">            require(!uri.isEmpty())</span>
 
 <span class="fc" id="L44">            val rabbitUri = URI(uri)</span>
 <span class="fc" id="L45">            val cf = ConnectionFactory()</span>
@@ -75,46 +75,48 @@ import kotlin.reflect.KClass
 
 <span class="fc" id="L76">    constructor (uri: String): this(createConnectionFactory(uri))</span>
 
-    override fun close() {
-<span class="pc bpc" id="L79" title="3 of 6 branches missed.">        if (connection == null || connection?.isOpen() ?: false)</span>
-<span class="fc" id="L80">            throw IllegalStateException(&quot;Connection already closed&quot;)</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">    val connected: Boolean get() = connection?.isOpen() ?: false</span>
 
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        connection?.close()</span>
-<span class="nc" id="L83">        info(&quot;RabbitMQ client closed&quot;)</span>
-<span class="nc" id="L84">    }</span>
+    override fun close() {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (!connected)</span>
+<span class="fc" id="L82">            throw IllegalStateException(&quot;Connection already closed&quot;)</span>
+
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        connection?.close()</span>
+<span class="fc" id="L85">        info(&quot;RabbitMQ client closed&quot;)</span>
+<span class="fc" id="L86">    }</span>
 
     fun declareQueue(name: String) {
-<span class="fc" id="L87">        withChannel { it.queueDeclare(name, false, false, false, null) }</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L89">        withChannel { it.queueDeclare(name, false, false, false, null) }</span>
+<span class="fc" id="L90">    }</span>
 
     fun deleteQueue(name: String) {
-<span class="fc" id="L91">        withChannel { it.queueDelete(name) }</span>
-<span class="fc" id="L92">    }</span>
+<span class="fc" id="L93">        withChannel { it.queueDelete(name) }</span>
+<span class="fc" id="L94">    }</span>
 
     fun bindExchange (exchange: String, exchangeType: String, routingKey: String, queue: String) {
-<span class="fc" id="L95">        withChannel {</span>
-<span class="fc" id="L96">            it.queueDeclare(queue, false, false, false, null)</span>
-<span class="fc" id="L97">            it.exchangeDeclare(exchange, exchangeType, false, false, false, null)</span>
-<span class="fc" id="L98">            it.queueBind(queue, exchange, routingKey)</span>
+<span class="fc" id="L97">        withChannel {</span>
+<span class="fc" id="L98">            it.queueDeclare(queue, false, false, false, null)</span>
+<span class="fc" id="L99">            it.exchangeDeclare(exchange, exchangeType, false, false, false, null)</span>
+<span class="fc" id="L100">            it.queueBind(queue, exchange, routingKey)</span>
         }
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L102">    }</span>
 
     fun &lt;T : Any&gt; consume(
         exchange: String, routingKey: String, type: KClass&lt;T&gt;, handler: (T) -&gt; Unit) {
 
-<span class="fc" id="L105">        withChannel {</span>
-<span class="fc" id="L106">            it.queueDeclare(routingKey, false, false, false, null)</span>
-<span class="fc" id="L107">            it.queueBind(routingKey, exchange, routingKey)</span>
+<span class="fc" id="L107">        withChannel {</span>
+<span class="fc" id="L108">            it.queueDeclare(routingKey, false, false, false, null)</span>
+<span class="fc" id="L109">            it.queueBind(routingKey, exchange, routingKey)</span>
         }
-<span class="fc" id="L109">        consume(routingKey, type, handler)</span>
-<span class="fc" id="L110">    }</span>
+<span class="fc" id="L111">        consume(routingKey, type, handler)</span>
+<span class="fc" id="L112">    }</span>
 
     fun &lt;T : Any, R : Any&gt; consume(queueName: String, type: KClass&lt;T&gt;, handler: (T) -&gt; R) {
-<span class="fc" id="L113">        val channel = createChannel()</span>
-<span class="fc" id="L114">        val callback = Handler(connectionFactory, channel, threadPool, type, handler)</span>
-<span class="fc" id="L115">        channel.basicConsume(queueName, false, callback)</span>
-<span class="fc" id="L116">        info(&quot;Consuming messages in $queueName&quot;)</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L115">        val channel = createChannel()</span>
+<span class="fc" id="L116">        val callback = Handler(connectionFactory, channel, threadPool, type, handler)</span>
+<span class="fc" id="L117">        channel.basicConsume(queueName, false, callback)</span>
+<span class="fc" id="L118">        info(&quot;Consuming messages in $queueName&quot;)</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * Tries to get a channel for five times. If it do not succeed it throws an
@@ -123,86 +125,92 @@ import kotlin.reflect.KClass
      * @return A new channel.
      */
     private fun createChannel(): Channel =
-<span class="fc" id="L126">        retry (times = 3, delay = 50) {</span>
-<span class="pc bpc" id="L127" title="1 of 4 branches missed.">            if (!(connection?.isOpen ?: false)) {</span>
-<span class="nc" id="L128">                connection = connectionFactory.newConnection()</span>
-<span class="nc" id="L129">                warn(&quot;Rabbit connection RESTORED&quot;)</span>
+<span class="fc" id="L128">        retry (times = 3, delay = 50) {</span>
+<span class="pc bpc" id="L129" title="1 of 4 branches missed.">            if (!(connection?.isOpen ?: false)) {</span>
+<span class="nc" id="L130">                connection = connectionFactory.newConnection()</span>
+<span class="nc" id="L131">                warn(&quot;Rabbit connection RESTORED&quot;)</span>
             }
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">            val channel = connection!!.createChannel()</span>
-<span class="fc" id="L132">            channel.basicQos(poolSize)</span>
-<span class="fc" id="L133">            channel</span>
-<span class="fc" id="L134">        }</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">            val channel = connection!!.createChannel()</span>
+<span class="fc" id="L134">            channel.basicQos(poolSize)</span>
+<span class="fc" id="L135">            channel</span>
+<span class="fc" id="L136">        }</span>
 
     private fun &lt;T&gt; withChannel(callback: (Channel) -&gt; T): T {
-<span class="fc" id="L137">        var channel: Channel? = null</span>
-<span class="fc" id="L138">        try {</span>
-<span class="fc" id="L139">            channel = createChannel()</span>
-<span class="fc" id="L140">            return callback(channel)</span>
+<span class="fc" id="L139">        var channel: Channel? = null</span>
+<span class="fc" id="L140">        try {</span>
+<span class="fc" id="L141">            channel = createChannel()</span>
+<span class="fc" id="L142">            return callback(channel)</span>
         }
         finally {
-<span class="pc bpc" id="L143" title="5 of 8 branches missed.">            if (channel != null &amp;&amp; channel.isOpen)</span>
-<span class="pc" id="L144">                channel.close()</span>
+<span class="pc bpc" id="L145" title="5 of 8 branches missed.">            if (channel != null &amp;&amp; channel.isOpen)</span>
+<span class="pc" id="L146">                channel.close()</span>
         }
     }
 
-    fun publish(
-        exchange: String, routingKey: String, message: String, correlationId: String? = null) {
+<span class="fc" id="L150">    fun publish(queue: String, message: String) = publish(&quot;&quot;, queue, message)</span>
 
-<span class="fc" id="L151">        withChannel { channel -&gt;</span>
-<span class="fc" id="L152">            val charset = defaultCharset().name()</span>
-<span class="fc" id="L153">            publish(channel, exchange, routingKey, charset, message, correlationId, null)</span>
-<span class="fc" id="L154">        }</span>
-<span class="fc" id="L155">    }</span>
+    fun publish(
+        exchange: String,
+        routingKey: String,
+        message: String,
+        correlationId: String? = null) {
+
+<span class="fc" id="L158">        withChannel { channel -&gt;</span>
+<span class="fc" id="L159">            publish(channel, exchange, routingKey, null, message, correlationId, null)</span>
+<span class="fc" id="L160">        }</span>
+<span class="fc" id="L161">    }</span>
 
     internal fun publish(
         channel: Channel,
         exchange: String,
         routingKey: String,
-        encoding: String,
+        encoding: String?,
         message: String,
         correlationId: String?,
         replyQueueName: String?) {
 
-<span class="fc" id="L166">        val builder = AMQP.BasicProperties.Builder()</span>
+<span class="fc" id="L172">        val builder = AMQP.BasicProperties.Builder()</span>
 
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (correlationId != null &amp;&amp; !correlationId.isEmpty())</span>
-<span class="fc" id="L169">            builder.correlationId(correlationId)</span>
+<span class="pc bpc" id="L174" title="1 of 6 branches missed.">        if (!correlationId.isNullOrBlank())</span>
+<span class="fc" id="L175">            builder.correlationId(correlationId)</span>
 
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (replyQueueName != null &amp;&amp; !replyQueueName.isEmpty())</span>
-<span class="fc" id="L172">            builder.replyTo(replyQueueName)</span>
+<span class="pc bpc" id="L177" title="1 of 6 branches missed.">        if (!replyQueueName.isNullOrBlank())</span>
+<span class="fc" id="L178">            builder.replyTo(replyQueueName)</span>
 
-<span class="fc" id="L174">        builder.contentEncoding(encoding)</span>
+<span class="pc bpc" id="L180" title="1 of 6 branches missed.">        if (!encoding.isNullOrBlank())</span>
+<span class="fc" id="L181">            builder.contentEncoding(encoding)</span>
 
-<span class="fc" id="L176">        val props = builder.build()</span>
+<span class="fc" id="L183">        val props = builder.build()</span>
 
-<span class="fc" id="L178">        channel.basicPublish(exchange, routingKey, props, message.toByteArray(charset(encoding)))</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        val charset = if (encoding == null) defaultCharset() else charset(encoding)</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        channel.basicPublish(exchange, routingKey, props, message.toByteArray(charset))</span>
 
-<span class="fc" id="L180">        debug(</span>
+<span class="fc" id="L188">        debug(</span>
             &quot;&quot;&quot;
             EXCHANGE: $exchange ROUTING KEY: $routingKey
             REPLY TO: $replyQueueName CORRELATION ID: $correlationId
             BODY:
             $message&quot;&quot;&quot;.trimIndent())
-<span class="fc" id="L186">    }</span>
+<span class="fc" id="L194">    }</span>
 
     fun call(requestQueue: String, message: String): String =
-<span class="fc" id="L189">        withChannel {</span>
-<span class="fc" id="L190">            val correlationId = randomUUID().toString()</span>
-<span class="fc" id="L191">            val replyQueueName = it.queueDeclare().getQueue()</span>
-<span class="fc" id="L192">            val charset = defaultCharset().name()</span>
+<span class="fc" id="L197">        withChannel {</span>
+<span class="fc" id="L198">            val correlationId = randomUUID().toString()</span>
+<span class="fc" id="L199">            val replyQueueName = it.queueDeclare().getQueue()</span>
+<span class="fc" id="L200">            val charset = defaultCharset().name()</span>
 
-<span class="fc" id="L194">            publish(it, &quot;&quot;, requestQueue, charset, message, correlationId, replyQueueName)</span>
+<span class="fc" id="L202">            publish(it, &quot;&quot;, requestQueue, charset, message, correlationId, replyQueueName)</span>
 
-<span class="fc" id="L196">            val consumer = QueueingConsumer(it)</span>
-<span class="fc" id="L197">            it.basicConsume(replyQueueName, true, consumer)</span>
+<span class="fc" id="L204">            val consumer = QueueingConsumer(it)</span>
+<span class="fc" id="L205">            it.basicConsume(replyQueueName, true, consumer)</span>
 
-<span class="fc" id="L199">            var result: String? = null</span>
-<span class="fc bfc" id="L200" title="All 2 branches covered.">            while (result == null) {</span>
-<span class="fc" id="L201">                val delivery = consumer.nextDelivery(20000)</span>
-<span class="pc bpc" id="L202" title="2 of 4 branches missed.">                if (delivery != null &amp;&amp; delivery.properties.correlationId == correlationId)</span>
-<span class="fc" id="L203">                    result = String(delivery.body)</span>
+<span class="fc" id="L207">            var result: String? = null</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">            while (result == null) {</span>
+<span class="fc" id="L209">                val delivery = consumer.nextDelivery(20000)</span>
+<span class="pc bpc" id="L210" title="2 of 4 branches missed.">                if (delivery != null &amp;&amp; delivery.properties.correlationId == correlationId)</span>
+<span class="fc" id="L211">                    result = String(delivery.body)</span>
             }
-<span class="fc" id="L205">            result</span>
-<span class="fc" id="L206">        }</span>
+<span class="fc" id="L213">            result</span>
+<span class="fc" id="L214">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

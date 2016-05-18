@@ -5,23 +5,24 @@ import co.there4.hexagon.serialization.serialize
 import co.there4.hexagon.util.*
 import com.rabbitmq.client.*
 import java.nio.charset.Charset
+import java.nio.charset.Charset.defaultCharset
 import java.util.concurrent.ExecutorService
 import kotlin.reflect.KClass
 
-<span class="fc" id="L11">class Handler&lt;T : Any, R : Any&gt; (</span>
+<span class="fc" id="L12">class Handler&lt;T : Any, R : Any&gt; (</span>
     connectionFactory: ConnectionFactory,
     channel: Channel,
     private val executor: ExecutorService,
-<span class="fc" id="L15">    val type: KClass&lt;T&gt;,</span>
+<span class="fc" id="L16">    val type: KClass&lt;T&gt;,</span>
     private val handler: (T) -&gt; R):
-<span class="fc" id="L17">    DefaultConsumer (channel) {</span>
+<span class="fc" id="L18">    DefaultConsumer (channel) {</span>
 
-<span class="fc" id="L19">    companion object : CompanionLogger (Handler::class) {</span>
-<span class="fc" id="L20">        val RETRIES = 5</span>
-<span class="fc" id="L21">        val DELAY = 50L</span>
+<span class="fc" id="L20">    companion object : CompanionLogger (Handler::class) {</span>
+<span class="fc" id="L21">        val RETRIES = 5</span>
+<span class="fc" id="L22">        val DELAY = 50L</span>
     }
 
-<span class="fc" id="L24">    private val client: RabbitClient = RabbitClient (connectionFactory)</span>
+<span class="fc" id="L25">    private val client: RabbitClient = RabbitClient (connectionFactory)</span>
 
     override fun handleDelivery(
         consumerTag: String,
@@ -29,53 +30,56 @@ import kotlin.reflect.KClass
         properties: AMQP.BasicProperties,
         body: ByteArray) {
 
-<span class="fc" id="L32">        executor.execute {</span>
-<span class="fc" id="L33">            pushTime ()</span>
+<span class="fc" id="L33">        executor.execute {</span>
+<span class="fc" id="L34">            pushTime ()</span>
 
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">            val encoding = Charset.forName(properties.contentEncoding) ?: Charset.defaultCharset()</span>
-<span class="fc" id="L36">            val correlationId = properties.correlationId</span>
-<span class="fc" id="L37">            val replyTo = properties.replyTo</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            val charset = properties.contentEncoding ?: defaultCharset().name()</span>
+<span class="fc" id="L37">            val correlationId = properties.correlationId</span>
+<span class="fc" id="L38">            val replyTo = properties.replyTo</span>
 
-<span class="fc" id="L39">            var request: String? = null</span>
+<span class="fc" id="L40">            var request: String? = null</span>
 
-<span class="fc" id="L41">            try {</span>
-<span class="fc" id="L42">                request = String(body, encoding)</span>
-<span class="fc" id="L43">                val input = request.parse(type)</span>
-<span class="fc" id="L44">                handleMessage(input, replyTo, correlationId)</span>
+<span class="fc" id="L42">            try {</span>
+<span class="fc" id="L43">                request = String(body, Charset.forName(charset))</span>
+<span class="fc" id="L44">                val input = request.parse(type)</span>
+<span class="fc" id="L45">                handleMessage(input, replyTo, correlationId)</span>
             }
-            catch (ex: Exception) {
-<span class="fc" id="L47">                warn(&quot;Error processing message&quot;, ex)</span>
-<span class="fc" id="L48">                handleError(ex, replyTo, correlationId)</span>
+<span class="fc" id="L47">            catch (ex: Exception) {</span>
+<span class="fc" id="L48">                warn(&quot;Error processing message&quot;, ex)</span>
+<span class="fc" id="L49">                handleError(ex, replyTo, correlationId)</span>
             }
             finally {
-<span class="pc" id="L51">                retry (RETRIES, DELAY) { channel.basicAck (envelope.deliveryTag, false) }</span>
-<span class="pc" id="L52">                trace (</span>
+<span class="pc" id="L52">                retry (RETRIES, DELAY) { channel.basicAck (envelope.deliveryTag, false) }</span>
+<span class="pc" id="L53">                trace (</span>
                     &quot;&quot;&quot;
-                    ENCODING: ${encoding.name()} CORRELATION ID: $correlationId
+                    ENCODING: $charset CORRELATION ID: $correlationId
                     TIME: ${formatTime(popTime())}
                     BODY: $request&quot;&quot;&quot;
                 )
             }
-<span class="fc" id="L59">        }</span>
-<span class="fc" id="L60">    }</span>
+<span class="fc" id="L60">        }</span>
+<span class="fc" id="L61">    }</span>
 
     private fun handleMessage(message: T, replyTo: String?, correlationId: String?) {
-<span class="fc" id="L63">        val response = handler(message)</span>
+<span class="fc" id="L64">        val response = handler(message)</span>
 
-<span class="fc" id="L65">        val output = when (response) {</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">            is String -&gt; response</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            is Int -&gt; response.toString()</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            is Long -&gt; response.toString()</span>
-<span class="fc" id="L69">            else -&gt; response.serialize()</span>
+<span class="fc" id="L66">        val output = when (response) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            is String -&gt; response</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            is Int -&gt; response.toString()</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            is Long -&gt; response.toString()</span>
+<span class="fc" id="L70">            else -&gt; response.serialize()</span>
         }
 
-<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if (replyTo != null &amp;&amp; correlationId != null)</span>
-<span class="fc" id="L73">            client.publish(&quot;&quot;, replyTo, output, correlationId)</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (replyTo != null)</span>
+<span class="fc" id="L74">            client.publish(&quot;&quot;, replyTo, output, correlationId)</span>
+<span class="fc" id="L75">    }</span>
 
     private fun handleError(exception: Exception, replyTo: String?, correlationId: String?) {
-<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        if (replyTo != null &amp;&amp; correlationId != null)</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            client.publish(&quot;&quot;, replyTo, exception.message ?: exception.javaClass.name, correlationId)</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (replyTo != null) {</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            val message = exception.message ?: &quot;&quot;</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">            val errorMessage = if (message.isBlank()) exception.javaClass.name else message</span>
+<span class="fc" id="L81">            client.publish(&quot;&quot;, replyTo, errorMessage, correlationId)</span>
+        }
+<span class="fc" id="L83">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -58,24 +58,24 @@ fun LocalDateTime.asInt () =
  * @param times Number of times to try to execute the callback. Must be greater than 0.
  * @param delay Milliseconds to wait to next execution if there was an error. Must be 0 or greater.
  * @return The callback result if succeed.
- * @throws [ProgramException] if the callback didn't succeed in the given times.
+ * @throws [ServiceException] if the callback didn't succeed in the given times.
  */
 fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">    require (times &gt; 0)</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">    require (delay &gt;= 0)</span>
+<span class="fc bfc" id="L64" title="All 4 branches covered.">    require (times &gt; 0)</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    require (delay &gt;= 0)</span>
 
 <span class="fc" id="L67">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
 <span class="pc bpc" id="L68" title="1 of 4 branches missed.">    for (ii in 1 .. times) {</span>
 <span class="fc" id="L69">        try {</span>
 <span class="fc" id="L70">            return func ()</span>
         }
-        catch (e: Exception) {
+<span class="fc" id="L72">        catch (e: Exception) {</span>
 <span class="fc" id="L73">            exceptions.add (e)</span>
 <span class="fc" id="L74">            Thread.sleep (delay)</span>
         }
     }
 
-<span class="fc" id="L78">    throw ProgramException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
+<span class="fc" id="L78">    throw ServiceException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
 }
 
 /*
@@ -98,7 +98,7 @@ fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
  * Returns the stack trace array of the frames that starts with the given prefix.
  */
 fun Throwable.filterStackTrace (prefix: String) =
-<span class="fc" id="L101">    if (prefix.isEmpty ())</span>
+<span class="fc bfc" id="L101" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
 <span class="fc" id="L102">        this.stackTrace</span>
     else
 <span class="fc bfc" id="L104" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>

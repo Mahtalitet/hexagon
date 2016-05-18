@@ -42,7 +42,7 @@ import java.lang.System.getProperty
  */
 fun String.filterVars(parameters: Map&lt;*, *&gt;) =
 <span class="fc" id="L44">    parameters.entries</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        .filter { it.key.toString().isNotEmpty() }</span>
+<span class="fc bfc" id="L45" title="All 4 branches covered.">        .filter { it.key.toString().isNotEmpty() }</span>
 <span class="fc" id="L46">        .fold(this) { result, pair -&gt;</span>
 <span class="fc" id="L47">            val key = pair.key.toString()</span>
 <span class="fc" id="L48">            val value = pair.value.toString()</span>
@@ -56,7 +56,7 @@ fun String.filterVars(parameters: Map&lt;*, *&gt;) =
  */
 fun String.snakeToCamel () =
 <span class="fc" id="L58">    this.split (&quot;_&quot;)</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        .filter { it.isNotEmpty () }</span>
+<span class="fc bfc" id="L59" title="All 4 branches covered.">        .filter { it.isNotEmpty () }</span>
 <span class="fc" id="L60">        .map { it.capitalize () }</span>
 <span class="fc" id="L61">        .joinToString(&quot;&quot;)</span>
 <span class="fc" id="L62">        .decapitalize ()</span>
@@ -66,8 +66,8 @@ fun String.snakeToCamel () =
  */
 fun String.camelToSnake () =
 <span class="pc bpc" id="L68" title="2 of 4 branches missed.">    this.split (&quot;(?=\\p{Upper}\\p{Lower})&quot;.toRegex())</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        .filter { it.isNotEmpty () }</span>
-<span class="fc" id="L70">        .map { it.toLowerCase () }</span>
+<span class="pc bpc" id="L69" title="2 of 4 branches missed.">        .filter { it.isNotEmpty () }</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        .map { it.toLowerCase () }</span>
 <span class="fc" id="L71">        .joinToString (&quot;_&quot;)</span>
 <span class="fc" id="L72">        .decapitalize ()</span>
 
@@ -89,9 +89,9 @@ private fun ansiCode(fg: AnsiColor?, bg: AnsiColor?, vararg fxs: AnsiEffect): St
 
 <span class="fc" id="L90">    val colors = listOf (fgString(fg), bgString(bg))</span>
 <span class="fc" id="L91">    val elements = colors + fxs.map { it.code.toString() }</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
+<span class="fc bfc" id="L92" title="All 4 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
 
-<span class="fc" id="L94">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
 }
 
 /**

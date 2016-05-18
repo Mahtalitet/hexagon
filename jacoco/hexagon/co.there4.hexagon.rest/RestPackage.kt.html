@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RestPackage.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.rest</a> &gt; <span class="el_source">RestPackage.kt</span></div><h1>RestPackage.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.rest
 
+import co.there4.hexagon.configuration.ConfigManager
 import co.there4.hexagon.repository.MongoIdRepository
 import co.there4.hexagon.ratpack.KChain
 import java.lang.Runtime.getRuntime
@@ -19,11 +20,16 @@ import ratpack.server.RatpackServer
 
 /*
  * TODO Add base class for Application (setup locales, etc.) for web applications
- * TODO Add base class for Services  (the setup for applications is not needed here)
+ * TODO Add base class for Services (the setup for applications is not needed here)
  */
-<span class="fc" id="L24">object RestPackage : CompanionLogger (RestPackage::class)</span>
+<span class="fc" id="L25">object RestPackage : CompanionLogger (RestPackage::class)</span>
 
-<span class="pc" id="L26">val information = &quot;&quot;&quot;</span>
+<span class="pc" id="L27">val information = &quot;&quot;&quot;</span>
+    SERVICE:     #{service.name}
+    PACKAGE:     #{service.package}
+    DIRECTORY:   #{service.dir}
+    ENVIRONMENT: #{environment}
+
     Running in '#{application.host}' with #{application.cpus} CPUs #{application.jvm.memory} KB
     Java #{application.jvm.version} [#{application.jvm}]
     Locale #{application.locale} Timezone #{application.timezone}
@@ -32,17 +38,21 @@ import ratpack.server.RatpackServer
     &quot;&quot;&quot;
 
 private fun showBanner() {
-<span class="fc" id="L35">    val runtime = getRuntime()</span>
-<span class="fc" id="L36">    val heap = getMemoryMXBean().getHeapMemoryUsage()</span>
-<span class="fc" id="L37">    val bootTime = currentTimeMillis() - getRuntimeMXBean().getStartTime()</span>
+<span class="fc" id="L41">    val runtime = getRuntime()</span>
+<span class="fc" id="L42">    val heap = getMemoryMXBean().getHeapMemoryUsage()</span>
+<span class="fc" id="L43">    val bootTime = currentTimeMillis() - getRuntimeMXBean().getStartTime()</span>
 
-<span class="fc" id="L39">    val locale = &quot;%s_%s.%s&quot;.format(</span>
+<span class="fc" id="L45">    val locale = &quot;%s_%s.%s&quot;.format(</span>
         getProperty(&quot;user.language&quot;),
         getProperty(&quot;user.country&quot;),
         getProperty(&quot;file.encoding&quot;)
     )
 
-<span class="fc" id="L45">    val variables = mapOf (</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">    val variables = mapOf (</span>
+        &quot;service.name&quot; to ConfigManager.serviceName,
+        &quot;service.dir&quot; to ConfigManager.serviceDir,
+        &quot;service.package&quot; to ConfigManager.servicePackage,
+        &quot;environment&quot; to (ConfigManager.environment ?: &quot;N/A&quot;),
         &quot;application.locale&quot; to locale,
         &quot;application.timezone&quot; to getProperty(&quot;user.timezone&quot;),
         &quot;application.cpus&quot; to runtime.availableProcessors(),
@@ -54,26 +64,27 @@ private fun showBanner() {
         &quot;application.host&quot; to hostname
     )
 
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    val banner = EOL + EOL + (read (&quot;banner.txt&quot;) ?: &quot;&quot;) + information</span>
-<span class="fc" id="L58">        .replaceIndent(&quot; &quot;.repeat(4)).lines()</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        .map { if (it.isBlank()) it.trim() else it }</span>
-<span class="fc" id="L60">        .joinToString(EOL) + EOL</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    val banner = EOL + EOL + (read (&quot;banner.txt&quot;) ?: &quot;&quot;) + information</span>
+<span class="fc" id="L68">        .replaceIndent(&quot; &quot;.repeat(4)).lines()</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">        .map { if (it.isBlank()) it.trim() else it }</span>
+<span class="fc" id="L70">        .joinToString(EOL) + EOL</span>
 
-<span class="fc" id="L62">    RestPackage.info(banner.filterVars(variables))</span>
-<span class="fc" id="L63">}</span>
+<span class="fc" id="L72">    RestPackage.info(banner.filterVars(variables))</span>
+<span class="fc" id="L73">}</span>
 
 fun applicationStart(cb: KServerSpec.() -&gt; Unit): RatpackServer {
-<span class="fc" id="L66">    val server = RatpackServer.start { KServerSpec(it).(cb)() }</span>
+<span class="fc" id="L76">    ConfigManager.setupLogging()</span>
+<span class="fc" id="L77">    val server = RatpackServer.start { KServerSpec(it).(cb)() }</span>
 
     // TODO Setup metrics
-<span class="fc" id="L69">    showBanner ()</span>
+<span class="fc" id="L80">    showBanner ()</span>
 
-<span class="fc" id="L71">    return server</span>
+<span class="fc" id="L82">    return server</span>
 }
 
 fun &lt;T : Any, K : Any&gt; KChain.crud (repository: MongoIdRepository&lt;T, K&gt;): KChain {
-<span class="fc" id="L75">    RestCrud (repository, this)</span>
-<span class="fc" id="L76">    return this</span>
+<span class="fc" id="L86">    RestCrud (repository, this)</span>
+<span class="fc" id="L87">    return this</span>
 }
 
 // TODO Add initialization for applications and services

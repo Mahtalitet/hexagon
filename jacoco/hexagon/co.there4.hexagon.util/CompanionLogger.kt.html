@@ -11,19 +11,19 @@ import kotlin.reflect.KClass
 
 <span class="fc" id="L12">    private val logger = getLogger(clazz.java)</span>
 
-    fun trace (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+    fun trace (message: String, arguments: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) =
 <span class="fc" id="L15">        logger.trace(message, arguments)</span>
 
-    fun debug (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+    fun debug (message: String, arguments: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) =
 <span class="fc" id="L18">        logger.debug(message, arguments)</span>
 
-    fun info (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+    fun info (message: String, arguments: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) =
 <span class="fc" id="L21">        logger.info(message, arguments)</span>
 
-    fun warn (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+    fun warn (message: String, arguments: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) =
 <span class="fc" id="L24">        logger.warn(message, arguments)</span>
 
-    fun error (message: String, arguments: Map&lt;*, *&gt; = mapOf&lt;Any, Any&gt;()) =
+    fun error (message: String, arguments: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) =
 <span class="fc" id="L27">        logger.error(message, arguments)</span>
 
 <span class="fc" id="L29">    fun warn (message: String, exception: Throwable) = logger.warn(message, exception)</span>

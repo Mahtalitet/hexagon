@@ -7,53 +7,58 @@ import java.lang.System.getenv
 import java.lang.Thread.currentThread
 import java.util.*
 
+<span class="nc" id="L10">enum class Environment { PRODUCTION, INTEGRATION, DEVELOPMENT }</span>
+
 /**
+ * TODO Use JSON
+ *
  * Reads:
  * - &lt;project&gt;.properties (resource)
  * - &lt;project&gt;_&lt;environment&gt;.properties (resource)
  * - &lt;project&gt;.properties (file)
  * - &lt;project&gt;_&lt;environment&gt;.properties (file)
  */
-<span class="fc" id="L17">object ConfigManager {</span>
-<span class="pc" id="L18">    val mainClass = getServiceClass()</span>
-<span class="pc" id="L19">    val jarPath = File (mainClass.protectionDomain.codeSource.location.toURI())</span>
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">    val serviceDir = if (jarPath.isFile) jarPath.parentFile.parent else jarPath.parent</span>
-<span class="fc" id="L21">    val servicePackage = mainClass.`package`.name</span>
-<span class="fc" id="L22">    val serviceName = mainClass.simpleName.camelToSnake().removeSuffix(&quot;_kt&quot;)</span>
+<span class="fc" id="L21">object ConfigManager {</span>
+<span class="pc" id="L22">    val mainClass = getServiceClass()</span>
+<span class="pc" id="L23">    val jarPath = File (mainClass.protectionDomain.codeSource.location.toURI())</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">    val serviceDir = if (jarPath.isFile) jarPath.parentFile.parent else jarPath.parent</span>
+<span class="fc" id="L25">    val servicePackage = mainClass.`package`.name</span>
+<span class="fc" id="L26">    val serviceName = mainClass.simpleName.camelToSnake().removeSuffix(&quot;_kt&quot;)</span>
 
-<span class="fc" id="L24">    private val parameters: Map&lt;String, *&gt; = loadParameters()</span>
+<span class="fc" id="L28">    private val parameters: Map&lt;String, *&gt; = loadParameters()</span>
 
-<span class="fc" id="L26">    val environment: String? = getenv(&quot;ENVIRONMENT&quot;)</span>
+<span class="fc" id="L30">    val environment: String? = getenv(&quot;ENVIRONMENT&quot;)</span>
 
     private fun loadParameters (): Map&lt;String, *&gt; {
-<span class="fc" id="L29">        var params = loadProps(&quot;${serviceName}.properties&quot;)</span>
+<span class="fc" id="L33">        var params = loadProps(&quot;${serviceName}.properties&quot;)</span>
 
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (environment != null)</span>
-<span class="nc" id="L32">            params = params + loadProps(&quot;${serviceName}_${environment}.properties&quot;)</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (environment != null)</span>
+<span class="nc" id="L36">            params = params + loadProps(&quot;${serviceName}_${environment}.properties&quot;)</span>
 
-<span class="fc" id="L34">        return params</span>
+<span class="fc" id="L38">        return params</span>
     }
 
     private fun getServiceClass (): Class&lt;*&gt; {
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        val first = currentThread().stackTrace.firstOrNull { it.methodName == &quot;main&quot; }</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        return if (first != null) Class.forName (first.className) else ConfigManager.javaClass</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        val first = currentThread().stackTrace.firstOrNull { it.methodName == &quot;main&quot; }</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        return if (first != null) Class.forName (first.className) else ConfigManager.javaClass</span>
     }
 
     private fun loadProps (resName: String): Map&lt;String, *&gt; {
-<span class="fc" id="L43">        val resource = getSystemClassLoader().getResourceAsStream(resName)</span>
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        return if (resource == null) {</span>
-<span class="fc" id="L45">            mapOf&lt;String, Any&gt;()</span>
+<span class="fc" id="L47">        val resource = getSystemClassLoader().getResourceAsStream(resName)</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        return if (resource == null) {</span>
+<span class="fc" id="L49">            mapOf&lt;String, Any&gt;()</span>
         }
         else {
-<span class="nc" id="L48">            val v = Properties()</span>
-<span class="nc" id="L49">            v.load(resource)</span>
-<span class="nc" id="L50">            v</span>
-<span class="nc bnc" id="L51" title="All 6 branches missed.">                .filter { it.key != null &amp;&amp; it.key is String }</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">                .map { it.key as String to it.value }</span>
-<span class="nc" id="L53">                .toMap()</span>
+<span class="nc" id="L52">            val v = Properties()</span>
+<span class="nc" id="L53">            v.load(resource)</span>
+<span class="nc" id="L54">            v</span>
+<span class="nc bnc" id="L55" title="All 6 branches missed.">                .filter { it.key != null &amp;&amp; it.key is String }</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">                .map { it.key as String to it.value }</span>
+<span class="nc" id="L57">                .toMap()</span>
         }
     }
 
-<span class="nc" id="L57">    operator fun get (key: String) = parameters[key]</span>
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="nc" id="L62">    operator fun &lt;T&gt; get (key: String): T = parameters[key] as T</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

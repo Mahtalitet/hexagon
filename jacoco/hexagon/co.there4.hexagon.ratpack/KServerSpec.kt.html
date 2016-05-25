@@ -3,10 +3,10 @@
 import ratpack.registry.Registry
 import ratpack.registry.RegistrySpec
 import ratpack.server.RatpackServerSpec
-import ratpack.server.ServerConfigBuilder
 
-<span class="fc" id="L8">class KServerSpec(private val delegate: RatpackServerSpec) : RatpackServerSpec by delegate {</span>
-<span class="fc" id="L9">    fun serverConfig(cb: ServerConfigBuilder.() -&gt; Unit) = delegate.serverConfig { it.(cb)() }</span>
+<span class="fc" id="L7">class KServerSpec(private val delegate: RatpackServerSpec) : RatpackServerSpec by delegate {</span>
+    fun serverConfig(cb: KServerConfigBuilder.() -&gt; Unit) =
+<span class="fc" id="L9">        delegate.serverConfig { KServerConfigBuilder(it).(cb)() }</span>
 <span class="pc bpc" id="L10" title="1 of 2 branches missed.">    fun registry(cb: RegistrySpec.() -&gt; Unit) = delegate.registry (Registry.of(cb))</span>
 <span class="fc" id="L11">    fun handlers(cb: KChain.() -&gt; Unit) = delegate.handlers { KChain(it).(cb)() }</span>
 }

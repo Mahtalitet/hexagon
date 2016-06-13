@@ -51,47 +51,57 @@ fun String.filterVars(parameters: Map&lt;*, *&gt;) =
 
 <span class="fc" id="L52">fun String.filterVars(vararg parameters: Pair&lt;*, *&gt;) = this.filterVars (mapOf (*parameters))</span>
 
+fun String.filter(prefix: String, suffix: String, vararg parameters: Pair&lt;String, String&gt;) =
+<span class="fc" id="L55">    parameters.fold(this, { result, pair -&gt; result.replace (prefix + pair.first + suffix, pair.second) })</span>
+
+<span class="nc" id="L57">fun String.filter(vararg parameters: Pair&lt;String, String&gt;) = this.filter(&quot;&quot;, &quot;&quot;, *parameters)</span>
+
+fun Regex.findGroups (str: String): List&lt;MatchGroup&gt; =
+<span class="pc bpc" id="L60" title="2 of 4 branches missed.">    (this.find (str)?.groups ?: listOf&lt;MatchGroup&gt; ())</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        .map { it ?: throw IllegalArgumentException () }</span>
+<span class="fc" id="L62">        .drop(1)</span>
+
 /**
  * Transforms the target string from snake case to camel case.
  */
 fun String.snakeToCamel () =
-<span class="fc" id="L58">    this.split (&quot;_&quot;)</span>
-<span class="fc bfc" id="L59" title="All 4 branches covered.">        .filter { it.isNotEmpty () }</span>
-<span class="fc" id="L60">        .map { it.capitalize () }</span>
-<span class="fc" id="L61">        .joinToString(&quot;&quot;)</span>
-<span class="fc" id="L62">        .decapitalize ()</span>
+<span class="fc" id="L68">    this.split (&quot;_&quot;)</span>
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        .filter { it.isNotEmpty () }</span>
+<span class="fc" id="L70">        .map { it.capitalize () }</span>
+<span class="fc" id="L71">        .joinToString(&quot;&quot;)</span>
+<span class="fc" id="L72">        .decapitalize ()</span>
 
 /**
  * Transforms the target string from camel case to snake case.
  */
 fun String.camelToSnake () =
-<span class="pc bpc" id="L68" title="2 of 4 branches missed.">    this.split (&quot;(?=\\p{Upper}\\p{Lower})&quot;.toRegex())</span>
-<span class="pc bpc" id="L69" title="2 of 4 branches missed.">        .filter { it.isNotEmpty () }</span>
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        .map { it.toLowerCase () }</span>
-<span class="fc" id="L71">        .joinToString (&quot;_&quot;)</span>
-<span class="fc" id="L72">        .decapitalize ()</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">    this.split (&quot;(?=\\p{Upper}\\p{Lower})&quot;.toRegex())</span>
+<span class="pc bpc" id="L79" title="2 of 4 branches missed.">        .filter { it.isNotEmpty () }</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        .map { it.toLowerCase () }</span>
+<span class="fc" id="L81">        .joinToString (&quot;_&quot;)</span>
+<span class="fc" id="L82">        .decapitalize ()</span>
 
 /**
  * Formats the string as a banner with a delimiter above and below text. The character used to
  * render the delimiter is defined [here][BANNER_DELIMITER]
  */
 fun String.banner (): String {
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    val separator = BANNER_DELIMITER.repeat (this.lines().map { it.length }.max() ?: 0)</span>
-<span class="fc" id="L80">    return &quot;$separator${EOL}$this${EOL}$separator&quot;</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    val separator = BANNER_DELIMITER.repeat (this.lines().map { it.length }.max() ?: 0)</span>
+<span class="fc" id="L90">    return &quot;$separator${EOL}$this${EOL}$separator&quot;</span>
 }
 
 fun read (resource: String) =
-<span class="pc bpc" id="L84" title="5 of 6 branches missed.">    getSystemClassLoader().getResourceAsStream(resource)?.reader()?.readText()</span>
+<span class="pc bpc" id="L94" title="5 of 6 branches missed.">    getSystemClassLoader().getResourceAsStream(resource)?.reader()?.readText()</span>
 
 private fun ansiCode(fg: AnsiColor?, bg: AnsiColor?, vararg fxs: AnsiEffect): String {
-<span class="fc bfc" id="L87" title="All 2 branches covered.">    fun fgString (color: AnsiColor?) = (color?.fg ?: &quot;&quot;).toString()</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">    fun bgString (color: AnsiColor?) = (color?.bg ?: &quot;&quot;).toString()</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">    fun fgString (color: AnsiColor?) = (color?.fg ?: &quot;&quot;).toString()</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">    fun bgString (color: AnsiColor?) = (color?.bg ?: &quot;&quot;).toString()</span>
 
-<span class="fc" id="L90">    val colors = listOf (fgString(fg), bgString(bg))</span>
-<span class="fc" id="L91">    val elements = colors + fxs.map { it.code.toString() }</span>
-<span class="fc bfc" id="L92" title="All 4 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
+<span class="fc" id="L100">    val colors = listOf (fgString(fg), bgString(bg))</span>
+<span class="fc" id="L101">    val elements = colors + fxs.map { it.code.toString() }</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
 
-<span class="fc bfc" id="L94" title="All 4 branches covered.">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
+<span class="fc bfc" id="L104" title="All 4 branches covered.">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
 }
 
 /**
@@ -104,8 +114,8 @@ private fun ansiCode(fg: AnsiColor?, bg: AnsiColor?, vararg fxs: AnsiEffect): St
  * @param fxs List of affects
  * @return The ANSI sequence
  */
-<span class="fc" id="L107">fun ansi(fg: AnsiColor, bg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, bg, *fxs)</span>
-<span class="fc" id="L108">fun ansi(fg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, null, *fxs)</span>
-<span class="fc" id="L109">fun ansi(vararg fxs: AnsiEffect) = ansiCode (null, null, *fxs)</span>
+<span class="fc" id="L117">fun ansi(fg: AnsiColor, bg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, bg, *fxs)</span>
+<span class="fc" id="L118">fun ansi(fg: AnsiColor, vararg fxs: AnsiEffect) = ansiCode (fg, null, *fxs)</span>
+<span class="fc" id="L119">fun ansi(vararg fxs: AnsiEffect) = ansiCode (null, null, *fxs)</span>
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

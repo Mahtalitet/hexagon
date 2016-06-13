@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase
 import org.bson.Document
 import kotlin.reflect.KClass
 
-<span class="pc bpc" id="L12" title="1 of 2 branches missed.">val mongodbUrl = ConfigManager[&quot;mongodbUrl&quot;] ?: &quot;mongodb://localhost/test&quot;</span>
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">val mongodbUrl = ConfigManager[&quot;mongodbUrl&quot;] as String? ?: &quot;mongodb://localhost/test&quot;</span>
 
 fun mongoDatabase (uri: String = mongodbUrl): MongoDatabase =
 <span class="pc bpc" id="L15" title="1 of 2 branches missed.">    MongoClient(MongoClientURI(uri)).getDatabase(MongoClientURI(uri).database) ?:</span>

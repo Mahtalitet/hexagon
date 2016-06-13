@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Exchange.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web</a> &gt; <span class="el_source">Exchange.kt</span></div><h1>Exchange.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web
+
+import co.there4.hexagon.template.PebbleRenderer.render
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
+import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
+
+/**
+ * HTTP request context. It holds client supplied data and methods to change the response.
+ */
+<span class="fc" id="L13">data class Exchange (</span>
+<span class="fc" id="L14">    val request: Request,</span>
+<span class="fc" id="L15">    val response: Response,</span>
+<span class="fc" id="L16">    val session: Session) {</span>
+
+<span class="fc" id="L18">    fun redirect (url: String) = response.redirect(url)</span>
+
+<span class="fc" id="L20">    fun ok(content: Any) = send (200, content)</span>
+<span class="fc" id="L21">    fun ok(code: Int = 200, content: Any = &quot;&quot;) = send (code, content)</span>
+<span class="fc" id="L22">    fun error(code: Int = 500, content: Any = &quot;&quot;) = send (code, content)</span>
+
+<span class="nc" id="L24">    fun halt(content: Any) = halt (500, content)</span>
+    fun halt(code: Int = 500, content: Any = &quot;&quot;) {
+<span class="fc" id="L26">        send (code, content)</span>
+<span class="fc" id="L27">        throw EndException ()</span>
+    }
+
+    fun template (
+        template: String,
+        locale: Locale = Locale.getDefault(),
+        context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
+
+        // TODO Content type handling
+//        val contentType = get(MimeTypes::class.java).getContentType(template) ?: &quot;text/html&quot;
+//        response.contentTypeIfNotSet(&quot;$contentType; charset=${defaultCharset().name()}&quot;)
+<span class="nc" id="L38">        ok (render (template, locale, context + (&quot;lang&quot; to locale.language)))</span>
+<span class="nc" id="L39">    }</span>
+
+    fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
+<span class="nc" id="L42">        template (template, Locale.getDefault(), context)</span>
+<span class="nc" id="L43">    }</span>
+
+    fun httpDate (date: LocalDateTime) =
+<span class="nc" id="L46">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
+
+    private fun send(code: Int, content: Any) {
+<span class="fc" id="L49">        response.status = code</span>
+<span class="fc" id="L50">        response.body = content</span>
+<span class="fc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>webPackage.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web</a> &gt; <span class="el_source">webPackage.kt</span></div><h1>webPackage.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web
+
+import co.there4.hexagon.web.jetty.JettyServer
+import kotlin.reflect.KClass
+
+/** Default server. Used by package methods. */
+<span class="fc" id="L7">var blacksheep: Server = JettyServer ()</span>
+<span class="fc" id="L8">    get () = field</span>
+    set (server) {
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (field.started ())</span>
+<span class="fc" id="L11">            throw IllegalStateException (&quot;A default server is already started&quot;)</span>
+
+<span class="fc" id="L13">        field = server</span>
+<span class="fc" id="L14">    }</span>
+
+/** @see Server.run */
+<span class="fc" id="L17">fun run() = blacksheep.run()</span>
+/** @see Server.stop */
+<span class="fc" id="L19">fun stop() = blacksheep.stop()</span>
+
+/** @see Router.assets */
+<span class="fc" id="L22">fun assets (path: String) = blacksheep.assets (path)</span>
+
+/** @see Router.after */
+<span class="fc" id="L25">fun after (path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = blacksheep.after (path, block)</span>
+/** @see Router.before */
+<span class="fc" id="L27">fun before (path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = blacksheep.before (path, block)</span>
+
+/** @see Router.get */
+<span class="fc" id="L30">fun get (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.get (path, block)</span>
+/** @see Router.head */
+<span class="fc" id="L32">fun head (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.head (path, block)</span>
+/** @see Router.post */
+<span class="fc" id="L34">fun post (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.post (path, block)</span>
+/** @see Router.put */
+<span class="fc" id="L36">fun put (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.put (path, block)</span>
+/** @see Router.delete */
+<span class="fc" id="L38">fun delete (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.delete (path, block)</span>
+/** @see Router.trace */
+<span class="fc" id="L40">fun trace (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.trace (path, block)</span>
+/** @see Router.options */
+<span class="fc" id="L42">fun options (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.options (path, block)</span>
+/** @see Router.patch */
+<span class="fc" id="L44">fun patch (path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = blacksheep.patch (path, block)</span>
+
+/** @see Router.error */
+fun error(exception: Class&lt;out Exception&gt;, block: Exchange.(e: Exception) -&gt; Unit) =
+<span class="fc" id="L48">    blacksheep.error (exception, block)</span>
+
+/** @see Router.error */
+fun error(exception: KClass&lt;out Exception&gt;, block: Exchange.(e: Exception) -&gt; Unit) =
+<span class="fc" id="L52">    blacksheep.error (exception, block)</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

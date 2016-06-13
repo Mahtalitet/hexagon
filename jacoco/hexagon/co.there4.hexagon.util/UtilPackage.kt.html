@@ -90,6 +90,17 @@ fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
 /** The IP address of the machine running this program. */
 <span class="pc bpc" id="L91" title="2 of 4 branches missed.">val ip = getLocalHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
 
+fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
+<span class="fc bfc" id="L94" title="All 4 branches covered.">    if (query.isEmpty())</span>
+<span class="fc" id="L95">        mapOf()</span>
+    else
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">        query.split(&quot;&amp;&quot;.toRegex())</span>
+<span class="fc" id="L98">            .map {</span>
+<span class="fc" id="L99">                val kv = it.split(&quot;=&quot;)</span>
+<span class="pc bpc" id="L100" title="3 of 6 branches missed.">                kv[0].trim () to (if (kv.size == 2) kv[1].trim() else &quot;&quot;)</span>
+            }
+<span class="fc" id="L102">            .toMap(LinkedHashMap&lt;String, String&gt;())</span>
+
 /*
  * Error handling
  */
@@ -98,20 +109,20 @@ fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
  * Returns the stack trace array of the frames that starts with the given prefix.
  */
 fun Throwable.filterStackTrace (prefix: String) =
-<span class="fc bfc" id="L101" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
-<span class="fc" id="L102">        this.stackTrace</span>
+<span class="fc bfc" id="L112" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
+<span class="fc" id="L113">        this.stackTrace</span>
     else
-<span class="fc bfc" id="L104" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
 
 /**
  * Returns this throwable as a text.
  */
 fun Throwable.toText (prefix: String = &quot;&quot;): String =
-<span class="fc" id="L110">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
-<span class="fc" id="L111">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (this.cause == null)</span>
-<span class="fc" id="L113">            &quot;&quot;</span>
+<span class="fc" id="L121">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
+<span class="fc" id="L122">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (this.cause == null)</span>
+<span class="fc" id="L124">            &quot;&quot;</span>
         else
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

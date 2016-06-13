@@ -3,11 +3,25 @@
 import ratpack.registry.Registry
 import ratpack.registry.RegistrySpec
 import ratpack.server.RatpackServerSpec
+import java.net.InetAddress
 
-<span class="fc" id="L7">class KServerSpec(private val delegate: RatpackServerSpec) : RatpackServerSpec by delegate {</span>
+<span class="fc" id="L8">class KServerSpec(</span>
+    private val delegate: RatpackServerSpec,
+<span class="fc" id="L10">    val bindPort: Int? = null,</span>
+<span class="fc" id="L11">    val bindAddress: InetAddress? = null</span>
+    ) : RatpackServerSpec by delegate {
+
     fun serverConfig(cb: KServerConfigBuilder.() -&gt; Unit) =
-<span class="fc" id="L9">        delegate.serverConfig { KServerConfigBuilder(it).(cb)() }</span>
-<span class="pc bpc" id="L10" title="1 of 2 branches missed.">    fun registry(cb: RegistrySpec.() -&gt; Unit) = delegate.registry (Registry.of(cb))</span>
-<span class="fc" id="L11">    fun handlers(cb: KChain.() -&gt; Unit) = delegate.handlers { KChain(it).(cb)() }</span>
+<span class="fc" id="L15">        delegate.serverConfig {</span>
+<span class="fc" id="L16">            val kServerConfigBuilder = KServerConfigBuilder(it)</span>
+<span class="fc" id="L17">            kServerConfigBuilder.(cb)()</span>
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">            if (bindPort != null)</span>
+<span class="nc" id="L19">                kServerConfigBuilder.port = bindPort</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">            if (bindAddress != null)</span>
+<span class="fc" id="L21">                kServerConfigBuilder.address = bindAddress</span>
+<span class="fc" id="L22">        }</span>
+
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">    fun registry(cb: RegistrySpec.() -&gt; Unit) = delegate.registry (Registry.of(cb))</span>
+<span class="fc" id="L25">    fun handlers(cb: KChain.() -&gt; Unit) = delegate.handlers { KChain(it).(cb)() }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

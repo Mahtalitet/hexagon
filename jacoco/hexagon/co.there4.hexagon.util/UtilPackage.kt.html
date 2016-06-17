@@ -5,51 +5,52 @@ import java.lang.ThreadLocal.withInitial
 import java.net.InetAddress.getLocalHost
 import java.time.LocalDateTime
 import java.util.*
+import java.lang.management.ManagementFactory.getRuntimeMXBean
 
 /*
  * Timing
  */
 
-<span class="fc" id="L13">private val times = withInitial { LinkedList&lt;Long&gt; () }</span>
+<span class="fc" id="L14">private val times = withInitial { LinkedList&lt;Long&gt; () }</span>
 
 /**
  * Store a timestamp in nanoseconds in the thread's times stack.
  */
-<span class="fc" id="L18">fun resetTimes() = times.get ().clear()</span>
+<span class="fc" id="L19">fun resetTimes() = times.get ().clear()</span>
 /**
  * Store a timestamp in nanoseconds in the thread's times stack.
  */
-<span class="fc" id="L22">fun pushTime() = times.get ().push(nanoTime())</span>
+<span class="fc" id="L23">fun pushTime() = times.get ().push(nanoTime())</span>
 /**
  * Pop latest timestamp in the nanos times stack and returns the difference with current one.
  */
-<span class="fc" id="L26">fun popTime() = nanoTime() - times.get().pop()</span>
+<span class="fc" id="L27">fun popTime() = nanoTime() - times.get().pop()</span>
 /**
  * Returns a time difference in nanoseconds formatted as a string.
  */
-<span class="fc" id="L30">fun formatTime(timestamp: Long) = &quot;%1.3f ms&quot;.format (timestamp / 1e6)</span>
+<span class="fc" id="L31">fun formatTime(timestamp: Long) = &quot;%1.3f ms&quot;.format (timestamp / 1e6)</span>
 
 /**
  * Formats a date as a formatted integer with this format: `YYYYMMDDHHmmss`.
  */
 fun LocalDateTime.asInt () =
-<span class="fc" id="L36">    (this.year       * 1e10.toLong()) +</span>
-<span class="fc" id="L37">    (this.monthValue * 1e8.toLong()) +</span>
-<span class="fc" id="L38">    (this.dayOfMonth * 1e6.toLong()) +</span>
-<span class="fc" id="L39">    (this.hour       * 1e4.toLong()) +</span>
-<span class="fc" id="L40">    (this.minute     * 1e2.toLong()) +</span>
-<span class="fc" id="L41">    this.second</span>
+<span class="fc" id="L37">    (this.year       * 1e10.toLong()) +</span>
+<span class="fc" id="L38">    (this.monthValue * 1e8.toLong()) +</span>
+<span class="fc" id="L39">    (this.dayOfMonth * 1e6.toLong()) +</span>
+<span class="fc" id="L40">    (this.hour       * 1e4.toLong()) +</span>
+<span class="fc" id="L41">    (this.minute     * 1e2.toLong()) +</span>
+<span class="fc" id="L42">    this.second</span>
 
 /*
  * Threading
  */
 
 /** Map for storing context data linked to the executing thread. */
-<span class="fc" id="L48">object Context {</span>
-<span class="fc" id="L49">    private val threadLocal = withInitial { LinkedHashMap&lt;Any, Any&gt;() }</span>
-<span class="fc" id="L50">    fun entries () = threadLocal.get().entries</span>
-<span class="fc" id="L51">    operator fun get (key: Any) = threadLocal.get()[key]</span>
-<span class="fc" id="L52">    operator fun set (key: Any, value: Any) { threadLocal.get()[key] = value }</span>
+<span class="fc" id="L49">object Context {</span>
+<span class="fc" id="L50">    private val threadLocal = withInitial { LinkedHashMap&lt;Any, Any&gt;() }</span>
+<span class="fc" id="L51">    fun entries () = threadLocal.get().entries</span>
+<span class="fc" id="L52">    operator fun get (key: Any) = threadLocal.get()[key]</span>
+<span class="fc" id="L53">    operator fun set (key: Any, value: Any) { threadLocal.get()[key] = value }</span>
 }
 
 /**
@@ -61,21 +62,21 @@ fun LocalDateTime.asInt () =
  * @throws [ServiceException] if the callback didn't succeed in the given times.
  */
 fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
-<span class="fc bfc" id="L64" title="All 4 branches covered.">    require (times &gt; 0)</span>
-<span class="fc bfc" id="L65" title="All 4 branches covered.">    require (delay &gt;= 0)</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    require (times &gt; 0)</span>
+<span class="fc bfc" id="L66" title="All 4 branches covered.">    require (delay &gt;= 0)</span>
 
-<span class="fc" id="L67">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
-<span class="pc bpc" id="L68" title="1 of 4 branches missed.">    for (ii in 1 .. times) {</span>
-<span class="fc" id="L69">        try {</span>
-<span class="fc" id="L70">            return func ()</span>
+<span class="fc" id="L68">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">    for (ii in 1 .. times) {</span>
+<span class="fc" id="L70">        try {</span>
+<span class="fc" id="L71">            return func ()</span>
         }
-<span class="fc" id="L72">        catch (e: Exception) {</span>
-<span class="fc" id="L73">            exceptions.add (e)</span>
-<span class="fc" id="L74">            Thread.sleep (delay)</span>
+<span class="fc" id="L73">        catch (e: Exception) {</span>
+<span class="fc" id="L74">            exceptions.add (e)</span>
+<span class="fc" id="L75">            Thread.sleep (delay)</span>
         }
     }
 
-<span class="fc" id="L78">    throw ServiceException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
+<span class="fc" id="L79">    throw ServiceException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
 }
 
 /*
@@ -83,23 +84,23 @@ fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
  */
 
 /** Unknown host name. */
-<span class="fc" id="L86">val UNKNOWN_LOCALHOST = &quot;UNKNOWN_LOCALHOST&quot;</span>
+<span class="fc" id="L87">val UNKNOWN_LOCALHOST = &quot;UNKNOWN_LOCALHOST&quot;</span>
 
 /** The hostname of the machine running this program. */
-<span class="pc bpc" id="L89" title="2 of 4 branches missed.">val hostname = getLocalHost()?.getHostName() ?: UNKNOWN_LOCALHOST</span>
+<span class="pc bpc" id="L90" title="2 of 4 branches missed.">val hostname = getLocalHost()?.getHostName() ?: UNKNOWN_LOCALHOST</span>
 /** The IP address of the machine running this program. */
-<span class="pc bpc" id="L91" title="2 of 4 branches missed.">val ip = getLocalHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
+<span class="pc bpc" id="L92" title="2 of 4 branches missed.">val ip = getLocalHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
 
 fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
-<span class="fc bfc" id="L94" title="All 4 branches covered.">    if (query.isEmpty())</span>
-<span class="fc" id="L95">        mapOf()</span>
+<span class="fc bfc" id="L95" title="All 4 branches covered.">    if (query.isEmpty())</span>
+<span class="fc" id="L96">        mapOf()</span>
     else
-<span class="pc bpc" id="L97" title="2 of 4 branches missed.">        query.split(&quot;&amp;&quot;.toRegex())</span>
-<span class="fc" id="L98">            .map {</span>
-<span class="fc" id="L99">                val kv = it.split(&quot;=&quot;)</span>
-<span class="pc bpc" id="L100" title="3 of 6 branches missed.">                kv[0].trim () to (if (kv.size == 2) kv[1].trim() else &quot;&quot;)</span>
+<span class="pc bpc" id="L98" title="2 of 4 branches missed.">        query.split(&quot;&amp;&quot;.toRegex())</span>
+<span class="fc" id="L99">            .map {</span>
+<span class="fc" id="L100">                val kv = it.split(&quot;=&quot;)</span>
+<span class="pc bpc" id="L101" title="3 of 6 branches missed.">                kv[0].trim () to (if (kv.size == 2) kv[1].trim() else &quot;&quot;)</span>
             }
-<span class="fc" id="L102">            .toMap(LinkedHashMap&lt;String, String&gt;())</span>
+<span class="fc" id="L103">            .toMap(LinkedHashMap&lt;String, String&gt;())</span>
 
 /*
  * Error handling
@@ -109,20 +110,28 @@ fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
  * Returns the stack trace array of the frames that starts with the given prefix.
  */
 fun Throwable.filterStackTrace (prefix: String) =
-<span class="fc bfc" id="L112" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
-<span class="fc" id="L113">        this.stackTrace</span>
+<span class="fc bfc" id="L113" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
+<span class="fc" id="L114">        this.stackTrace</span>
     else
-<span class="fc bfc" id="L115" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
 
 /**
  * Returns this throwable as a text.
  */
 fun Throwable.toText (prefix: String = &quot;&quot;): String =
-<span class="fc" id="L121">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
-<span class="fc" id="L122">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
-<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (this.cause == null)</span>
-<span class="fc" id="L124">            &quot;&quot;</span>
+<span class="fc" id="L122">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
+<span class="fc" id="L123">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (this.cause == null)</span>
+<span class="fc" id="L125">            &quot;&quot;</span>
         else
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
+
+/*
+ * Logging
+ */
+
+<span class="fc" id="L133">internal val flarePrefix = getProperty (&quot;CompanionLogger.flarePrefix&quot;, &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+<span class="fc" id="L134">val jvmId = getRuntimeMXBean().name</span>
+
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

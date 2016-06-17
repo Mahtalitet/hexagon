@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.125s</div>
+<div class="counter">0.233s</div>
 <p>duration</p>
 </div>
 </td>
@@ -63,6 +63,9 @@
 <li>
 <a href="#tab0">Tests</a>
 </li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -76,12 +79,12 @@
 </thead>
 <tr>
 <td class="success">consumers_handle_no_reply_messages</td>
-<td>0.067s</td>
+<td>0.137s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">consumers_handle_numbers_properly</td>
-<td>0.048s</td>
+<td>0.080s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -106,20 +109,187 @@
 </tr>
 <tr>
 <td class="success">create_a_connection_factory_with_two_parameter_succeed</td>
-<td>0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">create_a_connection_factory_without_parameters_succeed</td>
 <td>0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">create_a_connection_factory_without_parameters_succeed</td>
+<td>0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">rabbit_client_disconnects_properly</td>
-<td>0.005s</td>
+<td>0.011s</td>
 <td class="success">passed</td>
 </tr>
 </table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:17:38.574 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.603 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.604 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | Consuming messages in int_handler
+13:17:38.611 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.612 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | Consuming messages in long_handler
+13:17:38.620 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.622 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | Consuming messages in exception_handler
+13:17:38.636 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.640 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: int_handler
+REPLY TO: null CORRELATION ID: null
+BODY:
+123
+13:17:38.641 ?[34mINFO ?[0;39m ?[35m[rabbitmq-0     ]?[0;39m c.t.h.m.RabbitClientTest       ?[36m21384@jamhost?[0;39m | 123
+13:17:38.645 ?[39mTRACE?[0;39m ?[35m[rabbitmq-0     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: null
+                    TIME: 4.241 ms
+                    BODY: 123
+13:17:38.646 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: long_handler
+REPLY TO: null CORRELATION ID: null
+BODY:
+456
+13:17:38.646 ?[34mINFO ?[0;39m ?[35m[rabbitmq-1     ]?[0;39m c.t.h.m.RabbitClientTest       ?[36m21384@jamhost?[0;39m | 456
+13:17:38.647 ?[39mTRACE?[0;39m ?[35m[rabbitmq-1     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: null
+                    TIME: 0.710 ms
+                    BODY: 456
+13:17:38.649 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: exception_handler
+REPLY TO: null CORRELATION ID: null
+BODY:
+error
+13:17:38.653 ?[31mWARN ?[0;39m ?[35m[rabbitmq-2     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | Error processing message
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'error': was expecting ('true', 'false' or 'null')
+ at [Source: error; line: 1, column: 11]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1586)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:521)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:2754)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:1820)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:708)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:3847)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:3792)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:2797)
+	at co.there4.hexagon.serialization.JacksonJsonFormat.parse(JacksonJsonFormat.kt:23)
+	at co.there4.hexagon.serialization.JacksonSerializer.parse(JacksonSerializer.kt:79)
+	at co.there4.hexagon.serialization.JacksonSerializer.parse$default(JacksonSerializer.kt:78)
+	at co.there4.hexagon.serialization.SerializationPackageKt.parse(SerializationPackage.kt:9)
+	at co.there4.hexagon.messaging.Handler$handleDelivery$1.run(Handler.kt:44)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+13:17:38.654 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: exception_handler
+REPLY TO: null CORRELATION ID: null
+BODY:
+13:17:38.654 ?[39mTRACE?[0;39m ?[35m[rabbitmq-2     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: null
+                    TIME: 2.266 ms
+                    BODY: error
+13:17:38.658 ?[31mWARN ?[0;39m ?[35m[rabbitmq-3     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | Error processing message
+com.fasterxml.jackson.databind.JsonMappingException: No content to map due to end-of-input
+ at [Source: ; line: 1, column: 0]
+	at com.fasterxml.jackson.databind.JsonMappingException.from(JsonMappingException.java:255)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:3851)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:3792)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:2797)
+	at co.there4.hexagon.serialization.JacksonJsonFormat.parse(JacksonJsonFormat.kt:23)
+	at co.there4.hexagon.serialization.JacksonSerializer.parse(JacksonSerializer.kt:79)
+	at co.there4.hexagon.serialization.JacksonSerializer.parse$default(JacksonSerializer.kt:78)
+	at co.there4.hexagon.serialization.SerializationPackageKt.parse(SerializationPackage.kt:9)
+	at co.there4.hexagon.messaging.Handler$handleDelivery$1.run(Handler.kt:44)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+13:17:38.660 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ client closed
+13:17:38.662 ?[39mTRACE?[0;39m ?[35m[rabbitmq-3     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: null
+                    TIME: 7.685 ms
+                    BODY: 
+13:17:38.677 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ client closed
+13:17:38.684 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.704 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.705 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | Consuming messages in int_op
+13:17:38.712 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.713 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | Consuming messages in long_op
+13:17:38.719 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.726 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: int_op
+REPLY TO: amq.gen-RshHmoEfigmgy19yv-_Ccw CORRELATION ID: ab2daccc-a1f6-4d5e-bf1b-d1b90114cb15
+BODY:
+123
+13:17:38.729 ?[39mDEBUG?[0;39m ?[35m[rabbitmq-0     ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: amq.gen-RshHmoEfigmgy19yv-_Ccw
+REPLY TO: null CORRELATION ID: ab2daccc-a1f6-4d5e-bf1b-d1b90114cb15
+BODY:
+123
+13:17:38.732 ?[39mTRACE?[0;39m ?[35m[rabbitmq-0     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: ab2daccc-a1f6-4d5e-bf1b-d1b90114cb15
+                    TIME: 5.602 ms
+                    BODY: 123
+13:17:38.735 ?[39mDEBUG?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: long_op
+REPLY TO: amq.gen-jDKEgrVv5QnRhYD7TI00MQ CORRELATION ID: 9fe9c6ae-b6da-4a94-b556-bffebf6f935d
+BODY:
+456
+13:17:38.742 ?[39mDEBUG?[0;39m ?[35m[rabbitmq-1     ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | EXCHANGE:  ROUTING KEY: amq.gen-jDKEgrVv5QnRhYD7TI00MQ
+REPLY TO: null CORRELATION ID: 9fe9c6ae-b6da-4a94-b556-bffebf6f935d
+BODY:
+456
+13:17:38.743 ?[39mTRACE?[0;39m ?[35m[rabbitmq-1     ]?[0;39m c.t.hexagon.messaging.Handler  ?[36m21384@jamhost?[0;39m | 
+                    ENCODING: UTF-8 CORRELATION ID: 9fe9c6ae-b6da-4a94-b556-bffebf6f935d
+                    TIME: 7.744 ms
+                    BODY: 456
+13:17:38.750 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ client closed
+13:17:38.758 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ client closed
+13:17:38.771 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ Client connected to:
+localhost
+5672
+/
+guest
+guest
+13:17:38.777 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m c.t.h.messaging.RabbitClient   ?[36m21384@jamhost?[0;39m | RabbitMQ client closed
+</pre>
+</span>
 </div>
 </div>
 <div id="footer">
@@ -129,7 +299,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.13</a> at Jun 13, 2016 3:33:38 PM</p>
+<a href="http://www.gradle.org">Gradle 2.14</a> at Jun 17, 2016 1:17:47 PM</p>
 </div>
 </div>
 </body>

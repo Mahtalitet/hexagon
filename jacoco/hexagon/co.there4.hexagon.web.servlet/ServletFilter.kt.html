@@ -3,7 +3,7 @@
 import co.there4.hexagon.util.CompanionLogger
 import co.there4.hexagon.web.*
 import co.there4.hexagon.web.FilterOrder.*
-import co.there4.hexagon.web.Filter as BlacksheepFilter
+import co.there4.hexagon.web.Filter as HexagonFilter
 import javax.servlet.*
 import javax.servlet.Filter
 import javax.servlet.http.HttpServletRequest
@@ -12,89 +12,96 @@ import javax.servlet.http.HttpServletResponse
 /**
  * @author jam
  */
-<span class="fc" id="L15">class ServletFilter (</span>
-<span class="nc" id="L16">    val server: Server,</span>
-<span class="nc" id="L17">    val filters: MutableMap&lt;BlacksheepFilter, Exchange.() -&gt; Unit&gt; = server.filters,</span>
-<span class="nc" id="L18">    val routes: MutableMap&lt;Route, Exchange.() -&gt; Unit&gt; = server.routes</span>
-) : Filter {
-
-<span class="fc" id="L21">    companion object : CompanionLogger(ServletFilter::class)</span>
+<span class="fc" id="L15">class ServletFilter (private val router: Router) : Filter {</span>
+<span class="fc" id="L16">    companion object : CompanionLogger(ServletFilter::class)</span>
 
     private val routesByMethod: Map&lt;HttpMethod, List&lt;Pair&lt;Route, Exchange.() -&gt; Unit&gt;&gt;&gt; =
-<span class="fc" id="L24">        routes.entries.map { it.key to it.value }.groupBy { it.first.method }</span>
+<span class="fc" id="L19">        router.routes.entries.map { it.key to it.value }.groupBy { it.first.method }</span>
 
-<span class="fc" id="L26">    override fun init(filterConfig: FilterConfig) { /* Not implemented */ }</span>
-<span class="fc" id="L27">    override fun destroy() { /* Not implemented */ }</span>
+    private fun filter(
+        request: BServletRequest,
+        exchange: Exchange,
+        filterOrder: FilterOrder,
+        filters: Map&lt;HexagonFilter, Exchange.() -&gt; Unit&gt;): Boolean {
+
+<span class="fc" id="L27">        var handled = false</span>
+
+<span class="fc" id="L29">        filters</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            .filter { it.key.order == filterOrder }.entries.map {</span>
+<span class="fc" id="L31">            request.actionPath = it.key.path</span>
+<span class="fc" id="L32">            exchange.(it.value)()</span>
+<span class="fc" id="L33">            handled = true</span>
+<span class="fc" id="L34">        }</span>
+
+<span class="fc" id="L36">        return handled</span>
+    }
+
+<span class="fc" id="L39">    override fun init(filterConfig: FilterConfig) { /* Not implemented */ }</span>
+<span class="fc" id="L40">    override fun destroy() { /* Not implemented */ }</span>
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        val req = request as HttpServletRequest</span>
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        val res = response as HttpServletResponse</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        val fs = filters.filter { it.key.path.matches(req.servletPath) }</span>
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        val methodRoutes = routesByMethod[HttpMethod.valueOf (req.method)]?.filter {</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            it.first.path.matches(req.servletPath)</span>
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (!(request is HttpServletRequest) || !(response is HttpServletResponse))</span>
+<span class="nc" id="L44">            throw IllegalStateException(&quot;Invalid request/response parmeters&quot;)</span>
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        val filters = router.filters.filter { it.key.path.matches(request.servletPath) }</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        val methodRoutes = routesByMethod[HttpMethod.valueOf (request.method)]?.filter {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            it.first.path.matches(request.servletPath)</span>
         }
 
-<span class="fc" id="L37">        val bRequest = BServletRequest (req)</span>
-<span class="fc" id="L38">        val bResponse = BServletResponse (req, res)</span>
-<span class="fc" id="L39">        val bSession = BServletSession (req)</span>
+<span class="fc" id="L51">        val bRequest = BServletRequest (request)</span>
+<span class="fc" id="L52">        val bResponse = BServletResponse (request, response)</span>
+<span class="fc" id="L53">        val bSession = BServletSession (request)</span>
+<span class="fc" id="L54">        val exchange = Exchange(bRequest, bResponse, bSession)</span>
+<span class="fc" id="L55">        var handled = false</span>
 
-<span class="fc" id="L41">        val exchange = Exchange ( bRequest, bResponse, bSession )</span>
-<span class="fc" id="L42">        var handled = false</span>
+<span class="fc" id="L57">        try {</span>
+<span class="fc" id="L58">            handled = filter(bRequest, exchange, BEFORE, filters)</span>
 
-<span class="fc" id="L44">        try {</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">            fs.filter { it.key.order == BEFORE }.forEach {</span>
-<span class="fc" id="L46">                bRequest.actionPath = it.key.path</span>
-<span class="nc" id="L47">                exchange.(it.value)()</span>
-<span class="nc" id="L48">                handled = true</span>
-<span class="nc" id="L49">            }</span>
+<span class="fc" id="L60">            val stream = javaClass.getResourceAsStream(&quot;/public&quot; + request.servletPath)</span>
+            if (bRequest.method == HttpMethod.GET &amp;&amp;
+<span class="fc bfc" id="L62" title="All 4 branches covered.">                !request.servletPath.endsWith(&quot;/&quot;) &amp;&amp; // Reading a folder as resource gets all files</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                stream != null) {</span>
 
-<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (methodRoutes == null) {</span>
-<span class="fc" id="L52">                bResponse.status = 405</span>
-<span class="fc" id="L53">                bResponse.body = &quot;Invalid method '${req.method}'&quot;</span>
-<span class="fc" id="L54">                handled = true</span>
-            }
-<span class="fc bfc" id="L56" title="All 2 branches covered.">            else if (methodRoutes.isEmpty()) {</span>
-<span class="fc" id="L57">                val stream = javaClass.getResourceAsStream(&quot;/public&quot; + req.servletPath)</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">                if (stream != null) {</span>
-<span class="fc" id="L59">                    response.outputStream.write(stream.readBytes())</span>
-<span class="fc" id="L60">                    response.outputStream.flush()</span>
-<span class="fc" id="L61">                    handled = true</span>
-                }
+<span class="fc" id="L65">                response.outputStream.write(stream.readBytes())</span>
+<span class="fc" id="L66">                response.outputStream.flush()</span>
+<span class="fc" id="L67">                handled = true</span>
             }
             else {
-<span class="fc" id="L65">                methodRoutes.forEach {</span>
-<span class="fc" id="L66">                    bRequest.actionPath = it.first.path</span>
-<span class="fc" id="L67">                    exchange.(it.second)()</span>
-<span class="fc" id="L68">                    handled = true</span>
-<span class="fc" id="L69">                }</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">                if (methodRoutes == null) {</span>
+<span class="fc" id="L71">                    bResponse.status = 405</span>
+<span class="fc" id="L72">                    bResponse.body = &quot;Invalid method '${request.method}'&quot;</span>
+<span class="fc" id="L73">                    handled = true</span>
+                }
+                else {
+<span class="pc bfc" id="L76" title="All 2 branches covered.">                    for (r in methodRoutes) {</span>
+<span class="fc" id="L77">                        try {</span>
+<span class="fc" id="L78">                            bRequest.actionPath = r.first.path</span>
+<span class="fc" id="L79">                            exchange.(r.second)()</span>
+<span class="fc" id="L80">                            handled = true</span>
+<span class="fc" id="L81">                            break;</span>
+                        }
+<span class="nc" id="L83">                        catch (e: PassException) {</span>
+                            continue;
+                        }
+                    }
+                }
             }
 
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">            fs.filter { it.key.order == AFTER }.forEach {</span>
-<span class="fc" id="L73">                bRequest.actionPath = it.key.path</span>
-<span class="fc" id="L74">                exchange.(it.value)()</span>
-<span class="fc" id="L75">                handled = true</span>
-<span class="fc" id="L76">            }</span>
+<span class="fc bfc" id="L90" title="All 4 branches covered.">            handled = filter(bRequest, exchange, AFTER, filters) || handled // Order matters!!!</span>
         }
-<span class="fc" id="L78">        catch (e: EndException) {</span>
-<span class="fc" id="L79">            handled = true</span>
+<span class="fc" id="L92">        catch (e: EndException) {</span>
+<span class="fc" id="L93">            handled = true</span>
         }
-<span class="fc" id="L81">        catch (e: Exception) {</span>
-<span class="fc" id="L82">            server.handleException(e, exchange)</span>
+<span class="fc" id="L95">        catch (e: Exception) {</span>
+<span class="fc" id="L96">            err (&quot;Error processing request&quot;, e)</span>
+<span class="fc" id="L97">            router.handleException(e, exchange)</span>
+<span class="fc" id="L98">            handled = true</span>
         }
         finally {
-<span class="pc bpc" id="L85" title="4 of 8 branches missed.">            if (handled)</span>
-<span class="pc" id="L86">                response.status = exchange.response.status</span>
-            else
-<span class="pc" id="L88">                response.status = 404</span>
-
-<span class="pc" id="L90">            try {</span>
-<span class="pc bpc" id="L91" title="5 of 8 branches missed.">                response.writer?.write(exchange.response.body.toString())</span>
-<span class="pc bpc" id="L92" title="5 of 8 branches missed.">                response.writer?.flush()</span>
-            }
-<span class="pc" id="L94">            catch (e: Exception) {</span>
-                // TODO Handle
-<span class="pc" id="L96">            }</span>
-<span class="fc" id="L97">        }</span>
-<span class="fc" id="L98">    }</span>
+<span class="pc bpc" id="L101" title="4 of 8 branches missed.">            response.status = if (handled) exchange.response.status else 404</span>
+<span class="pc bpc" id="L102" title="15 of 24 branches missed.">            response.outputStream.write(exchange.response.body.toString().toByteArray())</span>
+<span class="pc" id="L103">            response.outputStream.flush()</span>
+        }
+<span class="fc" id="L105">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

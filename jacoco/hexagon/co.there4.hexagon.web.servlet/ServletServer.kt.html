@@ -1,52 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ServletServer.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web.servlet</a> &gt; <span class="el_source">ServletServer.kt</span></div><h1>ServletServer.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web.servlet
 
-import java.net.InetAddress
+import co.there4.hexagon.web.Router
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
 
-import co.there4.hexagon.web.Server
 import java.util.*
 import javax.servlet.DispatcherType
-import javax.servlet.ServletContext
 
 /**
  * Not a standard backend as it is not started/stopped
  * TODO Take care of wildcards (review servlet specs) to group filters
  * TODO Take care of wildcards (review servlet specs) to group routes in servlets
  */
-<span class="fc" id="L17">abstract class ServletServer (</span>
-    bindAddress: InetAddress = InetAddress.getLocalHost(),
-    bindPort: Int = 4321,
-    keystore: String? = null,
-    keystorePassword: String? = null,
-    truststore: String? = null,
-    truststorePassword: String? = null):
-<span class="fc" id="L24">        Server (</span>
-            bindAddress,
-            bindPort,
-            keystore,
-            keystorePassword,
-            truststore,
-            truststorePassword),
-        ServletContextListener {
-
-<span class="nc" id="L33">    override fun started(): Boolean = throw UnsupportedOperationException()</span>
-<span class="nc" id="L34">    override fun startup(): Unit = throw UnsupportedOperationException()</span>
-<span class="nc" id="L35">    override fun shutdown(): Unit = throw UnsupportedOperationException()</span>
+<span class="nc" id="L15">abstract class ServletServer : Router(), ServletContextListener {</span>
 
     override fun contextInitialized(sce: ServletContextEvent) {
-<span class="nc" id="L38">        initializeContext(sce.servletContext)</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L18">        init ()</span>
 
-    fun initializeContext(servletContext: ServletContext) {
-<span class="fc" id="L42">        init ()</span>
+<span class="nc" id="L20">        val filter = sce.servletContext.addFilter(&quot;filters&quot;, ServletFilter (this))</span>
+<span class="nc" id="L21">        filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
+<span class="nc" id="L22">    }</span>
 
-<span class="fc" id="L44">        val filter = ServletFilter (this, filters, routes)</span>
-<span class="fc" id="L45">        servletContext.addFilter(&quot;filters&quot;, filter)</span>
-<span class="fc" id="L46">            .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
-<span class="fc" id="L47">    }</span>
-
-<span class="nc" id="L49">    override fun contextDestroyed(sce: ServletContextEvent?) { /* Empty */ }</span>
+<span class="nc" id="L24">    override fun contextDestroyed(sce: ServletContextEvent?) { /* Empty */ }</span>
 
     abstract fun init ()
 }

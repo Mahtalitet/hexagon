@@ -45,6 +45,8 @@
     sizes="32x32"
     href="favicon.ico">
 
+  <link rel="author" href="/humans.txt" />
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -129,22 +131,16 @@
   <li>Commit and push all changes</li>
   <li>Change version in gradle.properties</li>
   <li>Build and deploy (binary and documentation)</li>
-  <li>Commit and tag the release</li>
-  <li>Update version in gradle.properties</li>
-  <li>Commit and push</li>
-  <li>Confirm publishing of artifacts within Bintray (this is a manual step)</li>
+  <li>Push changes</li>
 </ul>
 <p>Used aliases:</p>
 <pre><code>alias gw=&#39;gradle/wrapper&#39;
 alias gwnd=&#39;gw --no-daemon&#39;
 </code></pre>
 <p>Command:</p>
-<pre><code>git flow release start -F &#39;$version&#39; &amp;&amp; \
-sed -i &quot;s/^version=.*$/version=$version/&quot; gradle.properties &amp;&amp; \
-gwnd release &amp;&amp; \
-git flow release finish -Fp &#39;$version&#39;
+<pre><code>gwnd release &amp;&amp; git push
 </code></pre>
-<p>Tools used: git-extras + git-flow + hub + huboard + bintray</p>
+<p>Tools used: git-extras + huboard + bintray</p>
 <h1>Contribute</h1>
 <ul>
   <li>
@@ -152,7 +148,7 @@ git flow release finish -Fp &#39;$version&#39;
   <li>
   <p>For a Pull Request to be accepted:</p></li>
   <li>It has to pass all existing tests.</li>
-  <li>The coverage of the new code should be at least 70%</li>
+  <li>The coverage of the new code should be at least 90%</li>
   <li>All public and protected methods and field must be documented using Dokka</li>
   <li>
     <p>Commit format: the preferred commit format would have:</p>

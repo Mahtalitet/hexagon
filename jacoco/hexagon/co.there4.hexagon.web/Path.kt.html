@@ -15,14 +15,14 @@ import kotlin.text.Regex
  */
 <span class="fc" id="L16">data class Path (val path: String) {</span>
 <span class="fc" id="L17">    companion object : CompanionLogger (Path::class) {</span>
-<span class="fc" id="L18">        val PARAMETER_PREFIX = &quot;{&quot;</span>
-<span class="fc" id="L19">        val PARAMETER_SUFFIX = &quot;}&quot;</span>
+<span class="fc" id="L18">        internal val PARAMETER_PREFIX = &quot;{&quot;</span>
+<span class="fc" id="L19">        internal val PARAMETER_SUFFIX = &quot;}&quot;</span>
 
-<span class="fc" id="L21">        val WILDCARD = &quot;*&quot;</span>
+<span class="fc" id="L21">        internal val WILDCARD = &quot;*&quot;</span>
 
-<span class="fc" id="L23">        val WILDCARD_REGEX = Regex (&quot;\\$WILDCARD&quot;)</span>
-<span class="fc" id="L24">        val PARAMETER_REGEX = Regex (&quot;\\$PARAMETER_PREFIX\\w+\\$PARAMETER_SUFFIX&quot;)</span>
-<span class="fc" id="L25">        val PLACEHOLDER_REGEX = Regex (&quot;\\$WILDCARD|\\$PARAMETER_PREFIX\\w+\\$PARAMETER_SUFFIX&quot;)</span>
+<span class="fc" id="L23">        internal val WILDCARD_REGEX = Regex (&quot;\\$WILDCARD&quot;)</span>
+<span class="fc" id="L24">        internal val PARAMETER_REGEX = Regex (&quot;\\$PARAMETER_PREFIX\\w+\\$PARAMETER_SUFFIX&quot;)</span>
+<span class="fc" id="L25">        internal val PLACEHOLDER_REGEX = Regex (&quot;\\$WILDCARD|\\$PARAMETER_PREFIX\\w+\\$PARAMETER_SUFFIX&quot;)</span>
     }
 
 <span class="pc" id="L28">    val hasWildcards = WILDCARD_REGEX in path</span>
@@ -46,9 +46,9 @@ import kotlin.text.Regex
 
 <span class="fc" id="L47">    val regex: Regex? = when (Pair (hasWildcards, hasParameters)) {</span>
 <span class="fc bfc" id="L48" title="All 2 branches covered.">        Pair (true, true) -&gt;</span>
-<span class="fc" id="L49">            Regex (path.replace (WILDCARD, &quot;(.*)&quot;).replace (PARAMETER_REGEX, &quot;(.*)&quot;))</span>
+<span class="fc" id="L49">            Regex (path.replace (WILDCARD, &quot;(.*)&quot;).replace (PARAMETER_REGEX, &quot;(.+)&quot;))</span>
 <span class="fc bfc" id="L50" title="All 2 branches covered.">        Pair (true, false) -&gt; Regex (path.replace (WILDCARD, &quot;(.*)&quot;))</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        Pair (false, true) -&gt; Regex (path.replace (PARAMETER_REGEX, &quot;(.*)&quot;))</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        Pair (false, true) -&gt; Regex (path.replace (PARAMETER_REGEX, &quot;(.+)&quot;))</span>
 <span class="fc" id="L52">        else -&gt; null</span>
     }
 

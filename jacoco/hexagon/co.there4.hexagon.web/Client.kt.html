@@ -27,14 +27,14 @@ import org.asynchttpclient.BoundRequestBuilder
 <span class="fc bfc" id="L27" title="All 2 branches covered.">        if (body != null)</span>
 <span class="fc" id="L28">            request.setBody(body)</span>
 
-<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (useCookies)</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (useCookies)</span>
 <span class="fc" id="L31">            cookies.forEach { request.addCookie(it.value) }</span>
 
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        val response = request.execute().get() ?: throw RuntimeException(&quot;'null' http response&quot;)</span>
+<span class="fc" id="L33">        val response = request.execute().get()</span>
 
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (useCookies) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (useCookies) {</span>
 <span class="fc" id="L36">            response.cookies.forEach {</span>
-<span class="pc bpc" id="L37" title="1 of 4 branches missed.">                if (it.value == &quot;&quot; &amp;&amp; it.path == &quot;/&quot;)</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                if (it.value == &quot;&quot;)</span>
 <span class="fc" id="L38">                    cookies.remove(it.name)</span>
                 else
 <span class="fc" id="L40">                    cookies[it.name] = it</span>

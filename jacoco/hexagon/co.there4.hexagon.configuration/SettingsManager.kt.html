@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingsManager.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.configuration</a> &gt; <span class="el_source">SettingsManager.kt</span></div><h1>SettingsManager.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.configuration
+
+import co.there4.hexagon.util.CompanionLogger
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import java.lang.ClassLoader.getSystemClassLoader
+import java.lang.System.getenv
+
+<span class="nc" id="L9">enum class Environment { PRODUCTION, INTEGRATION, DEVELOPMENT }</span>
+
+/**
+ * TODO Change environment config for a file (~/.environment) instead an environment variable
+ *
+ * Reads:
+ * - service.yaml (resource)
+ * - &lt;environment&gt;.yaml (resource)
+ * - service.yaml (file)
+ * - &lt;environment&gt;.yaml (file)
+ */
+<span class="fc" id="L20">object SettingsManager : CompanionLogger(SettingsManager::class) {</span>
+<span class="fc" id="L21">    private val systemClassLoader = getSystemClassLoader()</span>
+<span class="fc" id="L22">    private val mapper = ObjectMapper(YAMLFactory())</span>
+<span class="fc" id="L23">    private val parameters: Map&lt;String, *&gt; = loadParameters()</span>
+
+<span class="fc" id="L25">    val environment: Environment? = getenv(&quot;ENVIRONMENT&quot;).let {</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (it == null) {</span>
+<span class="fc" id="L27">            warn (&quot;Environment not set&quot;)</span>
+<span class="fc" id="L28">            null</span>
+        }
+        else {
+<span class="nc" id="L31">            Environment.valueOf(it)</span>
+        }
+    }
+
+    private fun loadParameters (): Map&lt;String, *&gt; {
+<span class="fc" id="L36">        var params = loadProps(&quot;service.yaml&quot;)</span>
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (environment != null)</span>
+<span class="nc" id="L39">            params += loadProps(&quot;${environment}.properties&quot;)</span>
+
+<span class="fc" id="L41">        return params</span>
+    }
+
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    private fun loadProps (resName: String): Map&lt;String, *&gt; =
+<span class="fc" id="L46">        systemClassLoader.getResourceAsStream(resName).let {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (it == null) mapOf&lt;String, Any&gt;()</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            else mapper.readValue(it, Map::class.java) as Map&lt;String, *&gt;</span>
+<span class="fc" id="L49">        }</span>
+
+    /*
+     * TODO Handle nested keys!
+     */
+<span class="fc" id="L54">    operator fun get (vararg key: String): Any? = parameters[key.first()]</span>
+
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="fc" id="L57">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -45,6 +45,8 @@
     sizes="32x32"
     href="favicon.ico">
 
+  <link rel="author" href="/humans.txt" />
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -133,7 +135,7 @@ import java.lang.Thread.sleep
         val times = 1
         var count = 0
 
-        cron.schedule(&quot;0/1 * * * * *&quot;) { count++ }
+        cron.schedule(&quot;0/1 * * * * ?&quot;) { count++ }
 
         sleep ((times * 1000) + 100L)
         cron.shutdown()
@@ -145,7 +147,7 @@ import java.lang.Thread.sleep
         val times = 2
         var count = 0
 
-        cron.schedule(&quot;0/1 * * * * *&quot;) {
+        cron.schedule(&quot;0/1 * * * * ?&quot;) {
             count++
             throw RuntimeException (&quot;Error in cron job&quot;)
         }

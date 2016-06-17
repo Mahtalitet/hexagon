@@ -11,18 +11,18 @@ import com.rabbitmq.client.impl.DefaultExceptionHandler
 <span class="fc" id="L11">    companion object : CompanionLogger (LogExceptionHandler::class)</span>
 
     private fun logError(error: String, con: Connection, ex: Throwable) {
-<span class="fc" id="L14">        error(&quot;%s in connection to: %s&quot;.format(ex, error, con.address.canonicalHostName))</span>
+<span class="fc" id="L14">        err(&quot;%s in connection to: %s&quot;.format(ex, error, con.address.canonicalHostName))</span>
 <span class="fc" id="L15">    }</span>
 
     private fun logError(error: String, ch: Channel, ex: Throwable) {
-<span class="fc" id="L18">        error(&quot;%s in channel: %s&quot;.format(ex, error, ch.channelNumber))</span>
+<span class="fc" id="L18">        err(&quot;%s in channel: %s&quot;.format(ex, error, ch.channelNumber))</span>
 <span class="fc" id="L19">    }</span>
 
     private fun logError(error: String, con: Connection, ch: Channel, ex: Throwable) {
 <span class="fc" id="L22">        val message = &quot;%s in connection to: %s in channel: %s&quot;</span>
 <span class="fc" id="L23">            .format(error, con.address.canonicalHostName, ch.channelNumber)</span>
 
-<span class="fc" id="L25">        error(message, ex)</span>
+<span class="fc" id="L25">        err(message, ex)</span>
 <span class="fc" id="L26">    }</span>
 
     override fun handleUnexpectedConnectionDriverException(con: Connection, ex: Throwable) {
@@ -62,7 +62,7 @@ import com.rabbitmq.client.impl.DefaultExceptionHandler
 <span class="fc" id="L62">        val message = &quot;ConsumerException in channel: %s consumer: %s method: %s&quot;</span>
 <span class="fc" id="L63">            .format(ch.channelNumber, consumerTag, methodName)</span>
 
-<span class="fc" id="L65">        error(message, ex)</span>
+<span class="fc" id="L65">        err(message, ex)</span>
 <span class="fc" id="L66">    }</span>
 
     override fun handleConnectionRecoveryException(con: Connection, ex: Throwable) {

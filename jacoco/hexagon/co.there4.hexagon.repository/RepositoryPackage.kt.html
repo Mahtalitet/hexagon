@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RepositoryPackage.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.repository</a> &gt; <span class="el_source">RepositoryPackage.kt</span></div><h1>RepositoryPackage.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.repository
 
-import co.there4.hexagon.configuration.ConfigManager
+import co.there4.hexagon.configuration.SettingsManager
 import co.there4.hexagon.events.EventManager
 import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase
 import org.bson.Document
 import kotlin.reflect.KClass
 
-<span class="pc bpc" id="L12" title="1 of 2 branches missed.">val mongodbUrl = ConfigManager[&quot;mongodbUrl&quot;] as String? ?: &quot;mongodb://localhost/test&quot;</span>
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">val mongodbUrl = SettingsManager[&quot;mongodbUrl&quot;] as String? ?: &quot;mongodb://localhost/test&quot;</span>
 
 fun mongoDatabase (uri: String = mongodbUrl): MongoDatabase =
 <span class="pc bpc" id="L15" title="1 of 2 branches missed.">    MongoClient(MongoClientURI(uri)).getDatabase(MongoClientURI(uri).database) ?:</span>

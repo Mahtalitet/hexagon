@@ -24,14 +24,10 @@ import javax.servlet.http.HttpSession
 <span class="nc bnc" id="L24" title="All 2 branches missed.">        get() = session (req)?.maxInactiveInterval ?: 0</span>
 <span class="nc" id="L25">        set(value) { }</span>
 
-    override fun invalidate() {
-<span class="nc" id="L28">        throw UnsupportedOperationException()</span>
-    }
+<span class="nc" id="L27">    override fun invalidate() = req.session.invalidate()</span>
 
-    override fun isNew(): Boolean {
-<span class="nc" id="L32">        throw UnsupportedOperationException()</span>
-    }
+<span class="nc" id="L29">    override fun isNew() = req.session.isNew</span>
 
-<span class="fc" id="L35">    private fun session (req: HttpServletRequest): HttpSession? = req.getSession(false)</span>
+<span class="fc" id="L31">    private fun session (req: HttpServletRequest): HttpSession? = req.getSession(false)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

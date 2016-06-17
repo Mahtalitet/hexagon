@@ -4,49 +4,71 @@ import java.util.*
 import co.there4.hexagon.web.HttpMethod.*
 import co.there4.hexagon.web.FilterOrder.*
 import co.there4.hexagon.util.CompanionLogger
+import co.there4.hexagon.util.toText
+import kotlin.reflect.KClass
 
 /**
  * TODO Compose routers with a map of context to router (children)
  * TODO val children: MutableMap&lt;String, Router&gt; = LinkedHashMap()
  */
-<span class="fc" id="L12">open class Router(</span>
-<span class="fc" id="L13">    val filters: MutableMap&lt;Filter, Exchange.() -&gt; Unit&gt; = LinkedHashMap (),</span>
-<span class="fc" id="L14">    val routes: MutableMap&lt;Route, Exchange.() -&gt; Unit&gt; = LinkedHashMap ()) {</span>
+<span class="fc" id="L14">open class Router(</span>
+<span class="fc" id="L15">    val filters: MutableMap&lt;Filter, Exchange.() -&gt; Unit&gt; = LinkedHashMap (),</span>
+<span class="fc" id="L16">    val routes: MutableMap&lt;Route, Exchange.() -&gt; Unit&gt; = LinkedHashMap (),</span>
+<span class="fc" id="L17">    val assets: MutableList&lt;String&gt; = ArrayList (),</span>
+<span class="fc" id="L18">    val errors: MutableMap&lt;Class&lt;out Exception&gt;, Exchange.(e: Exception) -&gt; Unit&gt; = LinkedHashMap ()</span>
+    ) {
 
-<span class="fc" id="L16">    companion object : CompanionLogger (Router::class)</span>
+<span class="fc" id="L21">    companion object : CompanionLogger (Router::class)</span>
 
-<span class="fc" id="L18">    fun after(path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = addFilter(path, AFTER, block)</span>
-<span class="fc" id="L19">    fun before(path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = addFilter (path, BEFORE, block)</span>
+<span class="fc" id="L23">    fun after(path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = addFilter(path, AFTER, block)</span>
+<span class="fc" id="L24">    fun before(path: String = &quot;/*&quot;, block: Exchange.() -&gt; Unit) = addFilter (path, BEFORE, block)</span>
 
-<span class="fc" id="L21">    fun get(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, GET, block)</span>
-<span class="fc" id="L22">    fun head(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, HEAD, block)</span>
-<span class="fc" id="L23">    fun post(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, POST, block)</span>
-<span class="fc" id="L24">    fun put(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, PUT, block)</span>
-<span class="fc" id="L25">    fun delete(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, DELETE, block)</span>
-<span class="fc" id="L26">    fun trace(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, TRACE, block)</span>
-<span class="fc" id="L27">    fun options(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, OPTIONS, block)</span>
-<span class="fc" id="L28">    fun patch(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, PATCH, block)</span>
+<span class="fc" id="L26">    fun get(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, GET, block)</span>
+<span class="fc" id="L27">    fun head(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, HEAD, block)</span>
+<span class="fc" id="L28">    fun post(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, POST, block)</span>
+<span class="fc" id="L29">    fun put(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, PUT, block)</span>
+<span class="fc" id="L30">    fun delete(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, DELETE, block)</span>
+<span class="fc" id="L31">    fun trace(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, TRACE, block)</span>
+<span class="fc" id="L32">    fun options(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, OPTIONS, block)</span>
+<span class="fc" id="L33">    fun patch(path: String = &quot;/&quot;, block: Exchange.() -&gt; Unit) = addRoute(path, PATCH, block)</span>
+
+    fun handleException (exception: Exception, exchange: Exchange) {
+<span class="fc" id="L36">        val handler = errors[exception.javaClass]</span>
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (handler != null)</span>
+<span class="fc" id="L39">            exchange.(handler)(exception)</span>
+        else
+<span class="nc" id="L41">            exchange.error(500, exception.toText())</span>
+<span class="fc" id="L42">    }</span>
+
+<span class="fc" id="L44">    fun assets (path: String) = assets.add (path)</span>
+
+    fun error(exception: Class&lt;out Exception&gt;, callback: Exchange.(e: Exception) -&gt; Unit) =
+<span class="fc" id="L47">        errors.put (exception, callback)</span>
+
+    fun error(exception: KClass&lt;out Exception&gt;, callback: Exchange.(e: Exception) -&gt; Unit) =
+<span class="fc" id="L50">        error (exception.java, callback)</span>
 
     private fun addFilter(path: String, order: FilterOrder, block: Exchange.() -&gt; Unit) {
-<span class="fc" id="L31">        val filter = Filter (Path (path), order)</span>
+<span class="fc" id="L53">        val filter = Filter (Path (path), order)</span>
 
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (filters.containsKey(filter))</span>
-<span class="nc" id="L34">            throw IllegalArgumentException (&quot;$order $path Filter is already added&quot;)</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (filters.containsKey(filter))</span>
+<span class="nc" id="L56">            throw IllegalArgumentException (&quot;$order $path Filter is already added&quot;)</span>
 
-<span class="fc" id="L36">        filters.put (filter, block)</span>
-<span class="fc" id="L37">        info (&quot;$order $path Filter ADDED&quot;)</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L58">        filters.put (filter, block)</span>
+<span class="fc" id="L59">        info (&quot;$order $path Filter ADDED&quot;)</span>
+<span class="fc" id="L60">    }</span>
 
     private fun addRoute(path: String, method: HttpMethod, block: Exchange.() -&gt; Unit): Route {
-<span class="fc" id="L41">        val route = Route (Path (path), method)</span>
+<span class="fc" id="L63">        val route = Route (Path (path), method)</span>
 
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (routes.containsKey(route))</span>
-<span class="nc" id="L44">            throw IllegalArgumentException (&quot;$method $path Route is already added&quot;)</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (routes.containsKey(route))</span>
+<span class="nc" id="L66">            throw IllegalArgumentException (&quot;$method $path Route is already added&quot;)</span>
 
-<span class="fc" id="L46">        routes.put (route, block)</span>
-<span class="fc" id="L47">        info (&quot;$method $path Route ADDED&quot;)</span>
+<span class="fc" id="L68">        routes.put (route, block)</span>
+<span class="fc" id="L69">        info (&quot;$method $path Route ADDED&quot;)</span>
 
-<span class="fc" id="L49">        return route</span>
+<span class="fc" id="L71">        return route</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

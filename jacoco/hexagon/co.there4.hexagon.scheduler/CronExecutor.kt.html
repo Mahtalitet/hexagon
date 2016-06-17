@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit.SECONDS
         }
 <span class="fc" id="L34">        catch (e: Exception) {</span>
             // TODO Fire an event
-<span class="fc" id="L36">            error (&quot;Error executing cron job&quot;, e)</span>
+<span class="fc" id="L36">            err (&quot;Error executing cron job&quot;, e)</span>
         }
 
 <span class="fc" id="L39">        val nextExecution = cronExecution.timeToNextExecution(DateTime.now ())</span>

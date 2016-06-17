@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.521s</div>
+<div class="counter">0.596s</div>
 <p>duration</p>
 </div>
 </td>
@@ -63,6 +63,9 @@
 <li>
 <a href="#tab0">Tests</a>
 </li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -76,20 +79,80 @@
 </thead>
 <tr>
 <td class="success">default_server_can_be_replaced_if_not_running</td>
-<td>0.508s</td>
+<td>0.534s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">default_server_can_not_be_replaced_if_running</td>
-<td>0.005s</td>
+<td>0.034s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">package_routes_are_stored_in_default_server</td>
-<td>0.008s</td>
+<td>0.028s</td>
 <td class="success">passed</td>
 </tr>
 </table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:17:35.613 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Server   ?[36m21384@jamhost?[0;39m | Hexagon stopped
+13:17:35.614 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.eclipse.jetty.server.Server  ?[36m21384@jamhost?[0;39m | jetty-9.3.5.v20151012
+13:17:35.616 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.s.handler.ContextHandler ?[36m21384@jamhost?[0;39m | Started o.e.j.s.ServletContextHandler@3d293613{/,null,AVAILABLE}
+13:17:35.635 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.server.ServerConnector   ?[36m21384@jamhost?[0;39m | Started ServerConnector@37e39de7{HTTP/1.1,[http/1.1]}{localhost:5050}
+13:17:35.635 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.eclipse.jetty.server.Server  ?[36m21384@jamhost?[0;39m | Started @14019ms
+13:17:35.637 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Server   ?[36m21384@jamhost?[0;39m | Hexagon started
+
+    SERVICE:     Hexagon
+    ENVIRONMENT: N/A
+
+    Running in 'jamhost' with 8 CPUs 126,976 KB
+    Java 1.8 [Java HotSpot(TM) 64-Bit Server VM]
+    Locale en_US.UTF-8 Timezone Europe/Madrid
+
+    Started in 13.939 s using 229,178 KB
+
+13:17:35.646 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.server.ServerConnector   ?[36m21384@jamhost?[0;39m | Stopped ServerConnector@37e39de7{HTTP/1.1,[http/1.1]}{localhost:5050}
+13:17:35.646 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.s.handler.ContextHandler ?[36m21384@jamhost?[0;39m | Stopped o.e.j.s.ServletContextHandler@3d293613{/,null,UNAVAILABLE}
+13:17:35.647 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Server   ?[36m21384@jamhost?[0;39m | Hexagon stopped
+13:17:36.150 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.eclipse.jetty.server.Server  ?[36m21384@jamhost?[0;39m | jetty-9.3.5.v20151012
+13:17:36.157 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.s.handler.ContextHandler ?[36m21384@jamhost?[0;39m | Started o.e.j.s.ServletContextHandler@1407ced2{/,null,AVAILABLE}
+13:17:36.179 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.e.j.server.ServerConnector   ?[36m21384@jamhost?[0;39m | Started ServerConnector@6b78538b{HTTP/1.1,[http/1.1]}{localhost:5050}
+13:17:36.180 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m o.eclipse.jetty.server.Server  ?[36m21384@jamhost?[0;39m | Started @14563ms
+13:17:36.181 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Server   ?[36m21384@jamhost?[0;39m | Hexagon started
+
+    SERVICE:     Hexagon
+    ENVIRONMENT: N/A
+
+    Running in 'jamhost' with 8 CPUs 126,976 KB
+    Java 1.8 [Java HotSpot(TM) 64-Bit Server VM]
+    Locale en_US.UTF-8 Timezone Europe/Madrid
+
+    Started in 14.483 s using 244,357 KB
+
+13:17:36.184 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | AFTER /after Filter ADDED
+13:17:36.185 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | BEFORE /before Filter ADDED
+13:17:36.187 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | AFTER /* Filter ADDED
+13:17:36.189 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | BEFORE /* Filter ADDED
+13:17:36.191 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | GET /get Route ADDED
+13:17:36.192 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | HEAD /head Route ADDED
+13:17:36.194 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | POST /post Route ADDED
+13:17:36.195 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | PUT /put Route ADDED
+13:17:36.196 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | DELETE /delete Route ADDED
+13:17:36.196 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | TRACE /trace Route ADDED
+13:17:36.197 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | OPTIONS /options Route ADDED
+13:17:36.198 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | PATCH /patch Route ADDED
+13:17:36.199 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | GET / Route ADDED
+13:17:36.200 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | HEAD / Route ADDED
+13:17:36.203 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | POST / Route ADDED
+13:17:36.204 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | PUT / Route ADDED
+13:17:36.206 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | DELETE / Route ADDED
+13:17:36.207 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | TRACE / Route ADDED
+13:17:36.208 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | OPTIONS / Route ADDED
+13:17:36.209 ?[34mINFO ?[0;39m ?[35m[Test worker    ]?[0;39m co.there4.hexagon.web.Router   ?[36m21384@jamhost?[0;39m | PATCH / Route ADDED
+</pre>
+</span>
 </div>
 </div>
 <div id="footer">
@@ -99,7 +162,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.13</a> at Jun 13, 2016 3:33:38 PM</p>
+<a href="http://www.gradle.org">Gradle 2.14</a> at Jun 17, 2016 1:17:47 PM</p>
 </div>
 </div>
 </body>

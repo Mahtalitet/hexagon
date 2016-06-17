@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.110s</div>
+<div class="counter">0.202s</div>
 <p>duration</p>
 </div>
 </td>
@@ -63,6 +63,9 @@
 <li>
 <a href="#tab0">Tests</a>
 </li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -76,37 +79,37 @@
 </thead>
 <tr>
 <td class="success">echoParam1</td>
-<td>0.016s</td>
+<td>0.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">echoParam2</td>
-<td>0.005s</td>
+<td>0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">echoParamWithMaj</td>
-<td>0.004s</td>
+<td>0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">echoParamWithUpperCaseInValue</td>
-<td>0.004s</td>
+<td>0.020s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getHi</td>
-<td>0.003s</td>
+<td>0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getHiAfterFilter</td>
-<td>0.004s</td>
+<td>0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getRoot</td>
-<td>0.003s</td>
+<td>0.038s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -116,7 +119,7 @@
 </tr>
 <tr>
 <td class="success">handleException</td>
-<td>0.003s</td>
+<td>0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -126,7 +129,7 @@
 </tr>
 <tr>
 <td class="success">methods</td>
-<td>0.018s</td>
+<td>0.025s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -136,12 +139,12 @@
 </tr>
 <tr>
 <td class="success">patchOk</td>
-<td>0.003s</td>
+<td>0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">postOk</td>
-<td>0.004s</td>
+<td>0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -151,30 +154,76 @@
 </tr>
 <tr>
 <td class="success">reqres</td>
-<td>0.003s</td>
+<td>0.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">requestData</td>
-<td>0.004s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">staticFile</td>
-<td>0.005s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">twoRoutesWithDifferentCase</td>
 <td>0.006s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">staticFile</td>
+<td>0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">twoRoutesWithDifferentCase</td>
+<td>0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">unauthorized</td>
-<td>0.011s</td>
+<td>0.012s</td>
 <td class="success">passed</td>
 </tr>
 </table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:17:35.510 ?[1;31mERROR?[0;39m ?[35m[tp471382806-172]?[0;39m c.t.h.w.servlet.ServletFilter  ?[36m21384@jamhost?[0;39m | Error processing request
+java.lang.UnsupportedOperationException: error message
+	at co.there4.hexagon.web.integration.GenericIT$initialize$4.invoke(GenericIT.kt:39)
+	at co.there4.hexagon.web.integration.GenericIT$initialize$4.invoke(GenericIT.kt:12)
+	at co.there4.hexagon.web.servlet.ServletFilter.doFilter(ServletFilter.kt:79)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1668)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:581)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:224)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1158)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:511)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1090)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:119)
+	at org.eclipse.jetty.server.Server.handle(Server.java:517)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:306)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:242)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:261)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:95)
+	at org.eclipse.jetty.io.SelectChannelEndPoint$2.run(SelectChannelEndPoint.java:75)
+	at org.eclipse.jetty.util.thread.strategy.ExecuteProduceConsume.produceAndRun(ExecuteProduceConsume.java:213)
+	at org.eclipse.jetty.util.thread.strategy.ExecuteProduceConsume.run(ExecuteProduceConsume.java:147)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:654)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:572)
+	at java.lang.Thread.run(Thread.java:745)
+13:17:35.559 ?[1;31mERROR?[0;39m ?[35m[pool-7-thread-2]?[0;39m c.t.h.scheduler.CronExecutor   ?[36m21384@jamhost?[0;39m | Error executing cron job
+java.lang.RuntimeException: Error in cron job
+	at co.there4.hexagon.scheduler.CronExecutorTest$failing_callback_does_not_prevent_future_executions$1.invoke(CronExecutorTest.kt:26)
+	at co.there4.hexagon.scheduler.CronExecutorTest$failing_callback_does_not_prevent_future_executions$1.invoke(CronExecutorTest.kt:6)
+	at co.there4.hexagon.scheduler.CronExecutor.function(CronExecutor.kt:32)
+	at co.there4.hexagon.scheduler.CronExecutor.access$function(CronExecutor.kt:13)
+	at co.there4.hexagon.scheduler.CronExecutor$function$1.run(CronExecutor.kt:42)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+13:17:35.596 ?[34mINFO ?[0;39m ?[35m[cHttpClient-3-2]?[0;39m o.a.n.h.i.Unauthorized401Interceptor ?[36m?[0;39m | Can't handle 401 as there's no realm
+</pre>
+</span>
 </div>
 </div>
 <div id="footer">
@@ -184,7 +233,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 2.13</a> at Jun 13, 2016 3:33:38 PM</p>
+<a href="http://www.gradle.org">Gradle 2.14</a> at Jun 17, 2016 1:17:47 PM</p>
 </div>
 </div>
 </body>

@@ -45,6 +45,8 @@
     sizes="32x32"
     href="favicon.ico">
 
+  <link rel="author" href="/humans.txt" />
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -145,14 +147,8 @@ import java.net.URL
     )
 
     fun crud_handles_entities_nicely () {
-        val server = applicationStart {
-            serverConfig {
-                port(0)
-            }
-            handlers {
-                crud(parametersRepository)
-            }
-        }
+        crud(parametersRepository)
+        run()
 
         val client = HttpClient (URL (&quot;http://localhost:${server.bindPort}&quot;))
 

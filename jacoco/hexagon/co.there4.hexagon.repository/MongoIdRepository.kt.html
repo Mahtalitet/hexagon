@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
 
 <span class="pc bpc" id="L23" title="1 of 2 branches missed.">    constructor (</span>
         type: KClass&lt;T&gt;,
-        database: MongoDatabase = mongoDatabase(),
+        database: MongoDatabase,
         keyName: String,
         keyType: KClass&lt;K&gt;,
         keySupplier: (T) -&gt; K,
@@ -38,14 +38,14 @@ import kotlin.reflect.KClass
             indexOrder
         )
 
-<span class="nc" id="L41">    constructor (</span>
+<span class="fc" id="L41">    constructor (</span>
         type: KClass&lt;T&gt;,
         keyName: String,
         keyType: KClass&lt;K&gt;,
         keySupplier: (T) -&gt; K,
         publishEvents: Boolean = false,
         indexOrder: Int = 1) :
-<span class="nc" id="L48">    this (</span>
+<span class="fc" id="L48">    this (</span>
         type,
         mongoDatabase(),
         keyName,

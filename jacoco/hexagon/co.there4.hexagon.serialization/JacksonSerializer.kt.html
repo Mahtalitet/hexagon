@@ -11,74 +11,82 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import java.io.InputStream
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.reflect.KClass
 
-<span class="fc" id="L18">object JacksonSerializer {</span>
-<span class="fc" id="L19">    val mapper = createObjectMapper ()</span>
+<span class="fc" id="L19">object JacksonSerializer {</span>
+<span class="fc" id="L20">    val mapper = createObjectMapper ()</span>
 
     /** List of formats. NOTE should be defined AFTER mapper definition to avoid runtime issues. */
-<span class="fc" id="L22">    private val formatList = listOf (</span>
-        JacksonJsonFormat ()
+<span class="fc" id="L23">    private val formatList = listOf (</span>
+        JacksonJsonFormat (),
+        JacksonYamlFormat ()
     )
 
-<span class="fc" id="L26">    private val formats = mapOf (</span>
+<span class="fc" id="L28">    private val formats = mapOf (</span>
         *formatList
-<span class="fc" id="L28">            .map { it.contentType to it }</span>
+<span class="fc" id="L30">            .map { it.contentType to it }</span>
             .toTypedArray()
     )
 
-<span class="fc" id="L32">    private val defaultFormat = formatList.first().contentType</span>
+<span class="fc" id="L34">    val contentTypes = formatList.map { it.contentType }</span>
 
     private fun createObjectMapper (): ObjectMapper {
-<span class="fc" id="L35">        val byteBufferSerializer: JsonSerializer&lt;ByteBuffer&gt; =</span>
-<span class="fc" id="L36">            object : JsonSerializer&lt;ByteBuffer&gt; () {</span>
+<span class="fc" id="L37">        val byteBufferSerializer: JsonSerializer&lt;ByteBuffer&gt; =</span>
+<span class="fc" id="L38">            object : JsonSerializer&lt;ByteBuffer&gt; () {</span>
                 override fun serialize(
                     value: ByteBuffer, gen: JsonGenerator, serializers: SerializerProvider) {
 
-<span class="fc" id="L40">                    gen.writeString (Base64.getEncoder ().encodeToString (value.array()))</span>
-<span class="fc" id="L41">                }</span>
+<span class="fc" id="L42">                    gen.writeString (Base64.getEncoder ().encodeToString (value.array()))</span>
+<span class="fc" id="L43">                }</span>
             }
 
-<span class="fc" id="L44">        val byteBufferDeserializer: JsonDeserializer&lt;ByteBuffer&gt; =</span>
-<span class="fc" id="L45">            object : JsonDeserializer&lt;ByteBuffer&gt; () {</span>
+<span class="fc" id="L46">        val byteBufferDeserializer: JsonDeserializer&lt;ByteBuffer&gt; =</span>
+<span class="fc" id="L47">            object : JsonDeserializer&lt;ByteBuffer&gt; () {</span>
                 override fun deserialize(p: JsonParser, ctxt: DeserializationContext): ByteBuffer =
-<span class="fc" id="L47">                    ByteBuffer.wrap (Base64.getDecoder ().decode (p.getText ()))</span>
+<span class="fc" id="L49">                    ByteBuffer.wrap (Base64.getDecoder ().decode (p.getText ()))</span>
             }
 
-<span class="fc" id="L50">        val mapper = ObjectMapper ()</span>
-<span class="fc" id="L51">        mapper.configure (FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
-<span class="fc" id="L52">        mapper.configure (FAIL_ON_EMPTY_BEANS, false)</span>
-<span class="fc" id="L53">        mapper.setSerializationInclusion (NON_EMPTY)</span>
-<span class="fc" id="L54">        mapper.registerModule (Jdk8Module ())</span>
-<span class="fc" id="L55">        mapper.registerModule (JavaTimeModule ())</span>
-<span class="fc" id="L56">        mapper.registerModule (KotlinModule ())</span>
-<span class="fc" id="L57">        mapper.registerModule (object : SimpleModule () {</span>
+<span class="fc" id="L52">        val mapper = ObjectMapper ()</span>
+<span class="fc" id="L53">        mapper.configure (FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
+<span class="fc" id="L54">        mapper.configure (FAIL_ON_EMPTY_BEANS, false)</span>
+<span class="fc" id="L55">        mapper.setSerializationInclusion (NON_EMPTY)</span>
+<span class="fc" id="L56">        mapper.registerModule (Jdk8Module ())</span>
+<span class="fc" id="L57">        mapper.registerModule (JavaTimeModule ())</span>
+<span class="fc" id="L58">        mapper.registerModule (KotlinModule ())</span>
+<span class="fc" id="L59">        mapper.registerModule (object : SimpleModule () {</span>
             init {
-<span class="fc" id="L59">                addSerializer (ByteBuffer::class.java, byteBufferSerializer)</span>
-<span class="fc" id="L60">                addDeserializer (ByteBuffer::class.java, byteBufferDeserializer)</span>
+<span class="fc" id="L61">                addSerializer (ByteBuffer::class.java, byteBufferSerializer)</span>
+<span class="fc" id="L62">                addDeserializer (ByteBuffer::class.java, byteBufferDeserializer)</span>
             }
         })
-<span class="fc" id="L63">        return mapper</span>
+<span class="fc" id="L65">        return mapper</span>
     }
 
     fun toMap(obj: Any): Map&lt;*, *&gt; =
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        mapper.convertValue (obj, Map::class.java) ?: throw IllegalStateException ()</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        mapper.convertValue (obj, Map::class.java) ?: throw IllegalStateException ()</span>
 
     fun &lt;T : Any&gt; toObject(obj: Map&lt;*, *&gt;, type: KClass&lt;T&gt;): T =
-<span class="fc" id="L70">        mapper.convertValue (obj, type.java)</span>
+<span class="fc" id="L72">        mapper.convertValue (obj, type.java)</span>
 
     private fun getSerializationFormat (contentType: String) =
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        formats[contentType] ?: throw IllegalArgumentException (&quot;$contentType not found&quot;)</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        formats[contentType] ?: throw IllegalArgumentException (&quot;$contentType not found&quot;)</span>
 
     fun serialize(obj: Any, contentType: String = defaultFormat) =
-<span class="fc" id="L76">        getSerializationFormat (contentType).serialize(obj)</span>
+<span class="fc" id="L78">        getSerializationFormat (contentType).serialize(obj)</span>
 
     fun &lt;T: Any&gt; parse(text: String, type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="fc" id="L79">        getSerializationFormat (contentType).parse (text, type)</span>
+<span class="fc" id="L81">        getSerializationFormat (contentType).parse (text, type)</span>
 
     fun &lt;T: Any&gt; parseList(text: String, type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="fc" id="L82">        getSerializationFormat (contentType).parseList (text, type)</span>
+<span class="fc" id="L84">        getSerializationFormat (contentType).parseList (text, type)</span>
+
+    fun &lt;T: Any&gt; parse(input: InputStream, type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
+<span class="fc" id="L87">        getSerializationFormat (contentType).parse (input, type)</span>
+
+    fun &lt;T: Any&gt; parseList(input: InputStream, type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
+<span class="nc" id="L90">        getSerializationFormat (contentType).parseList (input, type)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -70,7 +70,7 @@ import com.mongodb.MongoWriteException
     private fun &lt;K : Any, T : Any&gt; parseKey(
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange): K {
 
-<span class="fc" id="L73">        val id: String = exchange.request[&quot;id&quot;]</span>
+<span class="fc" id="L73">        val id: String = exchange.request.parameter(&quot;id&quot;)</span>
 <span class="fc" id="L74">        return when (repository.keyType) {</span>
 <span class="fc bfc" id="L75" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
 <span class="fc" id="L76">            else -&gt; id</span>

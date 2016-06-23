@@ -73,14 +73,14 @@ import javax.servlet.http.HttpServletResponse
 <span class="fc" id="L73">                    handled = true</span>
                 }
                 else {
-<span class="pc bfc" id="L76" title="All 2 branches covered.">                    for (r in methodRoutes) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">                    for (r in methodRoutes) {</span>
 <span class="fc" id="L77">                        try {</span>
 <span class="fc" id="L78">                            bRequest.actionPath = r.first.path</span>
 <span class="fc" id="L79">                            exchange.(r.second)()</span>
 <span class="fc" id="L80">                            handled = true</span>
 <span class="fc" id="L81">                            break;</span>
                         }
-<span class="nc" id="L83">                        catch (e: PassException) {</span>
+<span class="fc" id="L83">                        catch (e: PassException) {</span>
                             continue;
                         }
                     }

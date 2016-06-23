@@ -65,4 +65,7 @@ fun error(exception: Class&lt;out Exception&gt;, block: Exchange.(e: Exception) 
 /** @see Router.err */
 fun error(exception: KClass&lt;out Exception&gt;, block: Exchange.(e: Exception) -&gt; Unit) =
 <span class="fc" id="L67">    server.error (exception, block)</span>
+
+/** @see Router.reset */
+<span class="nc" id="L70">fun reset() = server.reset()</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

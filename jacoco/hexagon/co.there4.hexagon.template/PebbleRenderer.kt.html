@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PebbleRenderer.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.template</a> &gt; <span class="el_source">PebbleRenderer.kt</span></div><h1>PebbleRenderer.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.template
 
+import co.there4.hexagon.serialization.parse
 import com.mitchellbosecke.pebble.PebbleEngine
-import java.lang.ClassLoader.getSystemResourceAsStream
+import java.lang.ClassLoader.getSystemResourceAsStream as resourceAsStream
 import java.io.StringWriter
 import java.util.*
 
 /**
  * TODO Support different engines by subdir. Ie:
- * TODO Extract templates to different package (useful outside REST module)
  * TODO Add code to test templates (check unresolved variables in bundles, multilanguage, etc.)
  *
  * templates/pebble/file
@@ -17,36 +17,30 @@ import java.util.*
 <span class="nc" id="L17">object PebbleRenderer {</span>
 <span class="nc" id="L18">    val basePath = &quot;templates&quot;</span>
 <span class="nc" id="L19">    val engine = PebbleEngine.Builder().build()</span>
-<span class="nc" id="L20">    val global = loadProps (&quot;$basePath/global.properties&quot;)</span>
+<span class="nc" id="L20">    val global = loadProps (&quot;global&quot;)</span>
 
-    private fun loadProps (path: String): Map&lt;String, *&gt; {
-<span class="nc" id="L23">        val p = Properties()</span>
-<span class="nc" id="L24">        val resourceAsStream = getSystemResourceAsStream(path)</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (resourceAsStream != null)</span>
-<span class="nc" id="L26">            p.load (resourceAsStream)</span>
-<span class="nc" id="L27">        return p.mapKeys { it.key.toString() }</span>
-    }
+<span class="nc" id="L22">    private fun loadProps (path: String) = resourceAsStream(&quot;$basePath/$path.yaml&quot;).let {</span>
+        @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="nc bnc" id="L24" title="All 4 branches missed.">        if (it != null) it.parse (Map::class, &quot;application/yaml&quot;) as Map&lt;String, Any&gt;</span>
+<span class="nc" id="L25">        else mapOf&lt;String, Any&gt;()</span>
+<span class="nc" id="L26">    }</span>
 
     fun render (template: String, locale: Locale, context: Map&lt;String, *&gt;): String {
-<span class="nc" id="L31">        fun loadBundle (path: String): Map&lt;String, *&gt; {</span>
-<span class="nc" id="L32">            try {</span>
-<span class="nc" id="L33">                val bundle = ResourceBundle.getBundle(&quot;${basePath}.$path&quot;, locale)</span>
-<span class="nc" id="L34">                return bundle.keys.toList().map { it to bundle.getObject(it) }.toMap ()</span>
-            }
-<span class="nc" id="L36">            catch (e: Exception) {</span>
-<span class="nc" id="L37">                return mapOf&lt;String, Any&gt; ()</span>
-            }
-        }
+        @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="nc" id="L30">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
+<span class="nc bnc" id="L31" title="All 6 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
+                as Map&lt;String, *&gt;
+<span class="nc" id="L33">        }</span>
 
-<span class="nc" id="L41">        val compiledTemplate = engine.getTemplate(&quot;${basePath}/$template&quot;)</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        val bundlePath = template.substring(0, template.lastIndexOf('.')).replace('/', '.')</span>
+<span class="nc" id="L35">        val compiledTemplate = engine.getTemplate(&quot;$basePath/$template&quot;)</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        val bundlePath = template.substring(0, template.lastIndexOf('.'))</span>
 
-<span class="nc" id="L44">        val texts = loadBundle (bundlePath)</span>
-<span class="nc" id="L45">        val common = loadBundle (&quot;common&quot;)</span>
+<span class="nc" id="L38">        val texts = loadBundle (bundlePath)</span>
+<span class="nc" id="L39">        val common = loadBundle (&quot;common&quot;)</span>
 
-<span class="nc" id="L47">        val writer = StringWriter()</span>
-<span class="nc" id="L48">        compiledTemplate.evaluate(writer, global + common + texts + context, locale)</span>
-<span class="nc" id="L49">        return writer.toString()</span>
+<span class="nc" id="L41">        val writer = StringWriter()</span>
+<span class="nc" id="L42">        compiledTemplate.evaluate(writer, global + common + texts + context, locale)</span>
+<span class="nc" id="L43">        return writer.toString()</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

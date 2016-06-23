@@ -36,9 +36,10 @@ interface Request {
     val cookies: Map&lt;String, HttpCookie&gt;      // hash of browser cookies
     val parts: Map&lt;String, Part&gt;              // hash of multipart parts
 
-<span class="nc bnc" id="L39" title="All 2 branches missed.">    fun accept () = headers[&quot;Accept&quot;] ?: listOf ()</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">    operator fun get(name: String) = parameters[name]?.first()</span>
 
-    operator fun get(name: String) =
-<span class="pc bpc" id="L42" title="2 of 4 branches missed.">        parameters[name]?.first() ?: throw IllegalArgumentException (&quot;'$name' parameter not found&quot;)</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">    fun accept () = headers[&quot;Accept&quot;] ?: listOf ()</span>
+
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">    fun parameter(name: String) = get(name) ?: error (&quot;'$name' parameter not found&quot;)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

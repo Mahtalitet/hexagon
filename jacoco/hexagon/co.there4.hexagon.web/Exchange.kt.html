@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Exchange.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web</a> &gt; <span class="el_source">Exchange.kt</span></div><h1>Exchange.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web
 
 import co.there4.hexagon.template.PebbleRenderer.render
-import org.eclipse.jetty.http.MimeTypes
-import java.nio.charset.Charset
 import java.nio.charset.Charset.defaultCharset
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -13,22 +11,24 @@ import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
 /**
  * HTTP request context. It holds client supplied data and methods to change the response.
  */
-<span class="fc" id="L16">data class Exchange (</span>
-<span class="fc" id="L17">    val request: Request,</span>
-<span class="fc" id="L18">    val response: Response,</span>
-<span class="fc" id="L19">    val session: Session) {</span>
+<span class="fc" id="L14">data class Exchange (</span>
+<span class="fc" id="L15">    val request: Request,</span>
+<span class="fc" id="L16">    val response: Response,</span>
+<span class="fc" id="L17">    val session: Session) {</span>
 
-<span class="fc" id="L21">    fun redirect (url: String) = response.redirect(url)</span>
+<span class="fc" id="L19">    fun redirect (url: String) = response.redirect(url)</span>
 
-<span class="fc" id="L23">    fun ok(content: Any) = send (200, content)</span>
-<span class="fc" id="L24">    fun ok(code: Int = 200, content: Any = &quot;&quot;) = send (code, content)</span>
-<span class="fc" id="L25">    fun error(code: Int = 500, content: Any = &quot;&quot;) = send (code, content)</span>
+<span class="fc" id="L21">    fun ok(content: Any) = send (200, content)</span>
+<span class="fc" id="L22">    fun ok(code: Int = 200, content: Any = &quot;&quot;) = send (code, content)</span>
+<span class="fc" id="L23">    fun error(code: Int = 500, content: Any = &quot;&quot;) = send (code, content)</span>
 
-<span class="nc" id="L27">    fun halt(content: Any) = halt (500, content)</span>
+<span class="nc" id="L25">    fun halt(content: Any) = halt (500, content)</span>
     fun halt(code: Int = 500, content: Any = &quot;&quot;) {
-<span class="fc" id="L29">        send (code, content)</span>
-<span class="fc" id="L30">        throw EndException ()</span>
+<span class="fc" id="L27">        send (code, content)</span>
+<span class="fc" id="L28">        throw EndException ()</span>
     }
+
+<span class="fc" id="L31">    fun pass() { throw PassException() }</span>
 
     fun template (
         template: String,

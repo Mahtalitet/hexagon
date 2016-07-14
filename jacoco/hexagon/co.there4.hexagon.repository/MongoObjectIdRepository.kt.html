@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MongoObjectIdRepository.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.repository</a> &gt; <span class="el_source">MongoObjectIdRepository.kt</span></div><h1>MongoObjectIdRepository.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.repository
+
+import co.there4.hexagon.serialization.convertToMap
+import co.there4.hexagon.serialization.convertToObject
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
+import org.bson.Document
+import org.bson.types.ObjectId
+import kotlin.reflect.KClass
+
+<span class="fc" id="L11">class MongoObjectIdRepository&lt;T : Any&gt;(</span>
+    type: KClass&lt;T&gt;,
+    collection: MongoCollection&lt;Document&gt;,
+    keySupplier: (T) -&gt; String,
+    keyName: String = &quot;id&quot;,
+    publishEvents: Boolean = false) :
+<span class="fc" id="L17">    MongoIdRepository&lt;T, String&gt; (</span>
+        type,
+        collection,
+        keySupplier,
+        String::class,
+        keyName,
+        publishEvents,
+        1,
+        false) {
+
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    constructor (</span>
+        type: KClass&lt;T&gt;,
+        database: MongoDatabase,
+        keySupplier: (T) -&gt; String,
+        keyName: String = &quot;id&quot;,
+        publishEvents: Boolean = false) :
+<span class="fc" id="L33">        this (</span>
+            type,
+            mongoCollection(type.simpleName ?: error(&quot;Error getting type name&quot;), database),
+            keySupplier,
+            keyName,
+            publishEvents
+        )
+
+<span class="fc" id="L41">    constructor (</span>
+        type: KClass&lt;T&gt;,
+        keySupplier: (T) -&gt; String,
+        keyName: String = &quot;id&quot;,
+        publishEvents: Boolean = false) :
+<span class="fc" id="L46">        this (</span>
+            type,
+            mongoDatabase(),
+            keySupplier,
+            keyName,
+            publishEvents
+        )
+
+    override fun map (document: T): Document {
+<span class="fc" id="L55">        val doc = Document(document.convertToMap ().mapKeys {</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">            if (key is String)</span>
+<span class="fc" id="L58">                key</span>
+            else
+<span class="pc" id="L60">                throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
+        })
+<span class="fc" id="L62">        doc[&quot;_id&quot;] = ObjectId(doc[keyName].toString())</span>
+<span class="fc" id="L63">        doc.remove(keyName)</span>
+<span class="fc" id="L64">        return doc</span>
+    }
+
+    override fun unmap (document: Document): T {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        document[keyName] = (document[&quot;_id&quot;] as ObjectId).toHexString()</span>
+<span class="fc" id="L69">        document.remove(&quot;_id&quot;)</span>
+<span class="fc" id="L70">        return document.convertToObject (type)</span>
+    }
+
+<span class="fc" id="L73">    override fun convertId(id: String): Any = ObjectId(id)</span>
+<span class="fc" id="L74">    override fun convertKeyName(keyName: String): String = &quot;_id&quot;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

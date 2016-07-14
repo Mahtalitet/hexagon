@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 <span class="fc" id="L8">object EventManager : CompanionLogger (EventManager::class) {</span>
 <span class="fc" id="L9">    private val exchange = &quot;events&quot;</span>
 
-<span class="fc" id="L11">    val client = RabbitClient (&quot;amqp://guest:guest@localhost&quot;)</span>
+<span class="fc" id="L11">    val client = RabbitClient ()</span>
 
     init {
 <span class="fc" id="L14">        client.bindExchange(&quot;events&quot;, &quot;topic&quot;, &quot;*.*.*&quot;, &quot;event_pool&quot;)</span>

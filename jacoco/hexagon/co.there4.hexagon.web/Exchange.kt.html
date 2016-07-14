@@ -39,7 +39,7 @@ import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
 
 <span class="nc bnc" id="L40" title="All 2 branches missed.">        if (response.contentType == null)</span>
 <span class="nc" id="L41">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
-<span class="nc" id="L42">        ok (render (template, locale, context + (&quot;lang&quot; to locale.language)))</span>
+<span class="nc" id="L42">        ok (render (template, locale, context + session.attributes + (&quot;lang&quot; to locale.language)))</span>
 <span class="nc" id="L43">    }</span>
 
     fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {

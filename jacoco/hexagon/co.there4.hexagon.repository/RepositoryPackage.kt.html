@@ -7,25 +7,34 @@ import com.mongodb.MongoClientURI
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import org.bson.Document
+import org.bson.conversions.Bson
+import org.bson.types.ObjectId
 import kotlin.reflect.KClass
+import com.mongodb.client.model.Filters.eq as mEq
+import com.mongodb.client.model.Filters.`in` as mIn
 
-<span class="pc bpc" id="L12" title="1 of 2 branches missed.">val mongodbUrl = SettingsManager[&quot;mongodbUrl&quot;] as String? ?: &quot;mongodb://localhost/test&quot;</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">val mongodbUrl = SettingsManager[&quot;mongodbUrl&quot;] as String? ?: &quot;mongodb://localhost/test&quot;</span>
 
 fun mongoDatabase (uri: String = mongodbUrl): MongoDatabase =
-<span class="pc bpc" id="L15" title="1 of 2 branches missed.">    MongoClient(MongoClientURI(uri)).getDatabase(MongoClientURI(uri).database) ?:</span>
-<span class="pc" id="L16">        error (&quot;Error connecting to MongoDB at: $uri&quot;)</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">    MongoClient(MongoClientURI(uri)).getDatabase(MongoClientURI(uri).database) ?:</span>
+<span class="pc" id="L20">        error (&quot;Error connecting to MongoDB at: $uri&quot;)</span>
 
 fun mongoCollection (
     name: String, database: MongoDatabase = mongoDatabase()) : MongoCollection&lt;Document&gt; =
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">        database.getCollection(name) ?: error (&quot;Error getting '$name' collection&quot;)</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        database.getCollection(name) ?: error (&quot;Error getting '$name' collection&quot;)</span>
+
+<span class="fc" id="L26">fun mongoId() = ObjectId().toHexString()</span>
+
+<span class="fc" id="L28">infix fun &lt;T&gt; String.eq(value: T): Bson = mEq(this, value)</span>
+<span class="fc" id="L29">infix fun &lt;T&gt; String.isIn(value: List&lt;T&gt;): Bson = mIn(this, value)</span>
 
 fun &lt;T : Any&gt; on (
     entity: KClass&lt;T&gt;, action: RepositoryEventAction, callback: (RepositoryEvent&lt;T&gt;) -&gt; Unit) {
     @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="pc bpc" id="L25" title="1 of 2 branches missed.">    EventManager.on (</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    EventManager.on (</span>
         RepositoryEvent::class,
         entity.simpleName + &quot;.&quot; + action.toString(),
         callback as (RepositoryEvent&lt;*&gt;) -&gt; Unit
     )
-<span class="fc" id="L30">}</span>
+<span class="fc" id="L39">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

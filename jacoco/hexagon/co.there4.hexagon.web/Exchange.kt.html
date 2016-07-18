@@ -35,19 +35,19 @@ import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
         locale: Locale = Locale.getDefault(),
         context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
 
-<span class="nc" id="L38">        val contentType = response.getMimeType(template)</span>
+<span class="fc" id="L38">        val contentType = response.getMimeType(template)</span>
 
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (response.contentType == null)</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (response.contentType == null)</span>
 <span class="nc" id="L41">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
-<span class="nc" id="L42">        ok (render (template, locale, context + session.attributes + (&quot;lang&quot; to locale.language)))</span>
-<span class="nc" id="L43">    }</span>
+<span class="fc" id="L42">        ok (render (template, locale, context + session.attributes + (&quot;lang&quot; to locale.language)))</span>
+<span class="fc" id="L43">    }</span>
 
     fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
-<span class="nc" id="L46">        template (template, Locale.getDefault(), context)</span>
-<span class="nc" id="L47">    }</span>
+<span class="fc" id="L46">        template (template, Locale.getDefault(), context)</span>
+<span class="fc" id="L47">    }</span>
 
     fun httpDate (date: LocalDateTime) =
-<span class="nc" id="L50">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
+<span class="fc" id="L50">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
 
     private fun send(code: Int, content: Any) {
 <span class="fc" id="L53">        response.status = code</span>

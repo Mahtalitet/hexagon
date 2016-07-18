@@ -14,33 +14,33 @@ import java.util.*
  * templates/freemarker/file
  * ...
  */
-<span class="nc" id="L17">object PebbleRenderer {</span>
-<span class="nc" id="L18">    val basePath = &quot;templates&quot;</span>
-<span class="nc" id="L19">    val engine = PebbleEngine.Builder().build()</span>
-<span class="nc" id="L20">    val global = loadProps (&quot;global&quot;)</span>
+<span class="fc" id="L17">object PebbleRenderer {</span>
+<span class="pc" id="L18">    val basePath = &quot;templates&quot;</span>
+<span class="pc" id="L19">    val engine = PebbleEngine.Builder().build()</span>
+<span class="pc" id="L20">    val global = loadProps (&quot;global&quot;)</span>
 
-<span class="nc" id="L22">    private fun loadProps (path: String) = resourceAsStream(&quot;$basePath/$path.yaml&quot;).let {</span>
+<span class="fc" id="L22">    private fun loadProps (path: String) = resourceAsStream(&quot;$basePath/$path.yaml&quot;).let {</span>
         @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="nc bnc" id="L24" title="All 4 branches missed.">        if (it != null) it.parse (Map::class, &quot;application/yaml&quot;) as Map&lt;String, Any&gt;</span>
-<span class="nc" id="L25">        else mapOf&lt;String, Any&gt;()</span>
-<span class="nc" id="L26">    }</span>
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (it != null) it.parse (Map::class, &quot;application/yaml&quot;) as Map&lt;String, Any&gt;</span>
+<span class="fc" id="L25">        else mapOf&lt;String, Any&gt;()</span>
+<span class="fc" id="L26">    }</span>
 
     fun render (template: String, locale: Locale, context: Map&lt;String, *&gt;): String {
         @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="nc" id="L30">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
-<span class="nc bnc" id="L31" title="All 6 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
+<span class="fc" id="L30">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
+<span class="pc bpc" id="L31" title="2 of 6 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
                 as Map&lt;String, *&gt;
-<span class="nc" id="L33">        }</span>
+<span class="fc" id="L33">        }</span>
 
-<span class="nc" id="L35">        val compiledTemplate = engine.getTemplate(&quot;$basePath/$template&quot;)</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        val bundlePath = template.substring(0, template.lastIndexOf('.'))</span>
+<span class="fc" id="L35">        val compiledTemplate = engine.getTemplate(&quot;$basePath/$template&quot;)</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        val bundlePath = template.substring(0, template.lastIndexOf('.'))</span>
 
-<span class="nc" id="L38">        val texts = loadBundle (bundlePath)</span>
-<span class="nc" id="L39">        val common = loadBundle (&quot;common&quot;)</span>
+<span class="fc" id="L38">        val texts = loadBundle (bundlePath)</span>
+<span class="fc" id="L39">        val common = loadBundle (&quot;common&quot;)</span>
 
-<span class="nc" id="L41">        val writer = StringWriter()</span>
-<span class="nc" id="L42">        compiledTemplate.evaluate(writer, global + common + texts + context, locale)</span>
-<span class="nc" id="L43">        return writer.toString()</span>
+<span class="fc" id="L41">        val writer = StringWriter()</span>
+<span class="fc" id="L42">        compiledTemplate.evaluate(writer, global + common + texts + context, locale)</span>
+<span class="fc" id="L43">        return writer.toString()</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

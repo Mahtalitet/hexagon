@@ -36,7 +36,7 @@ interface Request {
     val cookies: Map&lt;String, HttpCookie&gt;      // hash of browser cookies
     val parts: Map&lt;String, Part&gt;              // hash of multipart parts
 
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">    operator fun get(name: String) = parameters[name]?.first()</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    operator fun get(name: String) = parameters[name]?.first()</span>
 
 <span class="nc bnc" id="L41" title="All 2 branches missed.">    fun accept () = headers[&quot;Accept&quot;] ?: listOf ()</span>
 

@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse
 <span class="fc" id="L14">        set(value) { resp.status = value }</span>
 
     override var contentType: String?
-<span class="nc" id="L17">        get() = resp.contentType</span>
-<span class="nc" id="L18">        set(value) { resp.contentType = value }</span>
+<span class="fc" id="L17">        get() = resp.contentType</span>
+<span class="fc" id="L18">        set(value) { resp.contentType = value }</span>
 
-<span class="nc" id="L20">    override fun getMimeType (file: String) = req.servletContext.getMimeType(file)</span>
+<span class="fc" id="L20">    override fun getMimeType (file: String) = req.servletContext.getMimeType(file)</span>
 
     override fun addHeader (name: String, value: String) {
 <span class="fc" id="L23">        resp.addHeader(name, value)</span>

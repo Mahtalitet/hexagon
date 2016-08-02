@@ -29,38 +29,36 @@ import java.lang.System.getProperty
 <span class="nc" id="L29">        null</span>
     }
 
-<span class="pc" id="L32">    var parameters: Map&lt;String, *&gt; = loadSettings()</span>
+<span class="pc" id="L32">    val parameters: Map&lt;String, *&gt; = loadSettings()</span>
 
 <span class="pc bpc" id="L34" title="2 of 4 branches missed.">    private fun loadSettings() = loadProps(&quot;service.yaml&quot;) +</span>
         if (environment != null) loadProps(&quot;${environment.toString().toLowerCase()}.yaml&quot;)
 <span class="fc" id="L36">        else mapOf&lt;String, Any&gt;()</span>
 
-<span class="nc" id="L38">    fun reload() { parameters = loadSettings() }</span>
-
-<span class="fc" id="L40">    operator fun get (vararg key: String): Any? = key</span>
-<span class="fc" id="L41">        .dropLast(1)</span>
-<span class="fc" id="L42">        .fold(parameters) { result, element -&gt;</span>
+<span class="fc" id="L38">    operator fun get (vararg key: String): Any? = key</span>
+<span class="fc" id="L39">        .dropLast(1)</span>
+<span class="fc" id="L40">        .fold(parameters) { result, element -&gt;</span>
             @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            (result[element] as Map&lt;String, *&gt;)</span>
-<span class="fc" id="L45">        }[key.last()]</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            (result[element] as Map&lt;String, *&gt;)</span>
+<span class="fc" id="L43">        }[key.last()]</span>
 
     @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="fc" id="L48">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
+<span class="fc" id="L46">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
     fun &lt;T&gt; requireSetting(vararg key: String): T =
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        setting&lt;T&gt;(*key) ?: error (&quot;Missing setting: $key&quot;)</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        setting&lt;T&gt;(*key) ?: error (&quot;Missing setting: $key&quot;)</span>
 
     @Suppress(&quot;UNCHECKED_CAST&quot;)
     private fun loadProps (resName: String): Map&lt;String, *&gt; =
-<span class="fc" id="L54">        systemClassLoader.getResourceAsStream(resName).let {</span>
-<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            if (it == null) {</span>
-<span class="nc" id="L56">                info(&quot;No environment settings found '$resName'&quot;)</span>
-<span class="nc" id="L57">                mapOf&lt;String, Any&gt;()</span>
+<span class="fc" id="L52">        systemClassLoader.getResourceAsStream(resName).let {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">            if (it == null) {</span>
+<span class="nc" id="L54">                info(&quot;No environment settings found '$resName'&quot;)</span>
+<span class="nc" id="L55">                mapOf&lt;String, Any&gt;()</span>
             }
             else {
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                val props = it.parse(Map::class, &quot;application/yaml&quot;) as Map&lt;String, *&gt;</span>
-<span class="fc" id="L61">                info(&quot;Settings loaded from '$resName'&quot;)</span>
-<span class="fc" id="L62">                props</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">                val props = it.parse(Map::class, &quot;application/yaml&quot;) as Map&lt;String, *&gt;</span>
+<span class="fc" id="L59">                info(&quot;Settings loaded from '$resName'&quot;)</span>
+<span class="fc" id="L60">                props</span>
             }
-<span class="fc" id="L64">        }</span>
+<span class="fc" id="L62">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

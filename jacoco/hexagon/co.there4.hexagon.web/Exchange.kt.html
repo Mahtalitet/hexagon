@@ -37,8 +37,8 @@ import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
 
 <span class="fc" id="L38">        val contentType = response.getMimeType(template)</span>
 
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (response.contentType == null)</span>
-<span class="nc" id="L41">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (response.contentType == null)</span>
+<span class="fc" id="L41">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
 <span class="fc" id="L42">        ok (render (template, locale, context + session.attributes + (&quot;lang&quot; to locale.language)))</span>
 <span class="fc" id="L43">    }</span>
 

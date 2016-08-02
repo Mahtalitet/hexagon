@@ -6,51 +6,63 @@ import java.net.InetAddress.getLocalHost
 import java.time.LocalDateTime
 import java.util.*
 import java.lang.management.ManagementFactory.getRuntimeMXBean
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset.UTC
 
 /*
  * Timing
+ * TODO Use Kotlin's kotlin.system.measureTimeMillis and remove these
  */
 
-<span class="fc" id="L14">private val times = withInitial { LinkedList&lt;Long&gt; () }</span>
+<span class="fc" id="L18">private val times = withInitial { LinkedList&lt;Long&gt; () }</span>
 
 /**
  * Store a timestamp in nanoseconds in the thread's times stack.
  */
-<span class="fc" id="L19">fun resetTimes() = times.get ().clear()</span>
+<span class="fc" id="L23">fun resetTimes() = times.get ().clear()</span>
 /**
  * Store a timestamp in nanoseconds in the thread's times stack.
  */
-<span class="fc" id="L23">fun pushTime() = times.get ().push(nanoTime())</span>
+<span class="fc" id="L27">fun pushTime() = times.get ().push(nanoTime())</span>
 /**
  * Pop latest timestamp in the nanos times stack and returns the difference with current one.
  */
-<span class="fc" id="L27">fun popTime() = nanoTime() - times.get().pop()</span>
+<span class="fc" id="L31">fun popTime() = nanoTime() - times.get().pop()</span>
 /**
  * Returns a time difference in nanoseconds formatted as a string.
  */
-<span class="fc" id="L31">fun formatTime(timestamp: Long) = &quot;%1.3f ms&quot;.format (timestamp / 1e6)</span>
+<span class="fc" id="L35">fun formatTime(timestamp: Long) = &quot;%1.3f ms&quot;.format (timestamp / 1e6)</span>
 
 /**
  * Formats a date as a formatted integer with this format: `YYYYMMDDHHmmss`.
  */
 fun LocalDateTime.asInt () =
-<span class="fc" id="L37">    (this.year       * 1e10.toLong()) +</span>
-<span class="fc" id="L38">    (this.monthValue * 1e8.toLong()) +</span>
-<span class="fc" id="L39">    (this.dayOfMonth * 1e6.toLong()) +</span>
-<span class="fc" id="L40">    (this.hour       * 1e4.toLong()) +</span>
-<span class="fc" id="L41">    (this.minute     * 1e2.toLong()) +</span>
-<span class="fc" id="L42">    this.second</span>
+<span class="fc" id="L41">    (this.year       * 1e10.toLong()) +</span>
+<span class="fc" id="L42">    (this.monthValue * 1e8.toLong()) +</span>
+<span class="fc" id="L43">    (this.dayOfMonth * 1e6.toLong()) +</span>
+<span class="fc" id="L44">    (this.hour       * 1e4.toLong()) +</span>
+<span class="fc" id="L45">    (this.minute     * 1e2.toLong()) +</span>
+<span class="fc" id="L46">    this.second</span>
+
+<span class="fc" id="L48">fun LocalDateTime.toDate(): Date = Date.from(this.toInstant(UTC))</span>
+<span class="nc" id="L49">fun LocalDate.toDate(): Date = this.atStartOfDay().toDate()</span>
+
+fun Date.toLocalDateTime(): LocalDateTime =
+<span class="nc" id="L52">    LocalDateTime.ofInstant(Instant.ofEpochMilli(this.time), UTC)</span>
+
+<span class="nc" id="L54">fun Date.toLocalDate(): LocalDate = this.toLocalDateTime().toLocalDate()</span>
 
 /*
  * Threading
  */
 
 /** Map for storing context data linked to the executing thread. */
-<span class="fc" id="L49">object Context {</span>
-<span class="fc" id="L50">    private val threadLocal = withInitial { LinkedHashMap&lt;Any, Any&gt;() }</span>
-<span class="fc" id="L51">    fun entries () = threadLocal.get().entries</span>
-<span class="fc" id="L52">    operator fun get (key: Any) = threadLocal.get()[key]</span>
-<span class="fc" id="L53">    operator fun set (key: Any, value: Any) { threadLocal.get()[key] = value }</span>
+<span class="fc" id="L61">object Context {</span>
+<span class="fc" id="L62">    private val threadLocal = withInitial { LinkedHashMap&lt;Any, Any&gt;() }</span>
+<span class="fc" id="L63">    fun entries () = threadLocal.get().entries</span>
+<span class="fc" id="L64">    operator fun get (key: Any) = threadLocal.get()[key]</span>
+<span class="fc" id="L65">    operator fun set (key: Any, value: Any) { threadLocal.get()[key] = value }</span>
 }
 
 /**
@@ -62,21 +74,21 @@ fun LocalDateTime.asInt () =
  * @throws [ServiceException] if the callback didn't succeed in the given times.
  */
 fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
-<span class="fc bfc" id="L65" title="All 4 branches covered.">    require (times &gt; 0)</span>
-<span class="fc bfc" id="L66" title="All 4 branches covered.">    require (delay &gt;= 0)</span>
+<span class="fc bfc" id="L77" title="All 4 branches covered.">    require (times &gt; 0)</span>
+<span class="fc bfc" id="L78" title="All 4 branches covered.">    require (delay &gt;= 0)</span>
 
-<span class="fc" id="L68">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
-<span class="pc bpc" id="L69" title="1 of 4 branches missed.">    for (ii in 1 .. times) {</span>
-<span class="fc" id="L70">        try {</span>
-<span class="fc" id="L71">            return func ()</span>
+<span class="fc" id="L80">    val exceptions = mutableListOf&lt;Exception&gt;()</span>
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">    for (ii in 1 .. times) {</span>
+<span class="fc" id="L82">        try {</span>
+<span class="fc" id="L83">            return func ()</span>
         }
-<span class="fc" id="L73">        catch (e: Exception) {</span>
-<span class="fc" id="L74">            exceptions.add (e)</span>
-<span class="fc" id="L75">            Thread.sleep (delay)</span>
+<span class="fc" id="L85">        catch (e: Exception) {</span>
+<span class="fc" id="L86">            exceptions.add (e)</span>
+<span class="fc" id="L87">            Thread.sleep (delay)</span>
         }
     }
 
-<span class="fc" id="L79">    throw ServiceException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
+<span class="fc" id="L91">    throw ServiceException(0, &quot;Error retrying $times times ($delay ms)&quot;, *exceptions.toTypedArray())</span>
 }
 
 /*
@@ -84,23 +96,23 @@ fun &lt;T&gt; retry (times: Int, delay: Long, func: () -&gt; T): T {
  */
 
 /** Unknown host name. */
-<span class="fc" id="L87">val UNKNOWN_LOCALHOST = &quot;UNKNOWN_LOCALHOST&quot;</span>
+<span class="fc" id="L99">val UNKNOWN_LOCALHOST = &quot;UNKNOWN_LOCALHOST&quot;</span>
 
 /** The hostname of the machine running this program. */
-<span class="pc bpc" id="L90" title="2 of 4 branches missed.">val hostname = getLocalHost()?.getHostName() ?: UNKNOWN_LOCALHOST</span>
+<span class="pc bpc" id="L102" title="2 of 4 branches missed.">val hostname = getLocalHost()?.getHostName() ?: UNKNOWN_LOCALHOST</span>
 /** The IP address of the machine running this program. */
-<span class="pc bpc" id="L92" title="2 of 4 branches missed.">val ip = getLocalHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
+<span class="pc bpc" id="L104" title="2 of 4 branches missed.">val ip = getLocalHost()?.getHostAddress() ?: UNKNOWN_LOCALHOST</span>
 
 fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
-<span class="fc bfc" id="L95" title="All 4 branches covered.">    if (query.isEmpty())</span>
-<span class="fc" id="L96">        mapOf()</span>
+<span class="fc bfc" id="L107" title="All 4 branches covered.">    if (query.isEmpty())</span>
+<span class="fc" id="L108">        mapOf()</span>
     else
-<span class="pc bpc" id="L98" title="2 of 4 branches missed.">        query.split(&quot;&amp;&quot;.toRegex())</span>
-<span class="fc" id="L99">            .map {</span>
-<span class="fc" id="L100">                val kv = it.split(&quot;=&quot;)</span>
-<span class="pc bpc" id="L101" title="2 of 6 branches missed.">                kv[0].trim () to (if (kv.size == 2) kv[1].trim() else &quot;&quot;)</span>
+<span class="pc bpc" id="L110" title="2 of 4 branches missed.">        query.split(&quot;&amp;&quot;.toRegex())</span>
+<span class="fc" id="L111">            .map {</span>
+<span class="fc" id="L112">                val kv = it.split(&quot;=&quot;)</span>
+<span class="pc bpc" id="L113" title="2 of 6 branches missed.">                kv[0].trim () to (if (kv.size == 2) kv[1].trim() else &quot;&quot;)</span>
             }
-<span class="fc" id="L103">            .toMap(LinkedHashMap&lt;String, String&gt;())</span>
+<span class="fc" id="L115">            .toMap(LinkedHashMap&lt;String, String&gt;())</span>
 
 /*
  * Error handling
@@ -110,26 +122,47 @@ fun parseQueryParameters(query: String): Map&lt;String, String&gt; =
  * Returns the stack trace array of the frames that starts with the given prefix.
  */
 fun Throwable.filterStackTrace (prefix: String) =
-<span class="fc bfc" id="L113" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
-<span class="fc" id="L114">        this.stackTrace</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">    if (prefix.isEmpty ())</span>
+<span class="fc" id="L126">        this.stackTrace</span>
     else
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        this.stackTrace.filter { it.className.startsWith (prefix) }.toTypedArray()</span>
 
 /**
  * Returns this throwable as a text.
  */
 fun Throwable.toText (prefix: String = &quot;&quot;): String =
-<span class="fc" id="L122">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
-<span class="fc" id="L123">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (this.cause == null)</span>
-<span class="fc" id="L125">            &quot;&quot;</span>
+<span class="fc" id="L134">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
+<span class="fc" id="L135">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (this.cause == null)</span>
+<span class="fc" id="L137">            &quot;&quot;</span>
         else
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
 
 /*
  * Logging
  */
 
-<span class="fc" id="L133">internal val flarePrefix = getProperty (&quot;CompanionLogger.flarePrefix&quot;, &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
-<span class="fc" id="L134">val jvmId = getRuntimeMXBean().name</span>
+<span class="fc" id="L145">internal val flarePrefix = getProperty (&quot;CompanionLogger.flarePrefix&quot;, &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+<span class="fc" id="L146">val jvmId = getRuntimeMXBean().name</span>
+
+/*
+ * Map operations
+ */
+
+@Suppress(&quot;UNCHECKED_CAST&quot;)
+operator fun Map&lt;*, *&gt;.get(vararg keys: Any): Any? =
+<span class="nc bnc" id="L154" title="All 2 branches missed.">    if (keys.size &gt; 1)</span>
+<span class="nc" id="L155">        keys</span>
+<span class="nc" id="L156">            .dropLast(1)</span>
+<span class="nc" id="L157">            .fold(this) { result, element -&gt;</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                val r = result as Map&lt;Any, Any&gt;</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">                val value = r.getOrElse&lt;Any, Any&gt;(element, { mapOf&lt;Any, Any&gt;() })</span>
+<span class="nc" id="L160">                when (value) {</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                    is Map&lt;*, *&gt; -&gt; value</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                    is List&lt;*&gt; -&gt; value.mapIndexed { ii, item -&gt; ii to item  }.toMap()</span>
+<span class="nc" id="L163">                    else -&gt; mapOf&lt;Any, Any&gt;()</span>
+<span class="nc" id="L164">                }</span>
+            }[keys.last()]
+    else
+<span class="nc bnc" id="L167" title="All 4 branches missed.">        (this as Map&lt;Any, Any&gt;).getOrElse(keys.first()) { null }</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

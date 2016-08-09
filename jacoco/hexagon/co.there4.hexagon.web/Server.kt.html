@@ -78,7 +78,7 @@ import java.lang.management.ManagementFactory.*
 <span class="fc" id="L78">            Locale $applicationLocale Timezone $applicationTimezone</span>
 
 <span class="fc" id="L80">            Started in $applicationBootTime s using $applicationUsedMemory KB</span>
-<span class="fc" id="L81">            Served at http://$bindAddress:$bindPort</span>
+<span class="fc" id="L81">            Served at http://${bindAddress.canonicalHostName}:$bindPort</span>
         &quot;&quot;&quot;
 
 <span class="pc bpc" id="L84" title="1 of 2 branches missed.">        val banner = EOL + EOL + (read (&quot;banner.txt&quot;) ?: &quot;&quot;) + information</span>

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest
 <span class="fc" id="L19">    override val method: HttpMethod by lazy { HttpMethod.valueOf (req.method) }</span>
 <span class="fc" id="L20">    override val queryString: String by lazy { req.queryString }</span>
 <span class="pc" id="L21">    override val contentLength: Long by lazy { req.contentLength.toLong() }</span>
-<span class="pc" id="L22">    override val contentType: String by lazy { req.contentType }</span>
+<span class="fc" id="L22">    override val contentType: String? by lazy { req.contentType }</span>
 <span class="fc" id="L23">    override val host: String by lazy { req.remoteHost }</span>
 <span class="pc bpc" id="L24" title="2 of 4 branches missed.">    override val userAgent: String by lazy { headers[&quot;User-Agent&quot;]?.first() ?: &quot;UNKNOWN&quot; }</span>
 <span class="fc" id="L25">    override val url: String by lazy { req.requestURL.toString() }</span>

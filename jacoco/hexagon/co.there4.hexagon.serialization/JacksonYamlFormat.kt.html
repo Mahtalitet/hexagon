@@ -11,18 +11,18 @@ import kotlin.reflect.KClass
 <span class="fc" id="L11">class JacksonYamlFormat : SerializationFormat {</span>
 <span class="fc" id="L12">    override val contentType = &quot;application/yaml&quot;</span>
 
-<span class="fc" id="L14">    private val mapper = ObjectMapper(YAMLFactory())</span>
-<span class="fc" id="L15">    private val writer = createObjectWriter ()</span>
+<span class="fc" id="L14">    private val mapper = createObjectMapper(YAMLFactory())</span>
+<span class="fc" id="L15">    private val writer = createObjectWriter()</span>
 
     fun createObjectWriter (): ObjectWriter {
 <span class="fc" id="L18">        val printer = DefaultPrettyPrinter ().withArrayIndenter (SYSTEM_LINEFEED_INSTANCE)</span>
 <span class="fc" id="L19">        return mapper.writer (printer)</span>
     }
 
-<span class="nc" id="L22">    override fun serialize(obj: Any) = writer.writeValueAsString (obj)</span>
+<span class="fc" id="L22">    override fun serialize(obj: Any) = writer.writeValueAsString (obj)</span>
 
     override fun &lt;T : Any&gt; parse(text: String, type: KClass&lt;T&gt;) =
-<span class="nc" id="L25">        mapper.readValue (text, type.java)</span>
+<span class="fc" id="L25">        mapper.readValue (text, type.java)</span>
 
     override fun &lt;T : Any&gt; parseList(text: String, type: KClass&lt;T&gt;): List&lt;T&gt; {
 <span class="nc" id="L28">        val listType = mapper.typeFactory.constructCollectionType(List::class.java, type.java)</span>

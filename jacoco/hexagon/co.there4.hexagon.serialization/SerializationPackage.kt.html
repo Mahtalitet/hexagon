@@ -1,23 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SerializationPackage.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.serialization</a> &gt; <span class="el_source">SerializationPackage.kt</span></div><h1>SerializationPackage.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.serialization
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
+import com.fasterxml.jackson.core.*
+import com.fasterxml.jackson.core.JsonToken.START_OBJECT
+import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
+import com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS
+import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.databind.deser.ContextualDeserializer
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+
 import java.io.InputStream
+import java.nio.ByteBuffer
+import java.time.LocalDate
+import java.time.LocalTime
+import java.util.*
 import kotlin.reflect.KClass
 
-<span class="pc" id="L6">val defaultFormat = JacksonSerializer.contentTypes.first()</span>
+<span class="fc" id="L22">val defaultFormat = JacksonSerializer.contentTypes.first()</span>
 
-<span class="fc" id="L8">fun Any.convertToMap(): Map&lt;*, *&gt; = JacksonSerializer.toMap (this)</span>
-<span class="fc" id="L9">fun &lt;T : Any&gt; Map&lt;*, *&gt;.convertToObject(type: KClass&lt;T&gt;) = JacksonSerializer.toObject(this, type)</span>
+<span class="fc" id="L24">fun Any.convertToMap(): Map&lt;*, *&gt; = JacksonSerializer.toMap (this)</span>
+<span class="fc" id="L25">fun &lt;T : Any&gt; Map&lt;*, *&gt;.convertToObject(type: KClass&lt;T&gt;) = JacksonSerializer.toObject(this, type)</span>
 
 fun Any.serialize (contentType: String = defaultFormat) =
-<span class="fc" id="L12">    JacksonSerializer.serialize(this, contentType)</span>
+<span class="fc" id="L28">    JacksonSerializer.serialize(this, contentType)</span>
 
 fun &lt;T : Any&gt; String.parse (type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="fc" id="L15">    JacksonSerializer.parse (this, type, contentType)</span>
+<span class="fc" id="L31">    JacksonSerializer.parse (this, type, contentType)</span>
 fun &lt;T : Any&gt; String.parseList (type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="fc" id="L17">    JacksonSerializer.parseList (this, type, contentType)</span>
+<span class="fc" id="L33">    JacksonSerializer.parseList (this, type, contentType)</span>
 
 fun &lt;T : Any&gt; InputStream.parse (type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="fc" id="L20">    JacksonSerializer.parse (this, type, contentType)</span>
+<span class="fc" id="L36">    JacksonSerializer.parse (this, type, contentType)</span>
 fun &lt;T : Any&gt; InputStream.parseList (type: KClass&lt;T&gt;, contentType: String = defaultFormat) =
-<span class="nc" id="L22">    JacksonSerializer.parseList (this, type, contentType)</span>
+<span class="nc" id="L38">    JacksonSerializer.parseList (this, type, contentType)</span>
+
+fun createObjectMapper(mapperFactory: JsonFactory = MappingJsonFactory()): ObjectMapper {
+<span class="fc" id="L41">    val mapper = ObjectMapper (mapperFactory)</span>
+<span class="fc" id="L42">    mapper.configure (FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
+<span class="fc" id="L43">    mapper.configure (FAIL_ON_EMPTY_BEANS, false)</span>
+<span class="fc" id="L44">    mapper.setSerializationInclusion (NON_NULL)</span>
+<span class="fc" id="L45">    mapper.registerModule (Jdk8Module ())</span>
+<span class="fc" id="L46">    mapper.registerModule (JavaTimeModule ())</span>
+<span class="fc" id="L47">    mapper.registerModule (KotlinModule ())</span>
+<span class="fc" id="L48">    mapper.registerModule (object : SimpleModule() {</span>
+        init {
+<span class="fc" id="L50">            addSerializer (ByteBuffer::class.java, ByteBufferSerializer)</span>
+<span class="fc" id="L51">            addDeserializer (ByteBuffer::class.java, ByteBufferDeserializer)</span>
+<span class="fc" id="L52">            addSerializer (LocalTime::class.java, LocalTimeSerializer)</span>
+<span class="fc" id="L53">            addDeserializer (LocalTime::class.java, LocalTimeDeserializer)</span>
+<span class="fc" id="L54">            addSerializer (LocalDate::class.java, LocalDateSerializer)</span>
+<span class="fc" id="L55">            addDeserializer (LocalDate::class.java, LocalDateDeserializer)</span>
+<span class="fc" id="L56">            addSerializer (ClosedRange::class.java, ClosedRangeSerializer)</span>
+<span class="fc" id="L57">            addDeserializer (ClosedRange::class.java, ClosedRangeDeserializer)</span>
+        }
+    })
+<span class="fc" id="L60">    return mapper</span>
+}
+
+<span class="fc" id="L63">object ByteBufferSerializer: JsonSerializer&lt;ByteBuffer&gt;() {</span>
+    override fun serialize(value: ByteBuffer, gen: JsonGenerator, serializers: SerializerProvider) {
+<span class="fc" id="L65">        gen.writeString (Base64.getEncoder ().encodeToString (value.array()))</span>
+<span class="fc" id="L66">    }</span>
+}
+
+<span class="fc" id="L69">object ByteBufferDeserializer: JsonDeserializer&lt;ByteBuffer&gt;() {</span>
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): ByteBuffer =
+<span class="fc" id="L71">        ByteBuffer.wrap (Base64.getDecoder ().decode (p.text))</span>
+}
+
+<span class="fc" id="L74">object LocalTimeSerializer: JsonSerializer&lt;LocalTime&gt; () {</span>
+    override fun serialize(
+        value: LocalTime, gen: JsonGenerator, serializers: SerializerProvider) {
+
+<span class="fc" id="L78">        gen.writeStartArray()</span>
+<span class="fc" id="L79">        gen.writeNumber(value.hour)</span>
+<span class="fc" id="L80">        gen.writeNumber(value.minute)</span>
+<span class="fc" id="L81">        gen.writeNumber(value.second)</span>
+<span class="fc" id="L82">        gen.writeNumber(value.nano)</span>
+<span class="fc" id="L83">        gen.writeEndArray()</span>
+<span class="fc" id="L84">    }</span>
+}
+
+<span class="fc" id="L87">object LocalTimeDeserializer: JsonDeserializer&lt;LocalTime&gt; () {</span>
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalTime {
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (p.currentToken != JsonToken.START_ARRAY)</span>
+<span class="nc" id="L90">            error (&quot;Local time should start with an array&quot;)</span>
+<span class="fc" id="L91">        val result = LocalTime.of(</span>
+            p.nextIntValue(0),
+            p.nextIntValue(0),
+            p.nextIntValue(0),
+            p.nextIntValue(0)
+        )
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (p.nextToken() != JsonToken.END_ARRAY)</span>
+<span class="nc" id="L98">            error (&quot;Local time should end with an array&quot;)</span>
+<span class="fc" id="L99">        return result</span>
+    }
+}
+
+<span class="fc" id="L103">object LocalDateSerializer: JsonSerializer&lt;LocalDate&gt; () {</span>
+    override fun serialize(
+        value: LocalDate, gen: JsonGenerator, serializers: SerializerProvider) {
+
+<span class="fc" id="L107">        gen.writeStartArray()</span>
+<span class="fc" id="L108">        gen.writeNumber(value.year)</span>
+<span class="fc" id="L109">        gen.writeNumber(value.monthValue)</span>
+<span class="fc" id="L110">        gen.writeNumber(value.dayOfMonth)</span>
+<span class="fc" id="L111">        gen.writeEndArray()</span>
+<span class="fc" id="L112">    }</span>
+}
+
+<span class="fc" id="L115">object LocalDateDeserializer: JsonDeserializer&lt;LocalDate&gt; () {</span>
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDate {
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">        if (p.currentToken != JsonToken.START_ARRAY)</span>
+<span class="nc" id="L118">            error (&quot;Local date should start with an array&quot;)</span>
+<span class="fc" id="L119">        val result = LocalDate.of(</span>
+            p.nextIntValue(0),
+            p.nextIntValue(0),
+            p.nextIntValue(0)
+        )
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (p.nextToken() != JsonToken.END_ARRAY)</span>
+<span class="nc" id="L125">            error (&quot;Local date should end with an array&quot;)</span>
+<span class="fc" id="L126">        return result</span>
+    }
+}
+
+<span class="fc" id="L130">object ClosedRangeSerializer: JsonSerializer&lt;ClosedRange&lt;*&gt;&gt; () {</span>
+    override fun serialize(
+        value: ClosedRange&lt;*&gt;, gen: JsonGenerator, serializers: SerializerProvider) {
+
+<span class="fc" id="L134">        val start = value.start</span>
+<span class="fc" id="L135">        val end = value.endInclusive</span>
+<span class="fc" id="L136">        val valueSerializer = serializers.findValueSerializer(start.javaClass)</span>
+
+<span class="fc" id="L138">        gen.writeStartObject()</span>
+
+<span class="fc" id="L140">        gen.writeFieldName(&quot;start&quot;)</span>
+<span class="fc" id="L141">        valueSerializer.serialize(start, gen, serializers)</span>
+
+<span class="fc" id="L143">        gen.writeFieldName(&quot;endInclusive&quot;)</span>
+<span class="fc" id="L144">        valueSerializer.serialize(end, gen, serializers)</span>
+
+<span class="fc" id="L146">        gen.writeEndObject()</span>
+<span class="fc" id="L147">    }</span>
+}
+
+<span class="fc" id="L150">object ClosedRangeDeserializer: JsonDeserializer&lt;ClosedRange&lt;*&gt;&gt; (), ContextualDeserializer {</span>
+<span class="pc" id="L151">    private var valueType: ThreadLocal&lt;JavaType?&gt; = ThreadLocal.withInitial { null }</span>
+
+    override fun createContextual(
+        ctxt: DeserializationContext, property: BeanProperty): JsonDeserializer&lt;*&gt; {
+
+<span class="fc" id="L156">        valueType.set(property.type.containedType(0))</span>
+<span class="fc" id="L157">        return ClosedRangeDeserializer</span>
+    }
+
+    override fun deserialize(p: JsonParser, ctxt: DeserializationContext): ClosedRange&lt;*&gt; {
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (p.currentToken != START_OBJECT)</span>
+<span class="nc" id="L162">            error (&quot;Closed range should be an object&quot;)</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        check(p.nextFieldName() == &quot;start&quot;) { &quot;Ranges should start with 'start' field&quot; }</span>
+<span class="fc" id="L164">        p.nextToken() // Start object</span>
+<span class="fc" id="L165">        val type = valueType.get()</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        @Suppress(&quot;UNCHECKED_CAST&quot;) val start = ctxt.readValue&lt;Any&gt;(p, type) as Comparable&lt;Any&gt;</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        check(p.nextFieldName() == &quot;endInclusive&quot;) { &quot;Ranges should end with 'endInclusive' field&quot; }</span>
+<span class="fc" id="L168">        p.nextToken() // End array</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        @Suppress(&quot;UNCHECKED_CAST&quot;) val end = ctxt.readValue&lt;Any&gt;(p, type) as Comparable&lt;Any&gt;</span>
+<span class="fc" id="L170">        p.nextToken() // End array</span>
+<span class="fc" id="L171">        return start .. end</span>
+    }
+}
+
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -2,8 +2,8 @@
 
 import co.there4.hexagon.serialization.parse
 import co.there4.hexagon.util.CompanionLogger
+import co.there4.hexagon.util.resourceAsStream
 import java.io.File
-import java.lang.ClassLoader.getSystemClassLoader
 import java.lang.System.getProperty
 
 <span class="fc" id="L9">enum class Environment { PRODUCTION, INTEGRATION, DEVELOPMENT }</span>
@@ -17,48 +17,47 @@ import java.lang.System.getProperty
  */
 <span class="fc" id="L18">object SettingsManager : CompanionLogger(SettingsManager::class) {</span>
 <span class="fc" id="L19">    private val environmentFile = File(&quot;${getProperty(&quot;user.home&quot;)}/.environment&quot;)</span>
-<span class="fc" id="L20">    private val systemClassLoader = getSystemClassLoader()</span>
 
-<span class="pc bpc" id="L22" title="2 of 4 branches missed.">    val environment: Environment? = if (environmentFile.exists() &amp;&amp; environmentFile.isFile) {</span>
-<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        val environmentContent = environmentFile.readText().trim()</span>
-<span class="fc" id="L24">        info(&quot;Loading '$environmentContent' environment from '${environmentFile.absolutePath}'&quot;)</span>
-<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        Environment.valueOf(environmentContent.toUpperCase())</span>
+<span class="pc bpc" id="L21" title="2 of 4 branches missed.">    val environment: Environment? = if (environmentFile.exists() &amp;&amp; environmentFile.isFile) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        val environmentContent = environmentFile.readText().trim()</span>
+<span class="fc" id="L23">        info(&quot;Loading '$environmentContent' environment from '${environmentFile.absolutePath}'&quot;)</span>
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        Environment.valueOf(environmentContent.toUpperCase())</span>
     }
     else {
-<span class="nc" id="L28">        warn (&quot;Environment not set&quot;)</span>
-<span class="nc" id="L29">        null</span>
+<span class="nc" id="L27">        warn (&quot;Environment not set&quot;)</span>
+<span class="nc" id="L28">        null</span>
     }
 
-<span class="pc" id="L32">    val parameters: Map&lt;String, *&gt; = loadSettings()</span>
+<span class="pc" id="L31">    val parameters: Map&lt;String, *&gt; = loadSettings()</span>
 
-<span class="pc bpc" id="L34" title="2 of 4 branches missed.">    private fun loadSettings() = loadProps(&quot;service.yaml&quot;) +</span>
+<span class="pc bpc" id="L33" title="2 of 4 branches missed.">    private fun loadSettings() = loadProps(&quot;service.yaml&quot;) +</span>
         if (environment != null) loadProps(&quot;${environment.toString().toLowerCase()}.yaml&quot;)
-<span class="fc" id="L36">        else mapOf&lt;String, Any&gt;()</span>
+<span class="fc" id="L35">        else mapOf&lt;String, Any&gt;()</span>
 
-<span class="fc" id="L38">    operator fun get (vararg key: String): Any? = key</span>
-<span class="fc" id="L39">        .dropLast(1)</span>
-<span class="fc" id="L40">        .fold(parameters) { result, element -&gt;</span>
+<span class="fc" id="L37">    operator fun get (vararg key: String): Any? = key</span>
+<span class="fc" id="L38">        .dropLast(1)</span>
+<span class="fc" id="L39">        .fold(parameters) { result, element -&gt;</span>
             @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            (result[element] as Map&lt;String, *&gt;)</span>
-<span class="fc" id="L43">        }[key.last()]</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">            (result[element] as Map&lt;String, *&gt;)</span>
+<span class="fc" id="L42">        }[key.last()]</span>
 
     @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="fc" id="L46">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
+<span class="fc" id="L45">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
     fun &lt;T&gt; requireSetting(vararg key: String): T =
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        setting&lt;T&gt;(*key) ?: error (&quot;Missing setting: $key&quot;)</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        setting&lt;T&gt;(*key) ?: error (&quot;Missing setting: $key&quot;)</span>
 
     @Suppress(&quot;UNCHECKED_CAST&quot;)
     private fun loadProps (resName: String): Map&lt;String, *&gt; =
-<span class="fc" id="L52">        systemClassLoader.getResourceAsStream(resName).let {</span>
-<span class="pc bpc" id="L53" title="1 of 2 branches missed.">            if (it == null) {</span>
-<span class="nc" id="L54">                info(&quot;No environment settings found '$resName'&quot;)</span>
-<span class="nc" id="L55">                mapOf&lt;String, Any&gt;()</span>
+<span class="fc" id="L51">        resourceAsStream(resName).let {</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            if (it == null) {</span>
+<span class="nc" id="L53">                info(&quot;No environment settings found '$resName'&quot;)</span>
+<span class="nc" id="L54">                mapOf&lt;String, Any&gt;()</span>
             }
             else {
-<span class="pc bpc" id="L58" title="1 of 2 branches missed.">                val props = it.parse(Map::class, &quot;application/yaml&quot;) as Map&lt;String, *&gt;</span>
-<span class="fc" id="L59">                info(&quot;Settings loaded from '$resName'&quot;)</span>
-<span class="fc" id="L60">                props</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">                val props = it.parse(Map::class, &quot;application/yaml&quot;) as Map&lt;String, *&gt;</span>
+<span class="fc" id="L58">                info(&quot;Settings loaded from '$resName'&quot;)</span>
+<span class="fc" id="L59">                props</span>
             }
-<span class="fc" id="L62">        }</span>
+<span class="fc" id="L61">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Client.kt</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web</a> &gt; <span class="el_source">Client.kt</span></div><h1>Client.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Client.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hexagon</a> &gt; <a href="index.source.html" class="el_package">co.there4.hexagon.web</a> &gt; <span class="el_source">Client.kt</span></div><h1>Client.kt</h1><pre class="source lang-java linenums">package co.there4.hexagon.web
 
 import co.there4.hexagon.serialization.serialize
 import java.net.URL
@@ -10,20 +10,24 @@ import org.asynchttpclient.cookie.Cookie
 
 import co.there4.hexagon.web.HttpMethod.*
 import org.asynchttpclient.DefaultAsyncHttpClientConfig
+import java.nio.charset.Charset
 
 /**
  * Client to use other REST services (like the ones created with Blacksheep).
  */
-<span class="fc" id="L17">class Client (</span>
-<span class="fc" id="L18">    val endpointUrl: URL,</span>
-<span class="nc" id="L19">    val contentType: String? = null,</span>
-<span class="nc" id="L20">    val useCookies: Boolean = true) {</span>
+<span class="fc" id="L18">class Client (</span>
+<span class="fc" id="L19">    val endpointUrl: URL,</span>
+<span class="nc" id="L20">    val contentType: String? = null,</span>
+<span class="nc" id="L21">    val useCookies: Boolean = true) {</span>
 
-<span class="pc" id="L22">    val endpoint = endpointUrl.toString()</span>
-<span class="pc" id="L23">    val client = DefaultAsyncHttpClient(DefaultAsyncHttpClientConfig.Builder()</span>
+<span class="fc" id="L23">    constructor(endpointUrl: String, contentType: String? = null, useCookies: Boolean = true):</span>
+<span class="fc" id="L24">        this(URL(endpointUrl), contentType, useCookies)</span>
+
+<span class="pc" id="L26">    val endpoint = endpointUrl.toString()</span>
+<span class="pc" id="L27">    val client = DefaultAsyncHttpClient(DefaultAsyncHttpClientConfig.Builder()</span>
         .setConnectTimeout(5000)
         .build())
-<span class="fc" id="L26">    val cookies: MutableMap&lt;String, Cookie&gt; = mutableMapOf()</span>
+<span class="fc" id="L30">    val cookies: MutableMap&lt;String, Cookie&gt; = mutableMapOf()</span>
 
     /**
      * Synchronous execution.
@@ -34,26 +38,26 @@ import org.asynchttpclient.DefaultAsyncHttpClientConfig
         body: String? = null,
         contentType: String? = this.contentType): Response {
 
-<span class="fc" id="L37">        val request = createRequest(method, url, contentType)</span>
+<span class="fc" id="L41">        val request = createRequest(method, url, contentType)</span>
 
-<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (body != null)</span>
-<span class="fc" id="L40">            request.setBody(body)</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (body != null)</span>
+<span class="fc" id="L44">            request.setBody(body)</span>
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (useCookies)</span>
-<span class="fc" id="L43">            cookies.forEach { request.addCookie(it.value) }</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (useCookies)</span>
+<span class="fc" id="L47">            cookies.forEach { request.addCookie(it.value) }</span>
 
-<span class="fc" id="L45">        val response = request.execute().get()</span>
+<span class="fc" id="L49">        val response = request.execute().get()</span>
 
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (useCookies) {</span>
-<span class="fc" id="L48">            response.cookies.forEach {</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">                if (it.value == &quot;&quot;)</span>
-<span class="fc" id="L50">                    cookies.remove(it.name)</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (useCookies) {</span>
+<span class="fc" id="L52">            response.cookies.forEach {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                if (it.value == &quot;&quot;)</span>
+<span class="fc" id="L54">                    cookies.remove(it.name)</span>
                 else
-<span class="fc" id="L52">                    cookies[it.name] = it</span>
-<span class="fc" id="L53">            }</span>
+<span class="fc" id="L56">                    cookies[it.name] = it</span>
+<span class="fc" id="L57">            }</span>
         }
 
-<span class="fc" id="L56">        return response</span>
+<span class="fc" id="L60">        return response</span>
     }
 
     fun sendObject(
@@ -61,82 +65,83 @@ import org.asynchttpclient.DefaultAsyncHttpClientConfig
         url: String,
         contentType: String = requireContentType(),
         body: Any) =
-<span class="fc" id="L64">            send(method, url, body.serialize(contentType), contentType)</span>
+<span class="fc" id="L68">            send(method, url, body.serialize(contentType), contentType)</span>
 
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">    private fun requireContentType() = this.contentType ?: error(&quot;Missing content type&quot;)</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">    private fun requireContentType() = this.contentType ?: error(&quot;Missing content type&quot;)</span>
 
-<span class="fc" id="L68">    fun get (url: String, body: String? = null) = send (GET, url, body)</span>
-<span class="fc" id="L69">    fun head (url: String, body: String? = null) = send (HEAD, url, body)</span>
-<span class="fc" id="L70">    fun post (url: String, body: String? = null) = send (POST, url, body)</span>
-<span class="fc" id="L71">    fun put (url: String, body: String? = null) = send (PUT, url, body)</span>
-<span class="fc" id="L72">    fun delete (url: String, body: String? = null) = send (DELETE, url, body)</span>
-<span class="fc" id="L73">    fun trace (url: String, body: String? = null) = send (TRACE, url, body)</span>
-<span class="fc" id="L74">    fun options (url: String, body: String? = null) = send (OPTIONS, url, body)</span>
-<span class="fc" id="L75">    fun patch (url: String, body: String? = null) = send (PATCH, url, body)</span>
+<span class="fc" id="L72">    fun get (url: String, body: String? = null) = send (GET, url, body)</span>
+<span class="fc" id="L73">    fun head (url: String, body: String? = null) = send (HEAD, url, body)</span>
+<span class="fc" id="L74">    fun post (url: String, body: String? = null) = send (POST, url, body)</span>
+<span class="fc" id="L75">    fun put (url: String, body: String? = null) = send (PUT, url, body)</span>
+<span class="fc" id="L76">    fun delete (url: String, body: String? = null) = send (DELETE, url, body)</span>
+<span class="fc" id="L77">    fun trace (url: String, body: String? = null) = send (TRACE, url, body)</span>
+<span class="fc" id="L78">    fun options (url: String, body: String? = null) = send (OPTIONS, url, body)</span>
+<span class="fc" id="L79">    fun patch (url: String, body: String? = null) = send (PATCH, url, body)</span>
 
     fun get (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="fc" id="L78">        sendObject(GET, url, contentType, body)</span>
+<span class="fc" id="L82">        sendObject(GET, url, contentType, body)</span>
 
     fun get (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="fc" id="L81">        get(url, contentType, body())</span>
+<span class="fc" id="L85">        get(url, contentType, body())</span>
 
     fun head (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L84">        sendObject(HEAD, url, contentType, body)</span>
+<span class="nc" id="L88">        sendObject(HEAD, url, contentType, body)</span>
 
     fun head (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L87">        head(url, contentType, body())</span>
+<span class="nc" id="L91">        head(url, contentType, body())</span>
 
     fun post (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="fc" id="L90">        sendObject(POST, url, contentType, body)</span>
+<span class="fc" id="L94">        sendObject(POST, url, contentType, body)</span>
 
     fun post (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L93">        post(url, contentType, body())</span>
+<span class="nc" id="L97">        post(url, contentType, body())</span>
 
     fun put (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L96">        sendObject(PUT, url, contentType, body)</span>
+<span class="nc" id="L100">        sendObject(PUT, url, contentType, body)</span>
 
     fun put (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L99">        put(url, contentType, body())</span>
+<span class="nc" id="L103">        put(url, contentType, body())</span>
 
     fun delete (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L102">        sendObject(DELETE, url, contentType, body)</span>
+<span class="nc" id="L106">        sendObject(DELETE, url, contentType, body)</span>
 
     fun delete (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L105">        delete(url, contentType, body())</span>
+<span class="nc" id="L109">        delete(url, contentType, body())</span>
 
     fun trace (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L108">        sendObject(TRACE, url, contentType, body)</span>
+<span class="nc" id="L112">        sendObject(TRACE, url, contentType, body)</span>
 
     fun trace (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L111">        trace(url, contentType, body())</span>
+<span class="nc" id="L115">        trace(url, contentType, body())</span>
 
     fun options (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L114">        sendObject(OPTIONS, url, contentType, body)</span>
+<span class="nc" id="L118">        sendObject(OPTIONS, url, contentType, body)</span>
 
     fun options (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L117">        options(url, contentType, body())</span>
+<span class="nc" id="L121">        options(url, contentType, body())</span>
 
     fun patch (url: String, contentType: String = requireContentType(), body: Any) =
-<span class="nc" id="L120">        sendObject(PATCH, url, contentType, body)</span>
+<span class="nc" id="L124">        sendObject(PATCH, url, contentType, body)</span>
 
     fun patch (url: String, contentType: String = requireContentType(), body: () -&gt; Any) =
-<span class="nc" id="L123">        patch(url, contentType, body())</span>
+<span class="nc" id="L127">        patch(url, contentType, body())</span>
 
     private fun createRequest(method: HttpMethod, url: String, contentType: String? = null) =
-<span class="fc" id="L126">        (endpoint + url).let {</span>
-<span class="fc" id="L127">            val request = when (method) {</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">                GET -&gt; client.prepareGet (it)</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">                HEAD -&gt; client.prepareHead (it)</span>
-<span class="fc bfc" id="L130" title="All 2 branches covered.">                POST -&gt; client.preparePost (it)</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">                PUT -&gt; client.preparePut (it)</span>
-<span class="fc bfc" id="L132" title="All 2 branches covered.">                DELETE -&gt; client.prepareDelete (it)</span>
-<span class="fc bfc" id="L133" title="All 2 branches covered.">                TRACE -&gt; client.prepareTrace (it)</span>
-<span class="fc bfc" id="L134" title="All 2 branches covered.">                OPTIONS -&gt; client.prepareOptions (it)</span>
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">                PATCH -&gt; client.preparePatch (it)</span>
+<span class="fc" id="L130">        (endpoint + url).let {</span>
+<span class="fc" id="L131">            val request = when (method) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">                GET -&gt; client.prepareGet (it)</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">                HEAD -&gt; client.prepareHead (it)</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">                POST -&gt; client.preparePost (it)</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">                PUT -&gt; client.preparePut (it)</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                DELETE -&gt; client.prepareDelete (it)</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">                TRACE -&gt; client.prepareTrace (it)</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">                OPTIONS -&gt; client.prepareOptions (it)</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">                PATCH -&gt; client.preparePatch (it)</span>
             }
 
-<span class="fc bfc" id="L138" title="All 2 branches covered.">            if (contentType != null) request.addHeader(&quot;Content-Type&quot;, contentType)</span>
-<span class="fc" id="L139">            else request</span>
-<span class="fc" id="L140">        }</span>
+<span class="fc" id="L142">            request.setCharset(Charset.defaultCharset()) // TODO Problem if encoding is set?</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            if (contentType != null) request.addHeader(&quot;Content-Type&quot;, contentType)</span>
+<span class="fc" id="L144">            else request</span>
+<span class="fc" id="L145">        }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

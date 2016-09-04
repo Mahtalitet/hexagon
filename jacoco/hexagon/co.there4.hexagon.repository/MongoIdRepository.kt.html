@@ -7,133 +7,139 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.IndexOptions
 import org.bson.Document
 import kotlin.reflect.KClass
+import kotlin.reflect.KProperty1
+import kotlin.reflect.KType
+import kotlin.reflect.jvm.javaType
 
-<span class="fc" id="L11">open class MongoIdRepository&lt;T : Any, K : Any&gt; (</span>
+<span class="fc" id="L14">open class MongoIdRepository&lt;T : Any, K : Any&gt; (</span>
     type: KClass&lt;T&gt;,
     collection: MongoCollection&lt;Document&gt;,
-    private val keySupplier: (T) -&gt; K,
-<span class="fc" id="L15">    val keyType: KClass&lt;K&gt;,</span>
-<span class="fc" id="L16">    protected val keyName: String = &quot;id&quot;,</span>
+<span class="fc" id="L17">    protected val key: KProperty1&lt;T, K&gt;,</span>
     publishEvents: Boolean = false,
     indexOrder: Int = 1,
     createIndex: Boolean = true,
-<span class="fc" id="L20">    onStore: (Document) -&gt; Document = { it },</span>
-<span class="fc" id="L21">    onLoad: (Document) -&gt; Document = { it }) :</span>
-<span class="fc" id="L22">        MongoRepository&lt;T&gt; (type, collection, publishEvents, onStore, onLoad) {</span>
+<span class="fc" id="L21">    onStore: (Document) -&gt; Document = { it },</span>
+<span class="fc" id="L22">    onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L23">        MongoRepository&lt;T&gt; (type, collection, publishEvents, onStore, onLoad) {</span>
 
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">    constructor (</span>
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">    val keyType: KClass&lt;K&gt; = key.returnType.kclass() as KClass&lt;K&gt;</span>
+
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    constructor (</span>
         type: KClass&lt;T&gt;,
         database: MongoDatabase,
-        keySupplier: (T) -&gt; K,
-        keyType: KClass&lt;K&gt;,
-        keyName: String = &quot;id&quot;,
+        key: KProperty1&lt;T, K&gt;,
         publishEvents: Boolean = false,
         indexOrder: Int = 1,
         createIndex: Boolean = true,
-<span class="nc" id="L33">        onStore: (Document) -&gt; Document = { it },</span>
-<span class="nc" id="L34">        onLoad: (Document) -&gt; Document = { it }) :</span>
-<span class="fc" id="L35">        this (</span>
-            type,
-            mongoCollection(type.simpleName ?: error(&quot;Error getting type name&quot;), database),
-            keySupplier,
-            keyType,
-            keyName,
-            publishEvents,
-            indexOrder,
-            createIndex,
-            onStore,
-            onLoad
-        )
+<span class="nc" id="L35">        onStore: (Document) -&gt; Document = { it },</span>
+<span class="nc" id="L36">        onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L37">            this (</span>
+                type,
+                mongoCollection(type.simpleName ?: error(&quot;Error getting type name&quot;), database),
+                key,
+                publishEvents,
+                indexOrder,
+                createIndex,
+                onStore,
+                onLoad
+            )
 
 <span class="fc" id="L48">    constructor (</span>
         type: KClass&lt;T&gt;,
-        keySupplier: (T) -&gt; K,
-        keyType: KClass&lt;K&gt;,
-        keyName: String = &quot;id&quot;,
+        key: KProperty1&lt;T, K&gt;,
         publishEvents: Boolean = false,
         indexOrder: Int = 1,
         createIndex: Boolean = true,
-<span class="fc" id="L56">        onStore: (Document) -&gt; Document = { it },</span>
-<span class="fc" id="L57">        onLoad: (Document) -&gt; Document = { it }</span>
-        ) :
-<span class="fc" id="L59">        this (</span>
-            type,
-            mongoDatabase(),
-            keySupplier,
-            keyType,
-            keyName,
-            publishEvents,
-            indexOrder,
-            createIndex,
-            onStore,
-            onLoad
-        )
+<span class="fc" id="L54">        onStore: (Document) -&gt; Document = { it },</span>
+<span class="fc" id="L55">        onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L56">            this (</span>
+                type,
+                mongoDatabase(),
+                key,
+                publishEvents,
+                indexOrder,
+                createIndex,
+                onStore,
+                onLoad
+            )
 
     init {
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (createIndex)</span>
-<span class="fc" id="L74">            createIndex (keyName, indexOrder, IndexOptions().unique(true).background(true))</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (createIndex)</span>
+<span class="fc" id="L69">            createIndex (key.name, indexOrder, IndexOptions().unique(true).background(true))</span>
     }
 
     protected fun publishKey (source: K, action: RepositoryEventAction) {
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (publishEvents)</span>
-<span class="fc" id="L79">            EventManager.publish(RepositoryIdEvent (type, source, action))</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (publishEvents)</span>
+<span class="fc" id="L74">            EventManager.publish(RepositoryIdEvent (type, source, action))</span>
+<span class="fc" id="L75">    }</span>
 
     protected fun publishKey (sources: List&lt;K&gt;, action: RepositoryEventAction) {
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (publishEvents)</span>
-<span class="fc" id="L84">            sources.forEach { publishKey(it, action) }</span>
-<span class="fc" id="L85">    }</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (publishEvents)</span>
+<span class="fc" id="L79">            sources.forEach { publishKey(it, action) }</span>
+<span class="fc" id="L80">    }</span>
 
-<span class="fc" id="L87">    protected open fun convertKeyName(keyName: String): String = keyName</span>
-<span class="fc" id="L88">    protected open fun convertId(id: K): Any = id</span>
+<span class="fc" id="L82">    protected open fun convertKeyName(keyName: String): String = keyName</span>
+<span class="fc" id="L83">    protected open fun convertId(id: K): Any = id</span>
 
     fun deleteId (documentId: K) {
-<span class="fc" id="L91">        deleteOne (convertKeyName(keyName) eq convertId(documentId))</span>
-<span class="fc" id="L92">        publishKey(documentId, DELETED)</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L86">        deleteOne (convertKeyName(key.name) eq convertId(documentId))</span>
+<span class="fc" id="L87">        publishKey(documentId, DELETED)</span>
+<span class="fc" id="L88">    }</span>
 
     fun deleteIds (vararg documentId: K) {
-<span class="fc" id="L96">        deleteIds (documentId.toList ())</span>
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L91">        deleteIds (documentId.toList ())</span>
+<span class="fc" id="L92">    }</span>
 
     fun deleteIds (documentIds: List&lt;K&gt;) {
-<span class="fc" id="L100">        deleteMany (convertKeyName(keyName) isIn documentIds.map { convertId(it) })</span>
-<span class="fc" id="L101">        publishKey(documentIds, DELETED)</span>
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L95">        deleteMany (convertKeyName(key.name) isIn documentIds.map { convertId(it) })</span>
+<span class="fc" id="L96">        publishKey(documentIds, DELETED)</span>
+<span class="fc" id="L97">    }</span>
 
     fun deleteObject (documentId: T) {
-<span class="fc" id="L105">        deleteOne (convertKeyName(keyName) eq convertId(keySupplier(documentId)))</span>
-<span class="fc" id="L106">        publish(documentId, DELETED)</span>
-<span class="fc" id="L107">    }</span>
+<span class="fc" id="L100">        deleteOne (convertKeyName(key.name) eq convertId((key.getter)(documentId)))</span>
+<span class="fc" id="L101">        publish(documentId, DELETED)</span>
+<span class="fc" id="L102">    }</span>
 
     fun deleteObjects (vararg documentId: T) {
-<span class="fc" id="L110">        deleteObjects (documentId.toList())</span>
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L105">        deleteObjects (documentId.toList())</span>
+<span class="fc" id="L106">    }</span>
 
     fun deleteObjects (documentIds: List&lt;T&gt;) {
-<span class="fc" id="L114">        val ids = documentIds.map { convertId(keySupplier(it)) }</span>
-<span class="fc" id="L115">        deleteMany (convertKeyName(keyName) isIn ids)</span>
-<span class="fc" id="L116">        publish(documentIds, DELETED)</span>
-<span class="fc" id="L117">    }</span>
+<span class="fc" id="L109">        val ids = documentIds.map { convertId((key.getter)(it)) }</span>
+<span class="fc" id="L110">        deleteMany (convertKeyName(key.name) isIn ids)</span>
+<span class="fc" id="L111">        publish(documentIds, DELETED)</span>
+<span class="fc" id="L112">    }</span>
 
     fun replaceObject (document: T) =
-<span class="fc" id="L120">        replaceOneObject (convertKeyName(keyName) eq convertId(keySupplier (document)), document)</span>
+<span class="fc" id="L115">        replaceOneObject (convertKeyName(key.name) eq convertId((key.getter)(document)), document)</span>
 
     fun replaceObjects (vararg document: T) {
-<span class="fc" id="L123">        replaceObjects (document.toList())</span>
-<span class="fc" id="L124">    }</span>
+<span class="fc" id="L118">        replaceObjects (document.toList())</span>
+<span class="fc" id="L119">    }</span>
 
     fun replaceObjects (document: List&lt;T&gt;) {
-<span class="fc" id="L127">        document.forEach { replaceObject(it) }</span>
-<span class="fc" id="L128">    }</span>
+<span class="fc" id="L122">        document.forEach { replaceObject(it) }</span>
+<span class="fc" id="L123">    }</span>
 
-<span class="fc" id="L130">    fun find (vararg documentId: K) = find (documentId.toList ())</span>
+<span class="fc" id="L125">    fun find (vararg documentId: K): List&lt;T&gt; = find (documentId.toList ())</span>
 
-    fun find (documentId: List&lt;K&gt;) =
-<span class="fc" id="L133">        findObjects (convertKeyName(keyName) isIn documentId.map { convertId(it) }).toList()</span>
+    fun find (documentId: List&lt;K&gt;): List&lt;T&gt; =
+<span class="fc" id="L128">        findObjects (convertKeyName(key.name) isIn documentId.map { convertId(it) }).toList()</span>
 
-<span class="fc" id="L135">    fun find (documentId: K) = findObjects (convertKeyName(keyName) eq convertId(documentId)).first ()</span>
+    fun find (documentId: K): T? =
+<span class="fc" id="L131">        findObjects (convertKeyName(key.name) eq convertId(documentId)).first ()</span>
 
-<span class="fc" id="L137">    fun getKey (obj: T): K = keySupplier(obj)</span>
+<span class="fc" id="L133">    fun getKey (obj: T): K = (key.getter)(obj)</span>
+
+<span class="pc bpc" id="L135" title="17 of 21 branches missed.">    private fun KType.kclass(): KClass&lt;*&gt; = when (this.javaType.typeName) {</span>
+<span class="nc" id="L136">        &quot;boolean&quot; -&gt; Boolean::class</span>
+<span class="fc" id="L137">        &quot;int&quot; -&gt; Int::class</span>
+<span class="nc" id="L138">        &quot;long&quot; -&gt; Long::class</span>
+<span class="nc" id="L139">        &quot;short&quot; -&gt; Short::class</span>
+<span class="nc" id="L140">        &quot;double&quot; -&gt; Double::class</span>
+<span class="nc" id="L141">        &quot;float&quot; -&gt; Float::class</span>
+<span class="fc" id="L142">        else -&gt; Class.forName(this.javaType.typeName).kotlin</span>
+<span class="fc" id="L143">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -7,51 +7,76 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
+import java.util.Locale.forLanguageTag as localeFor
 
 /**
  * HTTP request context. It holds client supplied data and methods to change the response.
  */
-<span class="fc" id="L14">data class Exchange (</span>
-<span class="fc" id="L15">    val request: Request,</span>
-<span class="fc" id="L16">    val response: Response,</span>
-<span class="fc" id="L17">    val session: Session) {</span>
+<span class="fc" id="L15">data class Exchange (</span>
+<span class="fc" id="L16">    val request: Request,</span>
+<span class="fc" id="L17">    val response: Response,</span>
+<span class="fc" id="L18">    val session: Session,</span>
+    /** Exchange attributes (for the current request). Same as HttpServletRequest.setAttribute(). */
+<span class="nc" id="L20">    val attributes: MutableMap&lt;String, Any&gt; = mutableMapOf&lt;String, Any&gt;()) {</span>
 
-<span class="fc" id="L19">    fun redirect (url: String) = response.redirect(url)</span>
+<span class="fc" id="L22">    fun redirect(url: String) = response.redirect(url)</span>
 
-<span class="fc" id="L21">    fun ok(content: Any) = send (200, content)</span>
-<span class="fc" id="L22">    fun ok(code: Int = 200, content: Any = &quot;&quot;) = send (code, content)</span>
-<span class="fc" id="L23">    fun error(code: Int = 500, content: Any = &quot;&quot;) = send (code, content)</span>
+<span class="fc" id="L24">    fun ok(content: Any) = send(200, content)</span>
+<span class="fc" id="L25">    fun ok(code: Int = 200, content: Any = &quot;&quot;) = send(code, content)</span>
+<span class="fc" id="L26">    fun error(code: Int = 500, content: Any = &quot;&quot;) = send(code, content)</span>
 
-<span class="nc" id="L25">    fun halt(content: Any) = halt (500, content)</span>
+<span class="nc" id="L28">    fun halt(content: Any) = halt(500, content)</span>
     fun halt(code: Int = 500, content: Any = &quot;&quot;) {
-<span class="fc" id="L27">        send (code, content)</span>
-<span class="fc" id="L28">        throw EndException ()</span>
+<span class="fc" id="L30">        send(code, content)</span>
+<span class="fc" id="L31">        throw EndException()</span>
     }
 
-<span class="fc" id="L31">    fun pass() { throw PassException() }</span>
+    fun pass() {
+<span class="fc" id="L35">        throw PassException()</span>
+    }
 
-    fun template (
+    fun template(
         template: String,
-        locale: Locale = Locale.getDefault(),
-        context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
+        locale: Locale = obtainLocale(),
+        context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) {
 
-<span class="fc" id="L38">        val contentType = response.getMimeType(template)</span>
+<span class="fc" id="L43">        val contentType = response.getMimeType(template)</span>
 
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (response.contentType == null)</span>
-<span class="fc" id="L41">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
-<span class="fc" id="L42">        ok (render (template, locale, context + session.attributes + (&quot;pathInfo&quot; to request.pathInfo) + (&quot;lang&quot; to locale.language)))</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (response.contentType == null)</span>
+<span class="fc" id="L46">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
 
-    fun template (template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt; ()) {
-<span class="fc" id="L46">        template (template, Locale.getDefault(), context)</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L48">        val extraParameters = mapOf(</span>
+            &quot;pathInfo&quot; to request.pathInfo,
+            &quot;lang&quot; to locale.language
+        )
 
-    fun httpDate (date: LocalDateTime) =
-<span class="fc" id="L50">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
+<span class="fc" id="L53">        ok(render(template, locale, context + session.attributes + extraParameters))</span>
+<span class="fc" id="L54">    }</span>
+
+    fun template(template: String, context: Map&lt;String, *&gt; = mapOf&lt;String, Any&gt;()) {
+<span class="fc" id="L57">        template(template, obtainLocale(), context)</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * TODO Review order precedence and complete code (now only taking request attribute)
+     *
+     * 1. Request
+     * 2. Session
+     * 3. Cookie
+     * 4. Accept-language
+     * 5. Server default locale
+     */
+    private fun obtainLocale() = when {
+<span class="pc bpc" id="L70" title="4 of 6 branches missed.">        attributes[&quot;lang&quot;] as? String != null -&gt; localeFor(attributes[&quot;lang&quot;] as String)</span>
+<span class="fc" id="L71">        else -&gt; Locale.getDefault()</span>
+<span class="fc" id="L72">    }</span>
+
+    fun httpDate (date: LocalDateTime): String =
+<span class="fc" id="L75">        RFC_1123_DATE_TIME.format(ZonedDateTime.of(date, ZoneId.of(&quot;GMT&quot;)))</span>
 
     private fun send(code: Int, content: Any) {
-<span class="fc" id="L53">        response.status = code</span>
-<span class="fc" id="L54">        response.body = content</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L78">        response.status = code</span>
+<span class="fc" id="L79">        response.body = content</span>
+<span class="fc" id="L80">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

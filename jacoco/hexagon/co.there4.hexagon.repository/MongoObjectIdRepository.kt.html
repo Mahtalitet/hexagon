@@ -5,76 +5,70 @@ import com.mongodb.client.MongoDatabase
 import org.bson.Document
 import org.bson.types.ObjectId
 import kotlin.reflect.KClass
+import kotlin.reflect.KProperty1
 
-<span class="fc" id="L9">class MongoObjectIdRepository&lt;T : Any&gt;(</span>
+<span class="fc" id="L10">class MongoObjectIdRepository&lt;T : Any&gt;(</span>
     type: KClass&lt;T&gt;,
     collection: MongoCollection&lt;Document&gt;,
-    keySupplier: (T) -&gt; String,
-    keyName: String = &quot;id&quot;,
+    key: KProperty1&lt;T, String&gt;,
     publishEvents: Boolean = false,
 <span class="nc" id="L15">    onStore: (Document) -&gt; Document = { it },</span>
 <span class="nc" id="L16">    onLoad: (Document) -&gt; Document = { it }) :</span>
 <span class="fc" id="L17">    MongoIdRepository&lt;T, String&gt; (</span>
         type,
         collection,
-        keySupplier,
-        String::class,
-        keyName,
+        key,
         publishEvents,
         1,
         false,
         onStore,
         onLoad) {
 
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">    constructor (</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    constructor (</span>
         type: KClass&lt;T&gt;,
         database: MongoDatabase,
-        keySupplier: (T) -&gt; String,
-        keyName: String = &quot;id&quot;,
+        key: KProperty1&lt;T, String&gt;,
         publishEvents: Boolean = false,
-<span class="nc" id="L35">        onStore: (Document) -&gt; Document = { it },</span>
-<span class="nc" id="L36">        onLoad: (Document) -&gt; Document = { it }) :</span>
-<span class="fc" id="L37">        this (</span>
+<span class="nc" id="L32">        onStore: (Document) -&gt; Document = { it },</span>
+<span class="nc" id="L33">        onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L34">        this (</span>
             type,
             mongoCollection(type.simpleName ?: error(&quot;Error getting type name&quot;), database),
-            keySupplier,
-            keyName,
+            key,
             publishEvents,
             onStore,
             onLoad
         )
 
-<span class="fc" id="L47">    constructor (</span>
+<span class="fc" id="L43">    constructor (</span>
         type: KClass&lt;T&gt;,
-        keySupplier: (T) -&gt; String,
-        keyName: String = &quot;id&quot;,
+        key: KProperty1&lt;T, String&gt;,
         publishEvents: Boolean = false,
-<span class="fc" id="L52">        onStore: (Document) -&gt; Document = { it },</span>
-<span class="fc" id="L53">        onLoad: (Document) -&gt; Document = { it }) :</span>
-<span class="fc" id="L54">        this (</span>
+<span class="fc" id="L47">        onStore: (Document) -&gt; Document = { it },</span>
+<span class="fc" id="L48">        onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L49">        this (</span>
             type,
             mongoDatabase(),
-            keySupplier,
-            keyName,
+            key,
             publishEvents,
             onStore,
             onLoad
         )
 
     override fun map (document: T): Document {
-<span class="fc" id="L65">        val doc = super.map(document)</span>
-<span class="fc" id="L66">        doc[&quot;_id&quot;] = ObjectId(doc[keyName].toString())</span>
-<span class="fc" id="L67">        doc.remove(keyName)</span>
-<span class="fc" id="L68">        return doc</span>
+<span class="fc" id="L59">        val doc = super.map(document)</span>
+<span class="fc" id="L60">        doc[&quot;_id&quot;] = ObjectId(doc[key.name].toString())</span>
+<span class="fc" id="L61">        doc.remove(key.name)</span>
+<span class="fc" id="L62">        return doc</span>
     }
 
     override fun unmap (document: Document): T {
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        document[keyName] = (document[&quot;_id&quot;] as ObjectId).toHexString()</span>
-<span class="fc" id="L73">        document.remove(&quot;_id&quot;)</span>
-<span class="fc" id="L74">        return super.unmap(document)</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        document[key.name] = (document[&quot;_id&quot;] as ObjectId).toHexString()</span>
+<span class="fc" id="L67">        document.remove(&quot;_id&quot;)</span>
+<span class="fc" id="L68">        return super.unmap(document)</span>
     }
 
-<span class="fc" id="L77">    override fun convertId(id: String): Any = ObjectId(id)</span>
-<span class="fc" id="L78">    override fun convertKeyName(keyName: String): String = &quot;_id&quot;</span>
+<span class="fc" id="L71">    override fun convertId(id: String): Any = ObjectId(id)</span>
+<span class="fc" id="L72">    override fun convertKeyName(keyName: String): String = &quot;_id&quot;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -7,8 +7,6 @@ import co.there4.hexagon.util.resourceAsStream
 import java.io.File
 import java.lang.System.getProperty
 
-<span class="fc" id="L10">enum class Environment { PRODUCTION, INTEGRATION, DEVELOPMENT }</span>
-
 /**
  * Reads:
  * - service.yaml (resource)
@@ -16,7 +14,9 @@ import java.lang.System.getProperty
  * - service.yaml (file)
  * - &lt;environment&gt;.yaml (file)
  */
-<span class="fc" id="L19">object SettingsManager : CompanionLogger(SettingsManager::class) {</span>
+<span class="fc" id="L17">object SettingsManager : CompanionLogger(SettingsManager::class) {</span>
+<span class="fc" id="L18">    enum class Environment { PRODUCTION, INTEGRATION, DEVELOPMENT }</span>
+
 <span class="pc bpc" id="L20" title="1 of 2 branches missed.">    private val prefix = getProperty(&quot;settings.prefix&quot;) ?: &quot;&quot;</span>
 <span class="fc" id="L21">    private val environmentFile = File(&quot;${getProperty(&quot;user.home&quot;)}/.environment&quot;)</span>
 
@@ -30,7 +30,7 @@ import java.lang.System.getProperty
 <span class="nc" id="L30">        null</span>
     }
 
-<span class="pc" id="L33">    val parameters: Map&lt;String, *&gt; = loadSettings()</span>
+<span class="fc" id="L33">    val parameters: Map&lt;String, *&gt; = loadSettings()</span>
 
 <span class="pc bpc" id="L35" title="2 of 4 branches missed.">    private fun loadSettings() = loadProps(&quot;${prefix}service.yaml&quot;) +</span>
         if (environment != null) loadProps(&quot;$prefix${environment.toString().toLowerCase()}.yaml&quot;)

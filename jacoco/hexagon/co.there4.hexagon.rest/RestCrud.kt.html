@@ -2,33 +2,33 @@
 
 import co.there4.hexagon.repository.MongoIdRepository
 import co.there4.hexagon.repository.MongoRepository
+import co.there4.hexagon.serialization.contentTypes
 import co.there4.hexagon.serialization.defaultFormat
 import co.there4.hexagon.serialization.parse
 import co.there4.hexagon.serialization.serialize
 import co.there4.hexagon.web.*
 import com.mongodb.MongoWriteException
+import java.nio.charset.Charset.defaultCharset
 
-<span class="fc" id="L11">class RestCrud &lt;T : Any, K : Any&gt; (</span>
-<span class="fc" id="L12">    val repository: MongoIdRepository&lt;T, K&gt;,</span>
+<span class="fc" id="L13">class RestCrud &lt;T : Any, K : Any&gt; (</span>
+<span class="fc" id="L14">    val repository: MongoIdRepository&lt;T, K&gt;,</span>
     server: Server) {
 
     init {
-<span class="fc" id="L16">        val collectionName = repository.namespace.collectionName</span>
+<span class="fc" id="L18">        val collectionName = repository.namespace.collectionName</span>
 
-<span class="fc" id="L18">        server.post(&quot;/$collectionName&quot;) { insert (repository, this) }</span>
-<span class="fc" id="L19">        server.put(&quot;/$collectionName&quot;) { replace (repository, this) }</span>
-<span class="fc" id="L20">        server.get(&quot;/$collectionName&quot;) { findAll (repository, this) }</span>
+<span class="fc" id="L20">        server.post(&quot;/$collectionName&quot;) { insert (repository, this) }</span>
+<span class="fc" id="L21">        server.put(&quot;/$collectionName&quot;) { replace (repository, this) }</span>
+<span class="fc" id="L22">        server.get(&quot;/$collectionName&quot;) { findAll (repository, this) }</span>
 
-<span class="fc" id="L22">        server.delete(&quot;/$collectionName/{id}&quot;) { delete (repository, this) }</span>
-<span class="fc" id="L23">        server.get(&quot;/$collectionName/{id}&quot;) { find (repository, this) }</span>
+<span class="fc" id="L24">        server.delete(&quot;/$collectionName/{id}&quot;) { delete (repository, this) }</span>
+<span class="fc" id="L25">        server.get(&quot;/$collectionName/{id}&quot;) { find (repository, this) }</span>
     }
 
-<span class="pc bpc" id="L26" title="1 of 2 branches missed.">    private fun contentType (exchange: Exchange) = exchange.request.contentType ?: defaultFormat</span>
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    private fun accept (exchange: Exchange) = exchange.request.accept()?.first().let {</span>
-<span class="pc bpc" id="L28" title="3 of 6 branches missed.">        when (it) {</span>
-<span class="fc" id="L29">            &quot;*/*&quot;, null -&gt; defaultFormat</span>
-<span class="nc" id="L30">            else -&gt; it</span>
-        }
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    private fun contentType (exchange: Exchange) = exchange.request.contentType ?: defaultFormat</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">    private fun accept (exchange: Exchange) = exchange.request.accept()?.first().let {</span>
+<span class="pc bpc" id="L30" title="2 of 4 branches missed.">        if (it != null &amp;&amp; contentTypes.contains(it)) it</span>
+<span class="fc" id="L31">        else defaultFormat</span>
 <span class="fc" id="L32">    }</span>
 
     private fun &lt;T : Any&gt; insert (repository: MongoRepository&lt;T&gt;, exchange: Exchange) {
@@ -71,23 +71,27 @@ import com.mongodb.MongoWriteException
 <span class="nc" id="L71">            exchange.halt(404)//NOT_FOUND)</span>
         }
         else {
-<span class="fc" id="L74">            exchange.ok(obj.serialize(accept(exchange)))</span>
+<span class="fc" id="L74">            val contentType = accept(exchange)</span>
+<span class="fc" id="L75">            exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L76">            exchange.ok(obj.serialize(contentType))</span>
         }
-<span class="fc" id="L76">    }</span>
+<span class="fc" id="L78">    }</span>
 
     private fun &lt;K : Any, T : Any&gt; parseKey(
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange): K {
 
-<span class="fc" id="L81">        val id: String = exchange.request.parameter(&quot;id&quot;)</span>
-<span class="fc" id="L82">        return when (repository.keyType) {</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
-<span class="fc" id="L84">            else -&gt; id</span>
-<span class="fc" id="L85">        }.parse(repository.keyType, contentType(exchange))</span>
+<span class="fc" id="L83">        val id: String = exchange.request.parameter(&quot;id&quot;)</span>
+<span class="fc" id="L84">        return when (repository.keyType) {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
+<span class="fc" id="L86">            else -&gt; id</span>
+<span class="fc" id="L87">        }.parse(repository.keyType, contentType(exchange))</span>
     }
 
     private fun &lt;T : Any&gt; findAll (repository: MongoRepository&lt;T&gt;, exchange: Exchange) {
-<span class="fc" id="L89">        val objects = repository.findObjects().toList()</span>
-<span class="fc" id="L90">        exchange.ok(objects.serialize(accept(exchange)))</span>
-<span class="fc" id="L91">    }</span>
+<span class="fc" id="L91">        val objects = repository.findObjects().toList()</span>
+<span class="fc" id="L92">        val contentType = accept(exchange)</span>
+<span class="fc" id="L93">        exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L94">        exchange.ok(objects.serialize(contentType))</span>
+<span class="fc" id="L95">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

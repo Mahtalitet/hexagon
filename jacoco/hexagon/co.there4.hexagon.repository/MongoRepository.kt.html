@@ -2,11 +2,11 @@
 
 import co.there4.hexagon.events.EventManager
 import co.there4.hexagon.repository.RepositoryEventAction.*
-import co.there4.hexagon.serialization.convertToMap
-import co.there4.hexagon.serialization.convertToObject
-import co.there4.hexagon.serialization.parseList
-import co.there4.hexagon.serialization.resourceParseList
+import co.there4.hexagon.serialization.*
 import co.there4.hexagon.util.CompanionLogger
+import co.there4.hexagon.util.requireResource
+import co.there4.hexagon.util.resourceAsStream
+import com.mongodb.client.FindIterable
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.MongoIterable
@@ -23,8 +23,8 @@ import kotlin.reflect.KProperty
     collection: MongoCollection&lt;Document&gt;,
 <span class="fc" id="L24">    protected val publishEvents: Boolean = false,</span>
 <span class="pc" id="L25">    protected val onStore: (Document) -&gt; Document = { it },</span>
-<span class="pc" id="L26">    protected val onLoad: (Document) -&gt; Document = { it }</span>
-<span class="fc" id="L27">    ) : com.mongodb.client.MongoCollection&lt;Document&gt; by collection {</span>
+<span class="pc" id="L26">    protected val onLoad: (Document) -&gt; Document = { it }) :</span>
+<span class="fc" id="L27">        MongoCollection&lt;Document&gt; by collection {</span>
 
 <span class="fc" id="L29">    companion object : CompanionLogger (MongoRepository::class)</span>
 
@@ -32,115 +32,132 @@ import kotlin.reflect.KProperty
         type: KClass&lt;T&gt;,
         database: MongoDatabase = mongoDatabase(),
         publishEvents: Boolean = false) :
-<span class="fc" id="L35">        this (</span>
-            type,
-            mongoCollection(type.simpleName ?: throw IllegalArgumentException (), database),
-            publishEvents
-        )
-
+<span class="fc" id="L35">            this(type, mongoCollection(type.simpleName ?: error(&quot;&quot;), database), publishEvents)</span>
 
     protected fun publish (source: T, action: RepositoryEventAction) {
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (publishEvents)</span>
-<span class="fc" id="L44">            EventManager.publish(RepositoryEvent (source, action))</span>
-<span class="fc" id="L45">    }</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (publishEvents)</span>
+<span class="fc" id="L39">            EventManager.publish(RepositoryEvent (source, action))</span>
+<span class="fc" id="L40">    }</span>
 
     protected fun publish (sources: List&lt;T&gt;, action: RepositoryEventAction) {
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (publishEvents)</span>
-<span class="fc" id="L49">            sources.forEach { publish(it, action) }</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (publishEvents)</span>
+<span class="fc" id="L44">            sources.forEach { publish(it, action) }</span>
+<span class="fc" id="L45">    }</span>
 
     // TODO Apply to the other MongoCollection's methods to support maps directly
-<span class="nc" id="L53">    fun insertOne (document: Map&lt;String, *&gt;) { insertOne(Document(document)) }</span>
+<span class="nc" id="L48">    fun insertOne (document: Map&lt;String, *&gt;) { insertOne(Document(document)) }</span>
 
     /**
      * TODO Publish error event (try-catch with throw)
      */
     fun insertOneObject (document: T) {
-<span class="fc" id="L59">        insertOne (map (document))</span>
+<span class="fc" id="L54">        insertOne (map (document))</span>
+<span class="fc" id="L55">        publish(document, INSERTED)</span>
+<span class="fc" id="L56">    }</span>
+
+    fun insertOneObject (document: T, options: InsertOneOptions) {
+<span class="fc" id="L59">        insertOne (map (document), options)</span>
 <span class="fc" id="L60">        publish(document, INSERTED)</span>
 <span class="fc" id="L61">    }</span>
 
-    fun insertOneObject (document: T, options: InsertOneOptions) {
-<span class="fc" id="L64">        insertOne (map (document), options)</span>
-<span class="fc" id="L65">        publish(document, INSERTED)</span>
+    fun insertManyObjects (documents: List&lt;T&gt;) {
+<span class="fc" id="L64">        insertMany (map (documents))</span>
+<span class="fc" id="L65">        publish(documents, INSERTED)</span>
 <span class="fc" id="L66">    }</span>
 
-    fun insertManyObjects (documents: List&lt;T&gt;) {
-<span class="fc" id="L69">        insertMany (map (documents))</span>
+    fun insertManyObjects (documents: List&lt;T&gt;, options: InsertManyOptions) {
+<span class="fc" id="L69">        insertMany (map (documents), options)</span>
 <span class="fc" id="L70">        publish(documents, INSERTED)</span>
 <span class="fc" id="L71">    }</span>
 
-    fun insertManyObjects (documents: List&lt;T&gt;, options: InsertManyOptions) {
-<span class="fc" id="L74">        insertMany (map (documents), options)</span>
-<span class="fc" id="L75">        publish(documents, INSERTED)</span>
-<span class="fc" id="L76">    }</span>
-
     fun replaceOneObject (filter: Bson, replacement: T): UpdateResult {
-<span class="fc" id="L79">        val result = replaceOne (filter, map (replacement))</span>
-<span class="fc" id="L80">        publish(replacement, REPLACED)</span>
-<span class="fc" id="L81">        return result</span>
+<span class="fc" id="L74">        val result = replaceOne (filter, map (replacement))</span>
+<span class="fc" id="L75">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L76">        return result</span>
     }
 
     fun replaceOneObject (filter: Bson, replacement: T, options: UpdateOptions): UpdateResult {
-<span class="fc" id="L85">        val result = replaceOne (filter, map (replacement), options)</span>
-<span class="fc" id="L86">        publish(replacement, REPLACED)</span>
-<span class="fc" id="L87">        return result</span>
+<span class="fc" id="L80">        val result = replaceOne (filter, map (replacement), options)</span>
+<span class="fc" id="L81">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L82">        return result</span>
     }
 
     fun findOneObjectAndReplace (filter: Bson, replacement: T): T {
-<span class="fc" id="L91">        val result = unmap (findOneAndReplace (filter, map (replacement)))</span>
-<span class="fc" id="L92">        publish(replacement, REPLACED)</span>
-<span class="fc" id="L93">        return result</span>
+<span class="fc" id="L86">        val result = unmap (findOneAndReplace (filter, map (replacement)))</span>
+<span class="fc" id="L87">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L88">        return result</span>
     }
 
     fun findOneObjectAndReplace (
         filter: Bson, replacement: T, options: FindOneAndReplaceOptions): T {
 
-<span class="fc" id="L99">        val result = unmap (findOneAndReplace (filter, map (replacement), options))</span>
-<span class="fc" id="L100">        publish(replacement, REPLACED)</span>
-<span class="fc" id="L101">        return result</span>
+<span class="fc" id="L94">        val result = unmap (findOneAndReplace (filter, map (replacement), options))</span>
+<span class="fc" id="L95">        publish(replacement, REPLACED)</span>
+<span class="fc" id="L96">        return result</span>
     }
 
-<span class="fc" id="L104">    fun findObjects (): MongoIterable&lt;T&gt; = find ().map { unmap(it) }</span>
+<span class="fc" id="L99">    fun findObjects (): MongoIterable&lt;T&gt; = find ().map { unmap(it) }</span>
 
-<span class="fc" id="L106">    fun findObjects (filter: Bson): MongoIterable&lt;T&gt; = find (filter).map { unmap(it) }</span>
+<span class="fc" id="L101">    fun findObjects (filter: Bson, setup: FindIterable&lt;*&gt;.() -&gt; Unit = {}): MongoIterable&lt;T&gt; =</span>
+<span class="fc" id="L102">        find (filter).let {</span>
+<span class="fc" id="L103">            it.setup()</span>
+<span class="fc" id="L104">            it.map { unmap(it) }</span>
+<span class="fc" id="L105">        }</span>
 
     fun createIndex(
         name: String,
         order: Int = 1,
         options: IndexOptions = IndexOptions().background(true)): String =
-<span class="fc" id="L112">            createIndex(Document(name, order), options)</span>
+<span class="fc" id="L111">            createIndex(Document(name, order), options)</span>
 
     fun createFieldNamesIndex(options: IndexOptions, vararg fields: Pair&lt;String, *&gt;): String =
-<span class="nc" id="L115">        createIndex(Document(fields.toMap()), options)</span>
+<span class="nc" id="L114">        createIndex(Document(fields.toMap()), options)</span>
 
     fun createFieldNamesIndex(vararg fields: Pair&lt;String, *&gt;): String =
-<span class="nc" id="L118">        createFieldNamesIndex(IndexOptions().background(true), *fields)</span>
+<span class="nc" id="L117">        createFieldNamesIndex(IndexOptions().background(true), *fields)</span>
 
     fun createFieldsIndex(options: IndexOptions, vararg fields: Pair&lt;KProperty&lt;*&gt;, *&gt;): String =
-<span class="nc" id="L121">        createFieldNamesIndex(options, *fields.map { it.first.name to it.second }.toTypedArray())</span>
+<span class="nc" id="L120">        createFieldNamesIndex(options, *fields.map { it.first.name to it.second }.toTypedArray())</span>
 
     fun createFieldsIndex(vararg fields: Pair&lt;KProperty&lt;*&gt;, *&gt;): String =
-<span class="nc" id="L124">        createFieldsIndex(IndexOptions().background(true), *fields)</span>
+<span class="nc" id="L123">        createFieldsIndex(IndexOptions().background(true), *fields)</span>
 
     // TODO Test this!
-<span class="nc" id="L127">    fun importFile(input: File) { insertManyObjects(input.parseList(type)) }</span>
-<span class="nc" id="L128">    fun importResource(input: String) { insertManyObjects(resourceParseList(input, type)) }</span>
+<span class="nc" id="L126">    fun importFile(input: File) { insertManyObjects(input.parseList(type)) }</span>
+<span class="fc" id="L127">    fun importResource(input: String) { insertManyObjects(requireResource(input).parseList(type)) }</span>
+
+    /**
+     * Load a file with DB data serialized to a repository.
+     * @param file .
+     */
+    fun loadData(file: String) {
+<span class="nc" id="L134">        val resourceAsStream = resourceAsStream(&quot;data/$file&quot;)</span>
+<span class="nc" id="L135">        val extension = file.substringAfterLast('.')</span>
+<span class="nc bnc" id="L136" title="All 4 branches missed.">        val objects = resourceAsStream?.parseList(type, &quot;application/$extension&quot;) ?: listOf()</span>
+<span class="nc" id="L137">        objects.forEach {</span>
+<span class="nc" id="L138">            try {</span>
+<span class="nc" id="L139">                this.insertOneObject(it)</span>
+            }
+<span class="nc" id="L141">            catch (e: Exception) {</span>
+<span class="nc" id="L142">                warn(&quot;$it already inserted&quot;)</span>
+            }
+<span class="nc" id="L144">        }</span>
+<span class="nc" id="L145">    }</span>
 
     protected open fun map (document: T): Document {
-<span class="fc" id="L131">        return onStore (</span>
+<span class="fc" id="L148">        return onStore (</span>
             Document (document.convertToMap ().mapKeys {
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">                val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
-<span class="pc bpc" id="L134" title="1 of 2 branches missed.">                if (key is String)</span>
-<span class="fc" id="L135">                    key</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">                val key = it.key ?: throw IllegalStateException (&quot;Key can not be 'null'&quot;)</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">                if (key is String)</span>
+<span class="fc" id="L152">                    key</span>
                 else
-<span class="pc" id="L137">                    throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
+<span class="pc" id="L154">                    throw IllegalStateException (&quot;Key must be 'String' not '${key.javaClass.name}'&quot;)</span>
             })
         )
     }
 
-<span class="fc" id="L142">    protected open fun map (documents: List&lt;T&gt;): List&lt;Document&gt; = documents.map { map(it) }</span>
+<span class="fc" id="L159">    protected open fun map (documents: List&lt;T&gt;): List&lt;Document&gt; = documents.map { map(it) }</span>
 
-<span class="fc" id="L144">    protected open fun unmap (document: Document): T = onLoad(document).convertToObject (type)</span>
+<span class="fc" id="L161">    protected open fun unmap (document: Document): T = onLoad(document).convertToObject(type)</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

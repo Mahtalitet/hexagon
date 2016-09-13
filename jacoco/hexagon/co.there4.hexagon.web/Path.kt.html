@@ -46,9 +46,9 @@ import kotlin.text.Regex
 
 <span class="fc" id="L47">    val regex: Regex? = when (Pair (hasWildcards, hasParameters)) {</span>
 <span class="fc bfc" id="L48" title="All 2 branches covered.">        Pair (true, true) -&gt;</span>
-<span class="fc" id="L49">            Regex (path.replace (WILDCARD, &quot;(.*)&quot;).replace (PARAMETER_REGEX, &quot;(.+)&quot;))</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        Pair (true, false) -&gt; Regex (path.replace (WILDCARD, &quot;(.*)&quot;))</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        Pair (false, true) -&gt; Regex (path.replace (PARAMETER_REGEX, &quot;(.+)&quot;))</span>
+<span class="fc" id="L49">            Regex (path.replace (WILDCARD, &quot;(.*?)&quot;).replace (PARAMETER_REGEX, &quot;(.+?)&quot;) + &quot;$&quot;)</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        Pair (true, false) -&gt; Regex (path.replace (WILDCARD, &quot;(.*?)&quot;) + &quot;$&quot;)</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        Pair (false, true) -&gt; Regex (path.replace (PARAMETER_REGEX, &quot;(.+?)&quot;) + &quot;$&quot;)</span>
 <span class="fc" id="L52">        else -&gt; null</span>
     }
 
@@ -62,7 +62,7 @@ import kotlin.text.Regex
 <span class="fc" id="L62">            throw IllegalArgumentException (&quot;URL '$requestUrl' does not match path&quot;)</span>
 <span class="pc bpc" id="L63" title="1 of 4 branches missed.">        else if (hasParameters &amp;&amp; regex != null)</span>
 <span class="fc" id="L64">            regex.findGroups (requestUrl)</span>
-<span class="fc" id="L65">                .mapIndexed { idx, match -&gt; Pair (parameterIndex[idx], match.value) }</span>
+<span class="fc" id="L65">                .mapIndexed { idx, match -&gt; parameterIndex[idx] to match.value }</span>
 <span class="pc bpc" id="L66" title="1 of 2 branches missed.">                .filter { pair -&gt; pair.first != &quot;&quot; }</span>
 <span class="fc" id="L67">                .toMap ()</span>
         else
@@ -70,11 +70,13 @@ import kotlin.text.Regex
 
     fun create(vararg parameters: Pair&lt;String, Any&gt;) =
 <span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if (hasWildcards || parameters.size != parameterIndex.size) {</span>
-<span class="fc" id="L73">            throw IllegalStateException (&quot;&quot;)</span>
+<span class="fc" id="L73">            val expectedParams = parameterIndex.size</span>
+<span class="fc" id="L74">            val paramCount = parameters.size</span>
+<span class="fc" id="L75">            error(&quot;Path has wildcards or different parameters: $expectedParams/$paramCount&quot;)</span>
         }
         else {
-<span class="fc" id="L76">            val map = parameters.map { it.first to it.second.toString() }</span>
-<span class="fc" id="L77">            path.filter (PARAMETER_PREFIX, PARAMETER_SUFFIX, *map.toTypedArray())</span>
-<span class="fc" id="L78">        }</span>
+<span class="fc" id="L78">            val map = parameters.map { it.first to it.second.toString() }</span>
+<span class="fc" id="L79">            path.filter (PARAMETER_PREFIX, PARAMETER_SUFFIX, *map.toTypedArray())</span>
+<span class="fc" id="L80">        }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -29,8 +29,13 @@ fun mongoCollection (
 <span class="fc" id="L29">fun mongoId(): String = ObjectId().toHexString()</span>
 
 inline fun &lt;reified T : Any&gt; mongoRepository(
-    database: MongoDatabase = mongoDatabase(), publishEvents: Boolean = false) =
-<span class="nc bnc" id="L33" title="All 2 branches missed.">        MongoRepository(T::class, mongoCollection(T::class.simpleName ?: error(&quot;&quot;), database), publishEvents )</span>
+    database: MongoDatabase = mongoDatabase(),
+    publishEvents: Boolean = false) =
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        MongoRepository(</span>
+            T::class,
+            mongoCollection(T::class.simpleName ?: error(&quot;&quot;), database),
+            publishEvents
+<span class="nc" id="L38">        )</span>
 
 inline fun &lt;reified T : Any, reified K : Any&gt; mongoIdRepository(
     database: MongoDatabase,
@@ -38,34 +43,33 @@ inline fun &lt;reified T : Any, reified K : Any&gt; mongoIdRepository(
     publishEvents: Boolean = false,
     indexOrder: Int = 1,
     createIndex: Boolean = true) =
-<span class="nc bnc" id="L41" title="All 2 branches missed.">    MongoIdRepository (</span>
-        T::class,
-        mongoCollection(T::class.simpleName ?: error(&quot;Error getting type name&quot;), database),
-        key,
-        publishEvents,
-        indexOrder,
-        createIndex
-<span class="nc" id="L48">    )</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        MongoIdRepository (</span>
+            T::class,
+            mongoCollection(T::class.simpleName ?: error(&quot;Error getting type name&quot;), database),
+            key,
+            publishEvents,
+            indexOrder,
+            createIndex
+<span class="nc" id="L53">        )</span>
 
 inline fun &lt;reified T : Any, reified K : Any&gt; mongoIdRepository(
     key: KProperty1&lt;T, K&gt;,
     publishEvents: Boolean = false,
     indexOrder: Int = 1,
     createIndex: Boolean = true) =
-<span class="nc" id="L55">        mongoIdRepository ( mongoDatabase(), key, publishEvents, indexOrder, createIndex)</span>
+<span class="nc" id="L60">        mongoIdRepository ( mongoDatabase(), key, publishEvents, indexOrder, createIndex)</span>
 
-<span class="nc" id="L57">infix fun Bson.or(value: Bson): Bson = mOr(this, value)</span>
-<span class="nc" id="L58">infix fun Bson.and(value: Bson): Bson = mAnd(this, value)</span>
-<span class="fc" id="L59">infix fun &lt;T&gt; String.eq(value: T): Bson = mEq(this, value)</span>
-<span class="fc" id="L60">infix fun &lt;T&gt; String.isIn(value: List&lt;T&gt;): Bson = mIn(this, value)</span>
+<span class="nc" id="L62">infix fun Bson.or(value: Bson): Bson = mOr(this, value)</span>
+<span class="nc" id="L63">infix fun Bson.and(value: Bson): Bson = mAnd(this, value)</span>
+<span class="fc" id="L64">infix fun &lt;T&gt; String.eq(value: T): Bson = mEq(this, value)</span>
+<span class="fc" id="L65">infix fun &lt;T&gt; String.isIn(value: List&lt;T&gt;): Bson = mIn(this, value)</span>
 
 fun &lt;T : Any&gt; on (
     entity: KClass&lt;T&gt;, action: RepositoryEventAction, callback: (RepositoryEvent&lt;T&gt;) -&gt; Unit) {
     @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">    EventManager.on (</span>
-        RepositoryEvent::class,
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">    EventManager.on(</span>
         entity.simpleName + &quot;.&quot; + action.toString(),
         callback as (RepositoryEvent&lt;*&gt;) -&gt; Unit
     )
-<span class="fc" id="L70">}</span>
+<span class="fc" id="L74">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

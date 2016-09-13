@@ -2,8 +2,6 @@
 
 import co.there4.hexagon.events.Event
 
-<span class="fc" id="L5">class RepositoryEvent&lt;T : Any&gt; (</span>
-<span class="fc" id="L6">    val source: T,</span>
-<span class="fc" id="L7">    val repositoryAction: RepositoryEventAction) :</span>
-<span class="fc" id="L8">    Event (source.javaClass.simpleName + '.' + repositoryAction.toString())</span>
+<span class="fc" id="L5">class RepositoryEvent&lt;out T : Any&gt; (val source: T, val repositoryAction: RepositoryEventAction) :</span>
+<span class="fc" id="L6">    Event (source.javaClass.simpleName + '.' + repositoryAction.toString())</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

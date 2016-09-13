@@ -3,9 +3,9 @@
 import co.there4.hexagon.events.Event
 import kotlin.reflect.KClass
 
-<span class="fc" id="L6">class RepositoryIdEvent&lt;T : Any, K : Any&gt; (</span>
+<span class="fc" id="L6">class RepositoryIdEvent&lt;T : Any, out K : Any&gt; (</span>
     source: KClass&lt;T&gt;,
 <span class="fc" id="L8">    val id: K,</span>
 <span class="fc" id="L9">    val repositoryAction: RepositoryEventAction) :</span>
-<span class="fc" id="L10">    Event (source.simpleName + '.' + repositoryAction.toString())</span>
+<span class="fc" id="L10">        Event (source.simpleName + '.' + repositoryAction.toString())</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

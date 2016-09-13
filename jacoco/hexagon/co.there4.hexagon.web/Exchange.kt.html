@@ -46,7 +46,7 @@ import java.util.Locale.forLanguageTag as localeFor
 <span class="fc" id="L46">            response.contentType = &quot;$contentType; charset=${defaultCharset().name()}&quot;</span>
 
 <span class="fc" id="L48">        val extraParameters = mapOf(</span>
-            &quot;pathInfo&quot; to request.pathInfo,
+            &quot;pathInfo&quot; to request.pathInfo.removeSuffix(&quot;/&quot;), // Do not allow trailing slash
             &quot;lang&quot; to locale.language
         )
 

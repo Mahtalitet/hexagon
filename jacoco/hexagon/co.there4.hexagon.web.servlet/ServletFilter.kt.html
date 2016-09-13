@@ -41,8 +41,8 @@ import javax.servlet.http.HttpServletResponse
 <span class="fc" id="L41">    override fun destroy() { /* Not implemented */ }</span>
 
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-<span class="pc bpc" id="L44" title="2 of 4 branches missed.">        if (!(request is HttpServletRequest) || !(response is HttpServletResponse))</span>
-<span class="nc" id="L45">            throw IllegalStateException(&quot;Invalid request/response parmeters&quot;)</span>
+<span class="pc bpc" id="L44" title="2 of 4 branches missed.">        if (request !is HttpServletRequest || response !is HttpServletResponse)</span>
+<span class="nc" id="L45">            error(&quot;Invalid request/response parmeters&quot;)</span>
 
 <span class="fc bfc" id="L47" title="All 2 branches covered.">        val filters = router.filters.filter { it.key.path.matches(request.servletPath) }</span>
 <span class="fc bfc" id="L48" title="All 2 branches covered.">        val methodRoutes = routesByMethod[HttpMethod.valueOf (request.method)]?.filter {</span>

@@ -147,15 +147,15 @@ import org.asynchttpclient.request.body.multipart.Part as AsyncHttpPart
 
     private fun createRequest(method: HttpMethod, url: String, contentType: String? = null) =
 <span class="fc" id="L149">        (endpoint + url).let {</span>
-<span class="fc" id="L150">            val request = when (method) {</span>
-<span class="fc bfc" id="L151" title="All 2 branches covered.">                GET -&gt; client.prepareGet (it)</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">                HEAD -&gt; client.prepareHead (it)</span>
-<span class="fc bfc" id="L153" title="All 2 branches covered.">                POST -&gt; client.preparePost (it)</span>
-<span class="fc bfc" id="L154" title="All 2 branches covered.">                PUT -&gt; client.preparePut (it)</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">                DELETE -&gt; client.prepareDelete (it)</span>
-<span class="fc bfc" id="L156" title="All 2 branches covered.">                TRACE -&gt; client.prepareTrace (it)</span>
-<span class="fc bfc" id="L157" title="All 2 branches covered.">                OPTIONS -&gt; client.prepareOptions (it)</span>
-<span class="pc bpc" id="L158" title="1 of 2 branches missed.">                PATCH -&gt; client.preparePatch (it)</span>
+<span class="pc bpc" id="L150" title="1 of 9 branches missed.">            val request = when (method) {</span>
+<span class="fc" id="L151">                GET -&gt; client.prepareGet (it)</span>
+<span class="fc" id="L152">                HEAD -&gt; client.prepareHead (it)</span>
+<span class="fc" id="L153">                POST -&gt; client.preparePost (it)</span>
+<span class="fc" id="L154">                PUT -&gt; client.preparePut (it)</span>
+<span class="fc" id="L155">                DELETE -&gt; client.prepareDelete (it)</span>
+<span class="fc" id="L156">                TRACE -&gt; client.prepareTrace (it)</span>
+<span class="fc" id="L157">                OPTIONS -&gt; client.prepareOptions (it)</span>
+<span class="pc" id="L158">                PATCH -&gt; client.preparePatch (it)</span>
             }
 
 <span class="fc" id="L161">            request.setCharset(Charset.defaultCharset()) // TODO Problem if encoding is set?</span>

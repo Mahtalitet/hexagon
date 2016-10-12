@@ -84,8 +84,8 @@ inline fun &lt;reified T : Any&gt; mongoObjectIdRepository(
 <span class="nc" id="L84">infix fun &lt;T&gt; KProperty1&lt;*, *&gt;.eq(value: T): Bson = this.name eq value</span>
 <span class="nc" id="L85">infix fun &lt;T&gt; KProperty1&lt;*, *&gt;.isIn(value: Collection&lt;T&gt;): Bson = this.name isIn value</span>
 
-<span class="nc" id="L87">fun ascending(vararg fields: KProperty1&lt;*, *&gt;) = ascending(fields.map { it.name })</span>
-<span class="nc" id="L88">fun descending(vararg fields: KProperty1&lt;*, *&gt;) = descending(fields.map { it.name })</span>
+<span class="nc" id="L87">fun ascending(vararg fields: KProperty1&lt;*, *&gt;): Bson = ascending(fields.map { it.name })</span>
+<span class="nc" id="L88">fun descending(vararg fields: KProperty1&lt;*, *&gt;): Bson = descending(fields.map { it.name })</span>
 
 fun &lt;T : Any&gt; on (
     entity: KClass&lt;T&gt;, action: RepositoryEventAction, callback: (RepositoryEvent&lt;T&gt;) -&gt; Unit) {

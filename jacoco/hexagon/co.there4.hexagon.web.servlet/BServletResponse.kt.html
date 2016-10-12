@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse
 
 <span class="pc" id="L21">    override val outputStream: OutputStream = resp.outputStream</span>
 
-<span class="fc" id="L23">    override fun getMimeType (file: String): String = req.servletContext.getMimeType(file)</span>
+<span class="fc" id="L23">    override fun getMimeType (file: String): String? = req.servletContext.getMimeType(file)</span>
 
     override fun addHeader (name: String, value: String) {
 <span class="fc" id="L26">        resp.addHeader(name, value)</span>

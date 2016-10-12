@@ -5,8 +5,8 @@ import com.cronutils.model.CronType.QUARTZ
 import com.cronutils.model.definition.CronDefinitionBuilder.instanceDefinitionFor as cronDefinition
 import com.cronutils.model.time.ExecutionTime
 import com.cronutils.parser.CronParser
-import org.joda.time.DateTime
 import java.lang.Runtime.getRuntime
+import java.time.ZonedDateTime
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit.SECONDS
     fun schedule (cronExpression: String, callback: () -&gt; Unit) {
 <span class="fc" id="L20">        val cron = cronParser.parse (cronExpression)</span>
 <span class="fc" id="L21">        val cronExecution = ExecutionTime.forCron(cron)</span>
-<span class="fc" id="L22">        val nextExecution = cronExecution.timeToNextExecution(DateTime.now ())</span>
-<span class="fc" id="L23">        val nextExecutionSeconds = nextExecution.standardSeconds</span>
+<span class="fc" id="L22">        val nextExecution = cronExecution.timeToNextExecution(ZonedDateTime.now ())</span>
+<span class="fc" id="L23">        val nextExecutionSeconds = nextExecution.seconds</span>
 
 <span class="fc" id="L25">        scheduler.schedule ({ function (callback, cronExecution) }, nextExecutionSeconds, SECONDS)</span>
 <span class="fc" id="L26">    }</span>
@@ -36,8 +36,8 @@ import java.util.concurrent.TimeUnit.SECONDS
 <span class="fc" id="L36">            err (&quot;Error executing cron job&quot;, e)</span>
         }
 
-<span class="fc" id="L39">        val nextExecution = cronExecution.timeToNextExecution(DateTime.now ())</span>
-<span class="fc" id="L40">        val nextExecutionSeconds = nextExecution.standardSeconds</span>
+<span class="fc" id="L39">        val nextExecution = cronExecution.timeToNextExecution(ZonedDateTime.now ())</span>
+<span class="fc" id="L40">        val nextExecutionSeconds = nextExecution.seconds</span>
 
 <span class="fc" id="L42">        scheduler.schedule ({ function (callback, cronExecution) }, nextExecutionSeconds, SECONDS)</span>
 <span class="fc" id="L43">    }</span>

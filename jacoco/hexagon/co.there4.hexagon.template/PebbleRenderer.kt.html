@@ -2,6 +2,8 @@
 
 import co.there4.hexagon.serialization.parse
 import co.there4.hexagon.settings.SettingsManager
+import co.there4.hexagon.settings.SettingsManager.Environment.DEVELOPMENT
+import co.there4.hexagon.settings.SettingsManager.environment
 import co.there4.hexagon.util.toDate
 import com.mitchellbosecke.pebble.PebbleEngine
 import java.lang.ClassLoader.getSystemResourceAsStream as resourceAsStream
@@ -17,38 +19,40 @@ import java.util.*
  * templates/freemarker/file
  * ...
  */
-<span class="fc" id="L20">object PebbleRenderer {</span>
-<span class="pc" id="L21">    val basePath = &quot;templates&quot;</span>
-<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    val engine: PebbleEngine = PebbleEngine.Builder().build() ?: error(&quot;Error setting up Pebble&quot;)</span>
+<span class="fc" id="L22">object PebbleRenderer {</span>
+<span class="pc" id="L23">    val basePath = &quot;templates&quot;</span>
+<span class="pc" id="L24">    val engine: PebbleEngine = PebbleEngine.Builder()</span>
+<span class="fc" id="L25">        .cacheActive(environment != DEVELOPMENT)</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        .build() ?: error(&quot;Error setting up Pebble&quot;)</span>
 
     private fun loadProps (path: String) =
-<span class="pc bpc" id="L25" title="1 of 4 branches missed.">        resourceAsStream(&quot;$basePath/$path.yaml&quot;)?.parse (&quot;application/yaml&quot;) ?: mapOf&lt;String, Any&gt;()</span>
+<span class="pc bpc" id="L29" title="1 of 4 branches missed.">        resourceAsStream(&quot;$basePath/$path.yaml&quot;)?.parse (&quot;application/yaml&quot;) ?: mapOf&lt;String, Any&gt;()</span>
 
     fun render (template: String, locale: Locale, context: Map&lt;String, *&gt;): String {
         @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="fc" id="L29">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
-<span class="pc bpc" id="L30" title="6 of 14 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
-<span class="fc" id="L31">                as Map&lt;String, *&gt; + (it[&quot;data&quot;] ?: mapOf&lt;String, Any&gt;()) as Map&lt;String, *&gt;</span>
-<span class="fc" id="L32">        }</span>
+<span class="fc" id="L33">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
+<span class="pc bpc" id="L34" title="6 of 14 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
+<span class="fc" id="L35">                as Map&lt;String, *&gt; + (it[&quot;data&quot;] ?: mapOf&lt;String, Any&gt;()) as Map&lt;String, *&gt;</span>
+<span class="fc" id="L36">        }</span>
 
-<span class="fc" id="L34">        val compiledTemplate = engine.getTemplate(&quot;$basePath/$template&quot;)</span>
-<span class="fc" id="L35">        val bundlePath = template.substringBeforeLast('.')</span>
+<span class="fc" id="L38">        val compiledTemplate = engine.getTemplate(&quot;$basePath/$template&quot;)</span>
+<span class="fc" id="L39">        val bundlePath = template.substringBeforeLast('.')</span>
 
-<span class="fc" id="L37">        val texts = loadBundle (bundlePath)</span>
-<span class="fc" id="L38">        val common = loadBundle (&quot;common&quot;)</span>
+<span class="fc" id="L41">        val texts = loadBundle (bundlePath)</span>
+<span class="fc" id="L42">        val common = loadBundle (&quot;common&quot;)</span>
 
-<span class="fc" id="L40">        val writer = StringWriter()</span>
-<span class="fc" id="L41">        val now = LocalDateTime.now().toDate()</span>
-<span class="fc" id="L42">        val defaultProperties = mapOf(&quot;_template_&quot; to template, &quot;_now_&quot; to now)</span>
-<span class="fc" id="L43">        val settings = SettingsManager.parameters</span>
-<span class="fc" id="L44">        val completeContext = settings + common + texts + context + defaultProperties</span>
-<span class="fc" id="L45">        val contextEntries = completeContext.map {</span>
-<span class="pc bpc" id="L46" title="1 of 4 branches missed.">            it.key to</span>
+<span class="fc" id="L44">        val writer = StringWriter()</span>
+<span class="fc" id="L45">        val now = LocalDateTime.now().toDate()</span>
+<span class="fc" id="L46">        val defaultProperties = mapOf(&quot;_template_&quot; to template, &quot;_now_&quot; to now)</span>
+<span class="fc" id="L47">        val settings = SettingsManager.parameters</span>
+<span class="fc" id="L48">        val completeContext = settings + common + texts + context + defaultProperties</span>
+<span class="fc" id="L49">        val contextEntries = completeContext.map {</span>
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">            it.key to</span>
                 if (it.value is LocalDateTime) (it.value as LocalDateTime).toDate()
-<span class="fc" id="L48">                else it.value</span>
+<span class="fc" id="L52">                else it.value</span>
         }
-<span class="fc" id="L50">        compiledTemplate.evaluate(writer, contextEntries.toMap(), locale)</span>
-<span class="fc" id="L51">        return writer.toString()</span>
+<span class="fc" id="L54">        compiledTemplate.evaluate(writer, contextEntries.toMap(), locale)</span>
+<span class="fc" id="L55">        return writer.toString()</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

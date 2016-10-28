@@ -44,7 +44,7 @@ import java.lang.System.getProperty
 <span class="fc" id="L44">        }[key.last()]</span>
 
     @Suppress(&quot;UNCHECKED_CAST&quot;)
-<span class="fc" id="L47">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as T?</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">    fun &lt;T&gt; setting(vararg key: String): T? = get(*key) as? T?</span>
     fun &lt;T&gt; requireSetting(vararg key: String): T =
 <span class="nc bnc" id="L49" title="All 2 branches missed.">        setting&lt;T&gt;(*key) ?: error (&quot;Missing setting: $key&quot;)</span>
 

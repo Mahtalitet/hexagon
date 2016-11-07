@@ -11,157 +11,164 @@ import java.nio.charset.Charset.defaultCharset
 /**
  * TODO Support paging (limit and skip query parameters) in all methods
  * TODO implement GET /&lt;Class&gt;/ids properly
+ * TODO Implement pattern find with filters made from query strings (?&lt;fieldName&gt;=&lt;val1&gt;,&lt;val2&gt;...&amp;)
+ * TODO Make implementation for MongoRepository (without IDs)
  */
-<span class="fc" id="L15">class RestCrud &lt;T : Any, K : Any&gt; (val repository: MongoIdRepository&lt;T, K&gt;, server: Server) {</span>
+<span class="fc" id="L17">class RestCrud &lt;T : Any, K : Any&gt; (</span>
+<span class="fc" id="L18">    val repository: MongoIdRepository&lt;T, K&gt;, server: Server, readOnly: Boolean = false) {</span>
     init {
-<span class="fc" id="L17">        val collectionName = repository.namespace.collectionName</span>
+<span class="fc" id="L20">        val collectionName = repository.namespace.collectionName</span>
 
-<span class="pc" id="L19">        server.post(&quot;/$collectionName/list&quot;) { insertList (repository, this) }</span>
-<span class="pc" id="L20">        server.put(&quot;/$collectionName/list&quot;) { replaceList (repository, this) }</span>
-<span class="fc" id="L21">        server.post(&quot;/$collectionName&quot;) { insert (repository, this) }</span>
-<span class="fc" id="L22">        server.put(&quot;/$collectionName&quot;) { replace (repository, this) }</span>
-<span class="fc" id="L23">        server.get(&quot;/$collectionName&quot;) { findAll (repository, this) }</span>
-<span class="pc" id="L24">        server.get(&quot;/$collectionName/count&quot;) { ok(repository.count()) }</span>
-<span class="pc" id="L25">        server.get(&quot;/$collectionName/ids&quot;) { ok(repository.find().toList().serialize()) }</span>
+<span class="fc" id="L22">        server.get(&quot;/$collectionName&quot;) { findAll (repository, this) }</span>
+<span class="pc" id="L23">        server.get(&quot;/$collectionName/count&quot;) { ok(repository.count()) }</span>
+<span class="pc" id="L24">        server.get(&quot;/$collectionName/ids&quot;) { ok(repository.find().toList().serialize()) }</span>
 
-<span class="pc" id="L27">        server.delete(&quot;/$collectionName/*,*&quot;) { deleteList (repository, this) }</span>
-<span class="pc" id="L28">        server.get(&quot;/$collectionName/*,*&quot;) { findList (repository, this) }</span>
-<span class="fc" id="L29">        server.delete(&quot;/$collectionName/{id}&quot;) { delete (repository, this) }</span>
-<span class="fc" id="L30">        server.get(&quot;/$collectionName/{id}&quot;) { find (repository, this) }</span>
+<span class="pc" id="L26">        server.get(&quot;/$collectionName/*,*&quot;) { findList (repository, this) }</span>
+<span class="fc" id="L27">        server.get(&quot;/$collectionName/{id}&quot;) { find (repository, this) }</span>
+
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (!readOnly) {</span>
+<span class="pc" id="L30">            server.post(&quot;/$collectionName/list&quot;) { insertList (repository, this) }</span>
+<span class="pc" id="L31">            server.put(&quot;/$collectionName/list&quot;) { replaceList (repository, this) }</span>
+<span class="fc" id="L32">            server.post(&quot;/$collectionName&quot;) { insert (repository, this) }</span>
+<span class="fc" id="L33">            server.put(&quot;/$collectionName&quot;) { replace (repository, this) }</span>
+
+<span class="pc" id="L35">            server.delete(&quot;/$collectionName/*,*&quot;) { deleteList (repository, this) }</span>
+<span class="fc" id="L36">            server.delete(&quot;/$collectionName/{id}&quot;) { delete (repository, this) }</span>
+        }
     }
 
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">    private fun contentType (exchange: Exchange) = exchange.request.contentType ?: defaultFormat</span>
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    private fun accept (exchange: Exchange) = exchange.request.accept()?.first().let {</span>
-<span class="pc bpc" id="L35" title="2 of 4 branches missed.">        if (it != null &amp;&amp; contentTypes.contains(it)) it</span>
-<span class="fc" id="L36">        else defaultFormat</span>
-<span class="fc" id="L37">    }</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">    private fun contentType (exchange: Exchange) = exchange.request.contentType ?: defaultFormat</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">    private fun accept (exchange: Exchange) = exchange.request.accept()?.first().let {</span>
+<span class="pc bpc" id="L42" title="2 of 4 branches missed.">        if (it != null &amp;&amp; contentTypes.contains(it)) it</span>
+<span class="fc" id="L43">        else defaultFormat</span>
+<span class="fc" id="L44">    }</span>
 
     private fun &lt;T : Any&gt; insertList (repository: MongoRepository&lt;T&gt;, exchange: Exchange) {
-<span class="nc" id="L40">        val obj = exchange.request.body.parseList(repository.type, contentType(exchange))</span>
-<span class="nc" id="L41">        try {</span>
-<span class="nc" id="L42">            repository.insertManyObjects(obj)</span>
-<span class="nc" id="L43">            exchange.ok(201) // Created</span>
+<span class="nc" id="L47">        val obj = exchange.request.body.parseList(repository.type, contentType(exchange))</span>
+<span class="nc" id="L48">        try {</span>
+<span class="nc" id="L49">            repository.insertManyObjects(obj)</span>
+<span class="nc" id="L50">            exchange.ok(201) // Created</span>
         }
-<span class="nc" id="L45">        catch (e: MongoWriteException) {</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (e.error.code == 11000)</span>
-<span class="nc" id="L47">                exchange.halt(500)//(UNPROCESSABLE_ENTITY)</span>
+<span class="nc" id="L52">        catch (e: MongoWriteException) {</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (e.error.code == 11000)</span>
+<span class="nc" id="L54">                exchange.halt(500)//(UNPROCESSABLE_ENTITY)</span>
             else
-<span class="nc" id="L49">                throw e</span>
+<span class="nc" id="L56">                throw e</span>
         }
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L58">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; replaceList (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="nc" id="L56">        val obj = exchange.request.body.parseList(repository.type, contentType(exchange))</span>
-<span class="nc" id="L57">        repository.replaceObjects(obj, exchange.request.parameters.containsKey(&quot;upsert&quot;))</span>
-<span class="nc" id="L58">        exchange.ok(200) // Created</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L63">        val obj = exchange.request.body.parseList(repository.type, contentType(exchange))</span>
+<span class="nc" id="L64">        repository.replaceObjects(obj, exchange.request.parameters.containsKey(&quot;upsert&quot;))</span>
+<span class="nc" id="L65">        exchange.ok(200) // Created</span>
+<span class="nc" id="L66">    }</span>
 
     private fun &lt;T : Any&gt; insert (repository: MongoRepository&lt;T&gt;, exchange: Exchange) {
-<span class="fc" id="L62">        val obj = exchange.request.body.parse(repository.type, contentType(exchange))</span>
-<span class="fc" id="L63">        try {</span>
-<span class="fc" id="L64">            repository.insertOneObject(obj)</span>
-<span class="fc" id="L65">            exchange.ok(201) // Created</span>
+<span class="fc" id="L69">        val obj = exchange.request.body.parse(repository.type, contentType(exchange))</span>
+<span class="fc" id="L70">        try {</span>
+<span class="fc" id="L71">            repository.insertOneObject(obj)</span>
+<span class="fc" id="L72">            exchange.ok(201) // Created</span>
         }
-<span class="fc" id="L67">        catch (e: MongoWriteException) {</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            if (e.error.code == 11000)</span>
-<span class="nc" id="L69">                exchange.halt(500)//(UNPROCESSABLE_ENTITY)</span>
+<span class="fc" id="L74">        catch (e: MongoWriteException) {</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (e.error.code == 11000)</span>
+<span class="nc" id="L76">                exchange.halt(500)//(UNPROCESSABLE_ENTITY)</span>
             else
-<span class="nc" id="L71">                throw e</span>
+<span class="nc" id="L78">                throw e</span>
         }
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L80">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; replace (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="fc" id="L78">        val obj = exchange.request.body.parse(repository.type, contentType(exchange))</span>
-<span class="fc" id="L79">        repository.replaceObject(obj, exchange.request.parameters.containsKey(&quot;upsert&quot;))</span>
-<span class="fc" id="L80">        exchange.ok(200) // Created</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L85">        val obj = exchange.request.body.parse(repository.type, contentType(exchange))</span>
+<span class="fc" id="L86">        repository.replaceObject(obj, exchange.request.parameters.containsKey(&quot;upsert&quot;))</span>
+<span class="fc" id="L87">        exchange.ok(200) // Created</span>
+<span class="fc" id="L88">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; deleteList (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="nc" id="L86">        val key = parseKeys(repository, exchange)</span>
-<span class="nc" id="L87">        repository.deleteIds(key)</span>
-<span class="nc" id="L88">        exchange.ok(200)</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L93">        val key = parseKeys(repository, exchange)</span>
+<span class="nc" id="L94">        repository.deleteIds(key)</span>
+<span class="nc" id="L95">        exchange.ok(200)</span>
+<span class="nc" id="L96">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; findList (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="nc" id="L94">        val key = parseKeys(repository, exchange)</span>
-<span class="nc" id="L95">        val obj = repository.find(key)</span>
+<span class="nc" id="L101">        val keys = parseKeys(repository, exchange)</span>
+<span class="nc" id="L102">        val obj = repository.find(keys)</span>
 
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (obj.isEmpty()) {</span>
-<span class="nc" id="L98">            exchange.halt(404)//NOT_FOUND)</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (obj.isEmpty()) {</span>
+<span class="nc" id="L105">            exchange.halt(404)//NOT_FOUND)</span>
         }
         else {
-<span class="nc" id="L101">            val contentType = accept(exchange)</span>
-<span class="nc" id="L102">            exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
-<span class="nc" id="L103">            exchange.ok(obj.serialize(contentType))</span>
+<span class="nc" id="L108">            val contentType = accept(exchange)</span>
+<span class="nc" id="L109">            exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
+<span class="nc" id="L110">            exchange.ok(obj.serialize(contentType))</span>
         }
-<span class="nc" id="L105">    }</span>
+<span class="nc" id="L112">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; delete (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="fc" id="L110">        val key = parseKey(repository, exchange)</span>
-<span class="fc" id="L111">        repository.deleteId(key)</span>
-<span class="fc" id="L112">        exchange.ok(200)</span>
-<span class="fc" id="L113">    }</span>
+<span class="fc" id="L117">        val key = parseKey(repository, exchange)</span>
+<span class="fc" id="L118">        repository.deleteId(key)</span>
+<span class="fc" id="L119">        exchange.ok(200)</span>
+<span class="fc" id="L120">    }</span>
 
     private fun &lt;T : Any, K : Any&gt; find (
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange) {
 
-<span class="fc" id="L118">        val key = parseKey(repository, exchange)</span>
-<span class="fc" id="L119">        val obj = repository.find(key)</span>
+<span class="fc" id="L125">        val key = parseKey(repository, exchange)</span>
+<span class="fc" id="L126">        val obj = repository.find(key)</span>
 
-<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (obj == null) {</span>
-<span class="nc" id="L122">            exchange.halt(404)//NOT_FOUND)</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (obj == null) {</span>
+<span class="nc" id="L129">            exchange.halt(404)//NOT_FOUND)</span>
         }
         else {
-<span class="fc" id="L125">            val contentType = accept(exchange)</span>
-<span class="fc" id="L126">            exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
-<span class="fc" id="L127">            exchange.ok(obj.serialize(contentType))</span>
+<span class="fc" id="L132">            val contentType = accept(exchange)</span>
+<span class="fc" id="L133">            exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L134">            exchange.ok(obj.serialize(contentType))</span>
         }
-<span class="fc" id="L129">    }</span>
+<span class="fc" id="L136">    }</span>
 
     private fun &lt;K : Any, T : Any&gt; parseKey(
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange): K {
 
-<span class="fc" id="L134">        val id: String = exchange.request.parameter(&quot;id&quot;)</span>
-<span class="fc" id="L135">        return when (repository.keyType) {</span>
-<span class="fc bfc" id="L136" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
-<span class="fc" id="L137">            else -&gt; id</span>
-<span class="fc" id="L138">        }.parse(repository.keyType, contentType(exchange))</span>
+<span class="fc" id="L141">        val id: String = exchange.request.parameter(&quot;id&quot;)</span>
+<span class="fc" id="L142">        return when (repository.keyType) {</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            String::class -&gt; &quot;&quot;&quot;&quot;$id&quot;&quot;&quot;&quot;</span>
+<span class="fc" id="L144">            else -&gt; id</span>
+<span class="fc" id="L145">        }.parse(repository.keyType, contentType(exchange))</span>
     }
 
     private fun &lt;K : Any, T : Any&gt; parseKeys(
         repository: MongoIdRepository&lt;T, K&gt;, exchange: Exchange): List&lt;K&gt; =
 
-<span class="nc bnc" id="L144" title="All 2 branches missed.">        exchange.request.pathInfo.split(&quot;,&quot;).map { it.trim() }.map {</span>
-<span class="nc" id="L145">            when (repository.keyType) {</span>
-<span class="nc bnc" id="L146" title="All 2 branches missed.">                String::class -&gt; &quot;$it&quot;</span>
-<span class="nc" id="L147">                else -&gt; it</span>
-<span class="nc" id="L148">            }.parse(repository.keyType, contentType(exchange))</span>
-<span class="nc" id="L149">        }</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        exchange.request.pathInfo.split(&quot;,&quot;).map { it.trim() }.map {</span>
+<span class="nc" id="L152">            when (repository.keyType) {</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                String::class -&gt; &quot;$it&quot;</span>
+<span class="nc" id="L154">                else -&gt; it</span>
+<span class="nc" id="L155">            }.parse(repository.keyType, contentType(exchange))</span>
+<span class="nc" id="L156">        }</span>
 
     private fun &lt;T : Any&gt; findAll (repository: MongoRepository&lt;T&gt;, exchange: Exchange) {
-<span class="fc" id="L152">        val objects = repository.findObjects() { pageResults(exchange) }.toList()</span>
-<span class="fc" id="L153">        val contentType = accept(exchange)</span>
-<span class="fc" id="L154">        exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
-<span class="fc" id="L155">        exchange.ok(objects.serialize(contentType))</span>
-<span class="fc" id="L156">    }</span>
+<span class="fc" id="L159">        val objects = repository.findObjects() { pageResults(exchange) }.toList()</span>
+<span class="fc" id="L160">        val contentType = accept(exchange)</span>
+<span class="fc" id="L161">        exchange.response.contentType = contentType + &quot;; charset=${defaultCharset().name()}&quot;</span>
+<span class="fc" id="L162">        exchange.ok(objects.serialize(contentType))</span>
+<span class="fc" id="L163">    }</span>
 
     private fun FindIterable&lt;*&gt;.pageResults(exchange: Exchange) {
-<span class="fc" id="L159">        val limit = exchange.request[&quot;limit&quot;]</span>
-<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        if (limit != null)</span>
-<span class="nc" id="L161">            limit(limit.toInt())</span>
-<span class="fc" id="L162">        val skip = exchange.request[&quot;skip&quot;]</span>
-<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        if (skip != null)</span>
-<span class="nc" id="L164">            skip(skip.toInt())</span>
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L166">        val limit = exchange.request[&quot;limit&quot;]</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if (limit != null)</span>
+<span class="nc" id="L168">            limit(limit.toInt())</span>
+<span class="fc" id="L169">        val skip = exchange.request[&quot;skip&quot;]</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        if (skip != null)</span>
+<span class="nc" id="L171">            skip(skip.toInt())</span>
+<span class="fc" id="L172">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

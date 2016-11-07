@@ -9,8 +9,6 @@ import org.eclipse.jetty.server.session.SessionHandler
 import org.eclipse.jetty.servlet.ServletContextHandler
 import org.eclipse.jetty.util.component.LifeCycle
 
-import org.eclipse.jetty.server.ServerConnector
-
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.util.*
@@ -20,39 +18,39 @@ import java.net.InetAddress.getByName as address
 /**
  * @author jam
  */
-<span class="fc" id="L23">class JettyServer (bindAddress: InetAddress = address (&quot;localhost&quot;), bindPort: Int = 5050):</span>
-<span class="fc" id="L24">    Server (bindAddress, bindPort) {</span>
+<span class="fc" id="L21">class JettyServer (bindAddress: InetAddress = address (&quot;localhost&quot;), bindPort: Int = 2010):</span>
+<span class="fc" id="L22">    Server (bindAddress, bindPort) {</span>
 
-<span class="pc" id="L26">    val jettyServer = JettyServletServer(InetSocketAddress(bindAddress, bindPort))</span>
+<span class="pc" id="L24">    val jettyServer = JettyServletServer(InetSocketAddress(bindAddress, bindPort))</span>
 
-<span class="fc" id="L28">    override fun started() = jettyServer.isStarted</span>
+<span class="fc" id="L26">    override fun started() = jettyServer.isStarted</span>
 
     override fun startup() {
-<span class="fc" id="L31">        val context = ServletContextHandler()</span>
-<span class="fc" id="L32">        context.sessionHandler = SessionHandler(HashSessionManager())</span>
+<span class="fc" id="L29">        val context = ServletContextHandler()</span>
+<span class="fc" id="L30">        context.sessionHandler = SessionHandler(HashSessionManager())</span>
 
-<span class="fc" id="L34">        jettyServer.sessionIdManager = HashSessionIdManager()</span>
-<span class="fc" id="L35">        jettyServer.handler = context</span>
+<span class="fc" id="L32">        jettyServer.sessionIdManager = HashSessionIdManager()</span>
+<span class="fc" id="L33">        jettyServer.handler = context</span>
 
-<span class="fc" id="L37">        context.addLifeCycleListener(object : LifeCycle.Listener {</span>
-<span class="fc" id="L38">            override fun lifeCycleStopped(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="fc" id="L39">            override fun lifeCycleStopping(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="fc" id="L40">            override fun lifeCycleStarted(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="nc" id="L41">            override fun lifeCycleFailure(event: LifeCycle?, cause: Throwable?) { /* Do nothing */ }</span>
+<span class="fc" id="L35">        context.addLifeCycleListener(object : LifeCycle.Listener {</span>
+<span class="fc" id="L36">            override fun lifeCycleStopped(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="fc" id="L37">            override fun lifeCycleStopping(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="fc" id="L38">            override fun lifeCycleStarted(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="nc" id="L39">            override fun lifeCycleFailure(event: LifeCycle?, cause: Throwable?) { /* Do nothing */ }</span>
 
             override fun lifeCycleStarting(event: LifeCycle?) {
-<span class="fc" id="L44">                val filter = ServletFilter (this@JettyServer)</span>
-<span class="fc" id="L45">                context.servletContext.addFilter(&quot;filters&quot;, filter)</span>
-<span class="fc" id="L46">                    .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
-<span class="fc" id="L47">            }</span>
+<span class="fc" id="L42">                val filter = ServletFilter (this@JettyServer)</span>
+<span class="fc" id="L43">                context.servletContext.addFilter(&quot;filters&quot;, filter)</span>
+<span class="fc" id="L44">                    .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
+<span class="fc" id="L45">            }</span>
         })
 
-<span class="fc" id="L50">        jettyServer.start()</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L48">        jettyServer.start()</span>
+<span class="fc" id="L49">    }</span>
 
     override fun shutdown() {
-<span class="fc" id="L54">        jettyServer.stopAtShutdown = true</span>
-<span class="fc" id="L55">        jettyServer.stop()</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L52">        jettyServer.stopAtShutdown = true</span>
+<span class="fc" id="L53">        jettyServer.stop()</span>
+<span class="fc" id="L54">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

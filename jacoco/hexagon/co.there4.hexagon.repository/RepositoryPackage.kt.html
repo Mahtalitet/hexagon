@@ -34,7 +34,7 @@ inline fun &lt;reified T : Any&gt; mongoRepository(
     publishEvents: Boolean = false) =
 <span class="nc bnc" id="L35" title="All 2 branches missed.">        MongoRepository(</span>
             T::class,
-            mongoCollection(T::class.simpleName ?: error(&quot;&quot;), database),
+            mongoCollection(T::class.simpleName ?: error(&quot;Error fetching class name&quot;), database),
             publishEvents
 <span class="nc" id="L39">        )</span>
 

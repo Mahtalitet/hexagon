@@ -155,12 +155,15 @@ fun Throwable.toText (prefix: String = &quot;&quot;): String =
         else
 <span class="pc bpc" id="L156" title="1 of 2 branches missed.">            &quot;${EOL}Caused by: &quot; + (this.cause as Throwable).toText (prefix)</span>
 
+<span class="nc" id="L158">fun error(): Nothing = error(&quot;Invalid state&quot;)</span>
+<span class="nc" id="L159">val err: Nothing get() = error()</span>
+
 /*
  * Logging
  */
 
-<span class="fc" id="L162">internal val flarePrefix = getProperty (&quot;CompanionLogger.flarePrefix&quot;, &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
-<span class="fc" id="L163">val jvmId: String = getRuntimeMXBean().name</span>
+<span class="fc" id="L165">internal val flarePrefix = getProperty (&quot;CompanionLogger.flarePrefix&quot;, &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span>
+<span class="fc" id="L166">val jvmId: String = getRuntimeMXBean().name</span>
 
 /*
  * Map operations
@@ -168,37 +171,37 @@ fun Throwable.toText (prefix: String = &quot;&quot;): String =
 
 @Suppress(&quot;UNCHECKED_CAST&quot;)
 operator fun Map&lt;*, *&gt;.get(vararg keys: Any): Any? =
-<span class="fc bfc" id="L171" title="All 2 branches covered.">    if (keys.size &gt; 1)</span>
-<span class="fc" id="L172">        keys</span>
-<span class="fc" id="L173">            .dropLast(1)</span>
-<span class="fc" id="L174">            .fold(this) { result, element -&gt;</span>
-<span class="pc bpc" id="L175" title="1 of 2 branches missed.">                val r = result as Map&lt;Any, Any&gt;</span>
-<span class="pc bpc" id="L176" title="1 of 2 branches missed.">                val value = r.getOrElse(element, { mapOf&lt;Any, Any&gt;() })</span>
-<span class="fc" id="L177">                when (value) {</span>
-<span class="fc bfc" id="L178" title="All 2 branches covered.">                    is Map&lt;*, *&gt; -&gt; value</span>
-<span class="pc bpc" id="L179" title="1 of 2 branches missed.">                    is List&lt;*&gt; -&gt; value.mapIndexed { ii, item -&gt; ii to item  }.toMap()</span>
-<span class="fc" id="L180">                    else -&gt; mapOf&lt;Any, Any&gt;()</span>
-<span class="fc" id="L181">                }</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">    if (keys.size &gt; 1)</span>
+<span class="fc" id="L175">        keys</span>
+<span class="fc" id="L176">            .dropLast(1)</span>
+<span class="fc" id="L177">            .fold(this) { result, element -&gt;</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">                val r = result as Map&lt;Any, Any&gt;</span>
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">                val value = r.getOrElse(element, { mapOf&lt;Any, Any&gt;() })</span>
+<span class="fc" id="L180">                when (value) {</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                    is Map&lt;*, *&gt; -&gt; value</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">                    is List&lt;*&gt; -&gt; value.mapIndexed { ii, item -&gt; ii to item  }.toMap()</span>
+<span class="fc" id="L183">                    else -&gt; mapOf&lt;Any, Any&gt;()</span>
+<span class="fc" id="L184">                }</span>
             }[keys.last()]
     else
-<span class="pc bpc" id="L184" title="1 of 4 branches missed.">        (this as Map&lt;Any, Any&gt;).getOrElse(keys.first()) { null }</span>
+<span class="pc bpc" id="L187" title="1 of 4 branches missed.">        (this as Map&lt;Any, Any&gt;).getOrElse(keys.first()) { null }</span>
 
 /*
  * I/O
  */
-<span class="pc bpc" id="L189" title="1 of 2 branches missed.">val systemClassLoader: ClassLoader = getSystemClassLoader() ?: error(&quot;Error getting class loader&quot;)</span>
-<span class="pc" id="L190">val contextClassLoader: ClassLoader = Thread.currentThread().contextClassLoader</span>
-<span class="pc" id="L191">val hexagonClassLoader: ClassLoader = SettingsManager::class.java.classLoader</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">val systemClassLoader: ClassLoader = getSystemClassLoader() ?: error(&quot;Error getting class loader&quot;)</span>
+<span class="pc" id="L193">val contextClassLoader: ClassLoader = Thread.currentThread().contextClassLoader</span>
+<span class="pc" id="L194">val hexagonClassLoader: ClassLoader = SettingsManager::class.java.classLoader</span>
 
 /**
  * TODO Fix class loader issues, use thread class loader or whatever
  * http://www.javaworld.com/article/2077344/core-java/find-a-way-out-of-the-classloader-maze.html
  */
-<span class="nc" id="L197">fun resourceAsStream__(resName: String): InputStream? = hexagonClassLoader.getResourceAsStream(resName)</span>
-<span class="nc" id="L198">fun resourceAsStream_(resName: String): InputStream? = contextClassLoader.getResourceAsStream(resName)</span>
-<span class="fc" id="L199">fun resourceAsStream(resName: String): InputStream? = systemClassLoader.getResourceAsStream(resName)</span>
-<span class="fc" id="L200">fun resource(resName: String): URL? = systemClassLoader.getResource(resName)</span>
-<span class="pc bpc" id="L201" title="1 of 2 branches missed.">fun requireResource(resName: String): URL = resource(resName) ?: error(&quot;$resName not found&quot;)</span>
+<span class="nc" id="L200">fun resourceAsStream__(resName: String): InputStream? = hexagonClassLoader.getResourceAsStream(resName)</span>
+<span class="nc" id="L201">fun resourceAsStream_(resName: String): InputStream? = contextClassLoader.getResourceAsStream(resName)</span>
+<span class="fc" id="L202">fun resourceAsStream(resName: String): InputStream? = systemClassLoader.getResourceAsStream(resName)</span>
+<span class="fc" id="L203">fun resource(resName: String): URL? = systemClassLoader.getResource(resName)</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">fun requireResource(resName: String): URL = resource(resName) ?: error(&quot;$resName not found&quot;)</span>
 fun resources(resName: String): List&lt;URL&gt; =
-<span class="nc" id="L203">    systemClassLoader.getResources(resName).toList().filterNotNull()</span>
+<span class="nc" id="L206">    systemClassLoader.getResources(resName).toList().filterNotNull()</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

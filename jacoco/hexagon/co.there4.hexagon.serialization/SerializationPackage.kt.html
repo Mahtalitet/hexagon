@@ -6,7 +6,7 @@ import co.there4.hexagon.util.toLocalDate
 import co.there4.hexagon.util.toLocalDateTime
 import co.there4.hexagon.util.toLocalTime
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY
 import com.fasterxml.jackson.core.JsonFactory
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser
@@ -87,7 +87,7 @@ internal fun createObjectMapper(mapperFactory: JsonFactory = MappingJsonFactory(
 <span class="fc" id="L87">    val mapper = ObjectMapper (mapperFactory)</span>
 <span class="fc" id="L88">    mapper.configure (FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
 <span class="fc" id="L89">    mapper.configure (FAIL_ON_EMPTY_BEANS, false)</span>
-<span class="fc" id="L90">    mapper.setSerializationInclusion (NON_DEFAULT)</span>
+<span class="fc" id="L90">    mapper.setSerializationInclusion (NON_EMPTY)</span>
 <span class="fc" id="L91">    mapper.registerModule (Jdk8Module ())</span>
 <span class="fc" id="L92">    mapper.registerModule (JavaTimeModule ())</span>
 <span class="fc" id="L93">    mapper.registerModule (KotlinModule ())</span>

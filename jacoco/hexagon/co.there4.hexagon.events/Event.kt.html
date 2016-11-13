@@ -2,24 +2,23 @@
 
 import co.there4.hexagon.util.Context
 import co.there4.hexagon.util.asNumber
-import co.there4.hexagon.util.asNumber
-import co.there4.hexagon.util.jvmId as utilJvmId
-import co.there4.hexagon.util.hostname as utilHostname
-import co.there4.hexagon.util.ip as utilIp
 import java.lang.System.currentTimeMillis
 import java.lang.Thread.currentThread
 import java.time.LocalDateTime
+import co.there4.hexagon.util.hostname as utilHostname
+import co.there4.hexagon.util.ip as utilIp
+import co.there4.hexagon.util.jvmId as utilJvmId
 
-<span class="fc" id="L13">open class Event (</span>
-<span class="fc" id="L14">    val action: String,</span>
-<span class="fc" id="L15">    val timestamp: Long = currentTimeMillis (),</span>
-<span class="fc" id="L16">    val dateTime: Long = LocalDateTime.now().asNumber(),</span>
-<span class="fc" id="L17">    val hostname: String = utilHostname,</span>
-<span class="fc" id="L18">    val ip: String = utilIp,</span>
-<span class="fc" id="L19">    val jvmid: String = utilJvmId,</span>
-<span class="fc" id="L20">    val thread: String = currentThread ().name,</span>
-<span class="fc" id="L21">    val location: String = currentThread ().stackTrace[3].toString (),</span>
-<span class="fc" id="L22">    val context: Map&lt;String, Any&gt; = Context.entries()</span>
+<span class="fc" id="L12">open class Event (</span>
+<span class="fc" id="L13">    val action: String,</span>
+<span class="fc" id="L14">    val timestamp: Long = currentTimeMillis (),</span>
+<span class="fc" id="L15">    val dateTime: Long = LocalDateTime.now().asNumber(),</span>
+<span class="fc" id="L16">    val hostname: String = utilHostname,</span>
+<span class="fc" id="L17">    val ip: String = utilIp,</span>
+<span class="fc" id="L18">    val jvmid: String = utilJvmId,</span>
+<span class="fc" id="L19">    val thread: String = currentThread ().name,</span>
+<span class="fc" id="L20">    val location: String = currentThread ().stackTrace[3].toString (),</span>
+<span class="fc" id="L21">    val context: Map&lt;String, Any&gt; = Context.entries()</span>
         .filter { it.key is String &amp;&amp; it.value is String }
         .map { it.key as String to it.value }
         .toMap()

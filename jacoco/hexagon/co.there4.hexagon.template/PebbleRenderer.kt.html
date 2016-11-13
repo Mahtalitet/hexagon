@@ -31,7 +31,7 @@ import java.util.*
     fun render (template: String, locale: Locale, context: Map&lt;String, *&gt;): String {
         @Suppress(&quot;UNCHECKED_CAST&quot;)
 <span class="fc" id="L33">        fun loadBundle (path: String): Map&lt;String, *&gt; = loadProps(path).let {</span>
-<span class="pc bpc" id="L34" title="6 of 14 branches missed.">            (it[locale.language] ?: if (it.size &gt; 0) it.entries.first().value else it)</span>
+<span class="pc bpc" id="L34" title="7 of 16 branches missed.">            (it[locale.language] ?: if (it.isNotEmpty()) it.entries.first().value else it)</span>
 <span class="fc" id="L35">                as Map&lt;String, *&gt; + (it[&quot;data&quot;] ?: mapOf&lt;String, Any&gt;()) as Map&lt;String, *&gt;</span>
 <span class="fc" id="L36">        }</span>
 

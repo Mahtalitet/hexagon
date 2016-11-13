@@ -65,8 +65,8 @@ fun Regex.findGroups (str: String): List&lt;MatchGroup&gt; =
  */
 fun String.snakeToCamel () =
 <span class="fc" id="L67">    this.split (&quot;_&quot;)</span>
-<span class="fc bfc" id="L68" title="All 4 branches covered.">        .filter { it.isNotEmpty () }</span>
-<span class="fc" id="L69">        .map { it.capitalize () }</span>
+<span class="fc bfc" id="L68" title="All 4 branches covered.">        .filter(String::isNotEmpty)</span>
+<span class="fc" id="L69">        .map(String::capitalize)</span>
 <span class="fc" id="L70">        .joinToString(&quot;&quot;)</span>
 <span class="fc" id="L71">        .decapitalize ()</span>
 
@@ -75,8 +75,8 @@ fun String.snakeToCamel () =
  */
 fun String.camelToSnake () =
 <span class="pc bpc" id="L77" title="2 of 4 branches missed.">    this.split (&quot;(?=\\p{Upper}\\p{Lower})&quot;.toRegex())</span>
-<span class="pc bpc" id="L78" title="2 of 4 branches missed.">        .filter { it.isNotEmpty () }</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        .map { it.toLowerCase () }</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">        .filter(String::isNotEmpty)</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        .map(String::toLowerCase)</span>
 <span class="fc" id="L80">        .joinToString (&quot;_&quot;)</span>
 <span class="fc" id="L81">        .decapitalize ()</span>
 
@@ -99,7 +99,7 @@ private fun ansiCode(fg: AnsiColor?, bg: AnsiColor?, vararg fxs: AnsiEffect): St
 
 <span class="fc" id="L100">    val colors = listOf (fgString(fg), bgString(bg))</span>
 <span class="fc" id="L101">    val elements = colors + fxs.map { it.code.toString() }</span>
-<span class="fc bfc" id="L102" title="All 4 branches covered.">    val body = elements.filter { it.isNotEmpty() }.joinToString (ANSI_SEPARATOR)</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">    val body = elements.filter(String::isNotEmpty).joinToString (ANSI_SEPARATOR)</span>
 
 <span class="fc bfc" id="L104" title="All 4 branches covered.">    return ANSI_PREFIX + (if (body.isEmpty()) ANSI_RESET else body) + ANSI_END</span>
 }

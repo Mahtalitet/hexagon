@@ -2,6 +2,7 @@
 
 import co.there4.hexagon.web.Server
 import co.there4.hexagon.web.servlet.ServletFilter
+import org.eclipse.jetty.server.ServerConnector
 import org.eclipse.jetty.server.Server as JettyServletServer
 import org.eclipse.jetty.server.session.HashSessionIdManager
 import org.eclipse.jetty.server.session.HashSessionManager
@@ -18,39 +19,45 @@ import java.net.InetAddress.getByName as address
 /**
  * @author jam
  */
-<span class="fc" id="L21">class JettyServer (bindAddress: InetAddress = address (&quot;localhost&quot;), bindPort: Int = 2010):</span>
-<span class="fc" id="L22">    Server (bindAddress, bindPort) {</span>
+<span class="fc" id="L22">class JettyServer (bindAddress: InetAddress = address (&quot;localhost&quot;), bindPort: Int = 2010):</span>
+<span class="fc" id="L23">    Server (bindAddress, bindPort) {</span>
 
-<span class="pc" id="L24">    val jettyServer = JettyServletServer(InetSocketAddress(bindAddress, bindPort))</span>
+<span class="pc" id="L25">    val jettyServer = JettyServletServer(InetSocketAddress(bindAddress, bindPort))</span>
 
-<span class="fc" id="L26">    override fun started() = jettyServer.isStarted</span>
+    override val runtimePort: Int
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        get() = (jettyServer.connectors[0] as ServerConnector).localPort.let {</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            if (it == -1) error(&quot;Jetty port uninitialized. Use lazy evaluation for HTTP client ;)&quot;)</span>
+<span class="fc" id="L30">            else it</span>
+<span class="fc" id="L31">        }</span>
+
+<span class="fc" id="L33">    override fun started() = jettyServer.isStarted</span>
 
     override fun startup() {
-<span class="fc" id="L29">        val context = ServletContextHandler()</span>
-<span class="fc" id="L30">        context.sessionHandler = SessionHandler(HashSessionManager())</span>
+<span class="fc" id="L36">        val context = ServletContextHandler()</span>
+<span class="fc" id="L37">        context.sessionHandler = SessionHandler(HashSessionManager())</span>
 
-<span class="fc" id="L32">        jettyServer.sessionIdManager = HashSessionIdManager()</span>
-<span class="fc" id="L33">        jettyServer.handler = context</span>
+<span class="fc" id="L39">        jettyServer.sessionIdManager = HashSessionIdManager()</span>
+<span class="fc" id="L40">        jettyServer.handler = context</span>
 
-<span class="fc" id="L35">        context.addLifeCycleListener(object : LifeCycle.Listener {</span>
-<span class="fc" id="L36">            override fun lifeCycleStopped(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="fc" id="L37">            override fun lifeCycleStopping(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="fc" id="L38">            override fun lifeCycleStarted(event: LifeCycle?) { /* Do nothing */ }</span>
-<span class="nc" id="L39">            override fun lifeCycleFailure(event: LifeCycle?, cause: Throwable?) { /* Do nothing */ }</span>
+<span class="fc" id="L42">        context.addLifeCycleListener(object : LifeCycle.Listener {</span>
+<span class="fc" id="L43">            override fun lifeCycleStopped(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="fc" id="L44">            override fun lifeCycleStopping(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="fc" id="L45">            override fun lifeCycleStarted(event: LifeCycle?) { /* Do nothing */ }</span>
+<span class="nc" id="L46">            override fun lifeCycleFailure(event: LifeCycle?, cause: Throwable?) { /* Do nothing */ }</span>
 
             override fun lifeCycleStarting(event: LifeCycle?) {
-<span class="fc" id="L42">                val filter = ServletFilter (this@JettyServer)</span>
-<span class="fc" id="L43">                context.servletContext.addFilter(&quot;filters&quot;, filter)</span>
-<span class="fc" id="L44">                    .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
-<span class="fc" id="L45">            }</span>
+<span class="fc" id="L49">                val filter = ServletFilter (this@JettyServer)</span>
+<span class="fc" id="L50">                context.servletContext.addFilter(&quot;filters&quot;, filter)</span>
+<span class="fc" id="L51">                    .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType::class.java), true, &quot;/*&quot;)</span>
+<span class="fc" id="L52">            }</span>
         })
 
-<span class="fc" id="L48">        jettyServer.start()</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L55">        jettyServer.start()</span>
+<span class="fc" id="L56">    }</span>
 
     override fun shutdown() {
-<span class="fc" id="L52">        jettyServer.stopAtShutdown = true</span>
-<span class="fc" id="L53">        jettyServer.stop()</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L59">        jettyServer.stopAtShutdown = true</span>
+<span class="fc" id="L60">        jettyServer.stop()</span>
+<span class="fc" id="L61">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

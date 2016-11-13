@@ -5,14 +5,12 @@
 <span class="nc" id="L5">    val subtype: String,</span>
 <span class="nc" id="L6">    val parameters: Map&lt;String, String&gt;) {</span>
 
-<span class="nc" id="L8">    enum class Type {</span>
-
-    }
+<span class="nc" id="L8">    enum class Type</span>
 
     init {
-<span class="nc bnc" id="L13" title="All 4 branches missed.">        require(subtype.isNotBlank())</span>
+<span class="nc bnc" id="L11" title="All 4 branches missed.">        require(subtype.isNotBlank())</span>
     }
 
-<span class="nc" id="L16">    fun withCharset(charset: String) = copy(parameters = parameters + (&quot;charset&quot; to charset))</span>
+<span class="nc" id="L14">    fun withCharset(charset: String) = copy(parameters = parameters + (&quot;charset&quot; to charset))</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

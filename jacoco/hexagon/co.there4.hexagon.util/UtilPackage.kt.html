@@ -149,7 +149,7 @@ fun Throwable.filterStackTrace (prefix: String) =
  */
 fun Throwable.toText (prefix: String = &quot;&quot;): String =
 <span class="fc" id="L151">    &quot;${this.javaClass.name}: ${this.message}&quot; +</span>
-<span class="fc" id="L152">        this.filterStackTrace(prefix).map { &quot;\tat ${it.toString()}&quot; }.joinToString(EOL, EOL) +</span>
+<span class="fc" id="L152">        this.filterStackTrace(prefix).map { &quot;\tat $it&quot; }.joinToString(EOL, EOL) +</span>
 <span class="fc bfc" id="L153" title="All 2 branches covered.">        if (this.cause == null)</span>
 <span class="fc" id="L154">            &quot;&quot;</span>
         else
